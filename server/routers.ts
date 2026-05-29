@@ -148,6 +148,19 @@ export const appRouter = router({
       return { url: session.url };
     }),
 
+    freeEnroll: protectedProcedure.mutation(async ({ ctx }) => {
+      const existing = await getEnrollmentByUserId(ctx.user.id);
+      if (!existing) {
+        await createEnrollment({
+          userId: ctx.user.id,
+          amountPaid: 0,
+          currency: "usd",
+          emailSent: true,
+        });
+      }
+      return { redirectTo: "/course/demystifying-ai/what-is-ai" };
+    }),
+
     adminEnroll: adminProcedure
       .input(z.object({ userId: z.number() }))
       .mutation(async ({ input }) => {

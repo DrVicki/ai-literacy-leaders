@@ -30,20 +30,19 @@ export default function Home() {
   const { data: modules } = trpc.course.getModules.useQuery();
   const { data: enrollmentStatus } = trpc.enrollment.check.useQuery(undefined, { enabled: isAuthenticated });
 
-  const createCheckout = trpc.enrollment.createCheckout.useMutation({
+  const freeEnroll = trpc.enrollment.freeEnroll.useMutation({
     onSuccess: (data) => {
-      if (data.url) { toast.info("Redirecting to secure checkout..."); window.open(data.url, "_blank"); }
+      navigate(data.redirectTo);
     },
-    onError: (err) => {
-      if (err.message === "Already enrolled") { navigate("/dashboard"); }
-      else { toast.error("Failed to start checkout. Please try again."); }
+    onError: () => {
+      toast.error("Something went wrong. Please try again.");
     },
   });
 
   const handleEnroll = () => {
     if (!isAuthenticated) { window.location.href = getLoginUrl("/dashboard"); return; }
-    if (enrollmentStatus?.enrolled) { navigate("/dashboard"); return; }
-    createCheckout.mutate();
+    if (enrollmentStatus?.enrolled) { navigate("/course/demystifying-ai/what-is-ai"); return; }
+    freeEnroll.mutate();
   };
 
   return (
@@ -61,8 +60,8 @@ export default function Home() {
             {isAuthenticated ? (
               <>
                 <span className="text-sm text-muted-foreground hidden sm:block">Welcome, {user?.name?.split(" ")[0]}</span>
-                <Button size="sm" onClick={handleEnroll} disabled={createCheckout.isPending} className="bg-primary text-primary-foreground hover:bg-primary/90 btn-scale">
-                  {createCheckout.isPending ? "Loading..." : enrollmentStatus?.enrolled ? "My Course" : "Enroll"}
+                <Button size="sm" onClick={handleEnroll} disabled={freeEnroll.isPending} className="bg-primary text-primary-foreground hover:bg-primary/90 btn-scale">
+                  {freeEnroll.isPending ? "Loading..." : enrollmentStatus?.enrolled ? "My Course" : "Enroll"}
                 </Button>
               </>
             ) : (

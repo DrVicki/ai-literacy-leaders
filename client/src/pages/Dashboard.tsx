@@ -63,14 +63,9 @@ export default function Dashboard() {
     [commentCounts]
   );
 
-  const createCheckout = trpc.enrollment.createCheckout.useMutation({
-    onSuccess: (data) => {
-      if (data.url) {
-        toast.info("Redirecting to secure checkout...");
-        window.open(data.url, "_blank");
-      }
-    },
-    onError: () => toast.error("Failed to start checkout. Please try again."),
+  const freeEnroll = trpc.enrollment.freeEnroll.useMutation({
+    onSuccess: (data) => { navigate(data.redirectTo); },
+    onError: () => toast.error("Something went wrong. Please try again."),
   });
 
   const isLoading = authLoading || enrollLoading || modulesLoading;
@@ -87,11 +82,18 @@ export default function Dashboard() {
             Course Access Required
           </h1>
           <p className="text-muted-foreground mb-8 leading-relaxed">
-            You need to enroll in the course to access the dashboard and all 5 modules.
+            Sign up to access all 5 modules and start learning immediately.
           </p>
+          <Button
+            className="w-full py-5 text-base font-semibold btn-scale"
+            onClick={() => freeEnroll.mutate()}
+            disabled={freeEnroll.isPending}
+          >
+            {freeEnroll.isPending ? "Starting course..." : "Begin the Course"}
+          </Button>
           <button
             onClick={() => navigate("/")}
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            className="mt-4 text-sm text-muted-foreground hover:text-foreground transition-colors block"
           >
             ← Back to course overview
           </button>
