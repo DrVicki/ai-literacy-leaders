@@ -79,7 +79,7 @@ export default function Home() {
         </div>
         <div className="container relative">
           <div className="max-w-4xl mx-auto text-center">
-            <Badge variant="outline" className="mb-6 border-amber-400/40 text-amber-300 bg-amber-400/10 px-4 py-1.5 text-xs tracking-widest uppercase">Executive Education Program</Badge>
+            <Badge variant="outline" className="mb-6 border-amber-400/40 text-amber-300 bg-amber-400/10 px-4 py-1.5 text-xs tracking-widest uppercase">Executive Education Program | Dr. Vicki Bealman</Badge>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-serif font-semibold text-white leading-tight mb-6">
               AI Literacy<br /><span style={{ color: "oklch(0.72 0.14 75)" }}>for Leaders</span>
             </h1>
