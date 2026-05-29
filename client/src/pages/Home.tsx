@@ -46,7 +46,7 @@ export default function Home() {
     createCheckout.mutate();
   };
 
-  const ctaLabel = enrollmentStatus?.enrolled ? "Go to My Course" : isAuthenticated ? "Enroll Now — $497" : "Get Started";
+  const ctaLabel = enrollmentStatus?.enrolled ? "Go to My Course" : "Get Started";
 
   return (
     <div className="min-h-screen bg-background">
