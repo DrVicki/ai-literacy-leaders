@@ -140,7 +140,8 @@ export default function AdminPage() {
                 <div className="col-span-4">Student</div>
                 <div className="col-span-2 hidden sm:block">Enrolled</div>
                 <div className="col-span-2 hidden sm:block">Amount Paid</div>
-                <div className="col-span-4">Progress</div>
+                <div className="col-span-2">Progress</div>
+                <div className="col-span-2 hidden sm:block">Certificate</div>
               </div>
 
               {/* Rows */}
@@ -181,7 +182,7 @@ export default function AdminPage() {
                   </div>
 
                   {/* Progress */}
-                  <div className="col-span-4">
+                  <div className="col-span-4 sm:col-span-2">
                     <div className="flex items-center gap-2">
                       <Progress value={enrollment.progressPercent} className="h-1.5 flex-1" />
                       <span className="text-xs text-muted-foreground w-8 text-right flex-shrink-0">
@@ -191,6 +192,25 @@ export default function AdminPage() {
                     <div className="text-xs text-muted-foreground mt-1">
                       {enrollment.completedLessons}/{enrollment.totalLessons} lessons
                     </div>
+                  </div>
+
+                  {/* Certificate */}
+                  <div className="col-span-2 hidden sm:flex items-center">
+                    {enrollment.certificateIssued ? (
+                      <div className="flex items-center gap-1.5">
+                        <Award className="w-3.5 h-3.5 text-amber-600 flex-shrink-0" />
+                        <div>
+                          <Badge className="text-xs bg-amber-100 text-amber-700 border-amber-200 px-1.5 py-0">Issued</Badge>
+                          {enrollment.certificateIssuedAt && (
+                            <div className="text-xs text-muted-foreground mt-0.5">
+                              {formatDate(enrollment.certificateIssuedAt)}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ) : (
+                      <span className="text-xs text-muted-foreground">—</span>
+                    )}
                   </div>
                 </div>
               ))}

@@ -1,7 +1,7 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import { useLocation } from "wouter";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { getLoginUrl } from "@/const";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -9,7 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   BookOpen, Cpu, Database, Rocket, Scale, Target,
-  CheckCircle2, Lock, ChevronRight, LogOut, Award,
+  CheckCircle2, Lock, ChevronRight, LogOut, Award, MessageSquare,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -49,6 +49,20 @@ export default function Dashboard() {
     { enabled: isAuthenticated && !!enrollmentStatus?.enrolled }
   );
 
+  const moduleSlugs = useMemo(
+    () => (modules ?? []).map((m) => m.slug),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [modules?.map((m) => m.slug).join(",")]
+  );
+  const { data: commentCounts } = trpc.discussion.getCommentCounts.useQuery(
+    { moduleSlugs },
+    { enabled: isAuthenticated && !!enrollmentStatus?.enrolled && moduleSlugs.length > 0 }
+  );
+  const commentCountMap = useMemo(
+    () => new Map((commentCounts ?? []).map((c) => [c.slug, c.count])),
+    [commentCounts]
+  );
+
   const createCheckout = trpc.enrollment.createCheckout.useMutation({
     onSuccess: (data) => {
       if (data.url) {
@@ -75,17 +89,9 @@ export default function Dashboard() {
           <p className="text-muted-foreground mb-8 leading-relaxed">
             You need to enroll in the course to access the dashboard and all 5 modules.
           </p>
-          <Button
-            className="w-full py-5 text-base font-semibold btn-scale"
-            style={{ background: "linear-gradient(135deg, oklch(0.22 0.06 255), oklch(0.28 0.07 255))", color: "white" }}
-            onClick={() => createCheckout.mutate()}
-            disabled={createCheckout.isPending}
-          >
-            {createCheckout.isPending ? "Preparing checkout..." : "Enroll Now — $497"}
-          </Button>
           <button
             onClick={() => navigate("/")}
-            className="mt-4 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             ← Back to course overview
           </button>
@@ -235,6 +241,17 @@ export default function Dashboard() {
                         <Badge variant="secondary" className="text-xs">
                           {mod.lessonCount} lessons
                         </Badge>
+                        {(() => {
+                          const count = commentCountMap.get(mod.slug);
+                          if (count && count > 0) {
+                            return (
+                              <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
+                                <MessageSquare className="w-3 h-3" />{count}
+                              </span>
+                            );
+                          }
+                          return null;
+                        })()}
                         {(() => {
                           const mp = moduleProgressMap.get(mod.slug);
                           if (mp && mp.completed > 0 && mp.completed === mp.total) {

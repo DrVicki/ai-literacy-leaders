@@ -48,10 +48,10 @@
 - [x] Certificate tRPC procedure: check 100% completion, generate PDF, upload to S3, send Gmail
 - [x] Auto-trigger certificate on final lesson completion (toggleLesson mutation)
 - [x] Certificate download button on dashboard when earned
-- [ ] Admin view: show certificate issued status per student (deferred — not blocking)
+- [x] Admin view: show certificate issued status per student
 
 ### Q&A Discussion per Module
 - [x] Add `module_comments` table (id, moduleSlug, userId, parentId, content, createdAt)
 - [x] tRPC procedures: getComments, postComment, deleteComment (own only)
 - [x] Discussion thread UI on ModulePage (post question, reply, display thread)
-- [ ] Show comment count badge on module cards in Dashboard (deferred — not blocking)
+- [x] Show comment count badge on module cards in Dashboard

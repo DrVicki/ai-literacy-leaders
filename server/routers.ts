@@ -283,6 +283,22 @@ export const appRouter = router({
         await deleteModuleComment(input.commentId, ctx.user.id);
         return { success: true };
       }),
+
+    getCommentCounts: protectedProcedure
+      .input(z.object({ moduleSlugs: z.array(z.string()) }))
+      .query(async ({ ctx, input }) => {
+        const enrollment = await getEnrollmentByUserId(ctx.user.id);
+        if (!enrollment && ctx.user.role !== "admin") {
+          throw new TRPCError({ code: "FORBIDDEN", message: "Enrollment required" });
+        }
+        const counts = await Promise.all(
+          input.moduleSlugs.map(async (slug) => ({
+            slug,
+            count: await getCommentCountByModule(slug),
+          }))
+        );
+        return counts;
+      }),
   }),
 
   admin: router({
@@ -291,11 +307,14 @@ export const appRouter = router({
       const withProgress = await Promise.all(
         rows.map(async (row) => {
           const progressCount = await getUserProgressForAdmin(row.userId);
+          const cert = await getCertificateByUserId(row.userId);
           return {
             ...row,
             completedLessons: progressCount,
             totalLessons: TOTAL_LESSONS,
             progressPercent: Math.round((progressCount / TOTAL_LESSONS) * 100),
+            certificateIssued: !!cert,
+            certificateIssuedAt: cert?.issuedAt ?? null,
           };
         })
       );
