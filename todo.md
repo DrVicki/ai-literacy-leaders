@@ -1,0 +1,41 @@
+# AI Literacy for Leaders — Project TODO
+
+## Phase 1: Database & Setup
+- [x] Design and migrate database schema (enrollments, lessons, progress)
+- [x] Create Stripe product and price for one-time course purchase ($497)
+- [x] Set up Stripe secret key in environment
+
+## Phase 2: Public Landing Page
+- [x] Elegant hero section with course title, tagline, and enroll CTA
+- [x] Course overview section (what you'll learn)
+- [x] 5-module curriculum section with module names and descriptions
+- [x] Instructor/credibility section
+- [x] Pricing section with Stripe checkout CTA
+- [x] Footer with links
+
+## Phase 3: Course Dashboard & Modules
+- [x] Protected course dashboard (redirect unauthenticated/non-enrolled users)
+- [x] Dashboard showing all 5 modules with progress indicators
+- [x] Module 1: Demystifying AI — lesson pages (4 lessons)
+- [x] Module 2: Strategic AI Integration — lesson pages (3 lessons)
+- [x] Module 3: Data Strategy & Governance — lesson pages (3 lessons)
+- [x] Module 4: Ethical AI — lesson pages (4 lessons)
+- [x] Module 5: Leading the AI-Powered Organization — lesson pages (4 lessons)
+- [x] Progress tracking: mark lessons complete, module progress bar, overall progress
+
+## Phase 4: Stripe & Gmail Integration
+- [x] Stripe one-time payment link / checkout session creation
+- [x] Stripe webhook to confirm payment and create enrollment record
+- [x] Gmail enrollment confirmation email sent on successful payment (via MCP)
+- [x] Post-payment redirect to course dashboard
+
+## Phase 5: Admin View
+- [x] Admin-only route protected by role check
+- [x] Table of enrolled students (name, email, enrolled date, progress)
+- [x] Enrollment statistics (total enrolled, avg progress, total revenue)
+
+## Phase 6: Polish & Delivery
+- [x] Consistent design tokens, typography (Playfair Display + Inter), navy/gold palette
+- [x] Loading states (skeletons), empty states, and error boundaries
+- [x] Vitest unit tests for core procedures (14 tests passing)
+- [x] Final checkpoint and delivery
