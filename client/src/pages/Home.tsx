@@ -7,7 +7,7 @@ import { useLocation } from "wouter";
 import { toast } from "sonner";
 import {
   BookOpen, ChevronRight, Cpu, Database, Rocket,
-  Scale, Target, Users, ArrowRight, Star, BarChart3,
+  Scale, Target, Users, Star, BarChart3,
 } from "lucide-react";
 
 const MODULE_ICONS: Record<string, React.ReactNode> = {
@@ -46,8 +46,6 @@ export default function Home() {
     createCheckout.mutate();
   };
 
-  const ctaLabel = enrollmentStatus?.enrolled ? "Go to My Course" : "Get Started";
-
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
@@ -63,8 +61,8 @@ export default function Home() {
             {isAuthenticated ? (
               <>
                 <span className="text-sm text-muted-foreground hidden sm:block">Welcome, {user?.name?.split(" ")[0]}</span>
-                <Button size="sm" onClick={() => navigate(enrollmentStatus?.enrolled ? "/dashboard" : "/#pricing")} className="bg-primary text-primary-foreground hover:bg-primary/90 btn-scale">
-                  {enrollmentStatus?.enrolled ? "My Course" : "Enroll"}
+                <Button size="sm" onClick={handleEnroll} disabled={createCheckout.isPending} className="bg-primary text-primary-foreground hover:bg-primary/90 btn-scale">
+                  {createCheckout.isPending ? "Loading..." : enrollmentStatus?.enrolled ? "My Course" : "Enroll"}
                 </Button>
               </>
             ) : (
@@ -90,10 +88,6 @@ export default function Home() {
               The definitive course for executives who need to lead confidently in the age of artificial intelligence — without becoming data scientists.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button size="lg" onClick={handleEnroll} disabled={createCheckout.isPending} className="px-8 py-6 text-base font-semibold btn-scale" style={{ background: "linear-gradient(135deg, oklch(0.72 0.14 75), oklch(0.80 0.12 65))", color: "oklch(0.12 0.04 255)" }}>
-                {createCheckout.isPending ? "Preparing checkout..." : ctaLabel}
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
               <a href="#curriculum" className="text-white/70 hover:text-white text-sm flex items-center gap-1 transition-colors">
                 View curriculum <ChevronRight className="w-4 h-4" />
               </a>
