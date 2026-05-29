@@ -15,6 +15,13 @@
       "when": 1780073501548,
       "tag": "0001_rare_madame_hydra",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1780075498744,
+      "tag": "0002_large_molten_man",
+      "breakpoints": true
     }
   ]
 }

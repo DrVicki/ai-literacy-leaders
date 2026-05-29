@@ -39,3 +39,19 @@
 - [x] Loading states (skeletons), empty states, and error boundaries
 - [x] Vitest unit tests for core procedures (14 tests passing)
 - [x] Final checkpoint and delivery
+
+## New Features (Round 2)
+
+### Certificate of Completion
+- [x] Add `certificates` table to schema (userId, issuedAt, pdfKey)
+- [x] Server-side PDF generation using manus-md-to-pdf via shell
+- [x] Certificate tRPC procedure: check 100% completion, generate PDF, upload to S3, send Gmail
+- [x] Auto-trigger certificate on final lesson completion (toggleLesson mutation)
+- [x] Certificate download button on dashboard when earned
+- [ ] Admin view: show certificate issued status per student (deferred — not blocking)
+
+### Q&A Discussion per Module
+- [x] Add `module_comments` table (id, moduleSlug, userId, parentId, content, createdAt)
+- [x] tRPC procedures: getComments, postComment, deleteComment (own only)
+- [x] Discussion thread UI on ModulePage (post question, reply, display thread)
+- [ ] Show comment count badge on module cards in Dashboard (deferred — not blocking)

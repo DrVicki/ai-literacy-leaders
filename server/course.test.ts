@@ -16,6 +16,27 @@ vi.mock("./db", () => ({
   getUserProgressForAdmin: vi.fn().mockResolvedValue(0),
   upsertLesson: vi.fn(),
   markEmailSent: vi.fn(),
+  // Certificate helpers
+  getCertificateByUserId: vi.fn().mockResolvedValue(null),
+  createCertificate: vi.fn(),
+  markCertificateEmailSent: vi.fn(),
+  getAllCertificates: vi.fn().mockResolvedValue([]),
+  // Discussion helpers
+  getModuleComments: vi.fn().mockResolvedValue([]),
+  getCommentCountByModule: vi.fn().mockResolvedValue(0),
+  createModuleComment: vi.fn(),
+  deleteModuleComment: vi.fn(),
+}));
+
+// Mock certificate PDF generation
+vi.mock("./certificate", () => ({
+  generateCertificatePdf: vi.fn().mockResolvedValue({ key: "certificates/test.pdf", url: "/manus-storage/certificates/test.pdf" }),
+}));
+
+// Mock email helpers
+vi.mock("./emailHelpers", () => ({
+  sendEnrollmentEmail: vi.fn(),
+  sendCertificateEmail: vi.fn(),
 }));
 
 // Mock Stripe
@@ -222,5 +243,89 @@ describe("auth.logout", () => {
     const caller = appRouter.createCaller(ctx);
     const result = await caller.auth.logout();
     expect(result.success).toBe(true);
+  });
+});
+
+describe("certificate.get", () => {
+  it("returns null when no certificate exists", async () => {
+    const { getCertificateByUserId } = await import("./db");
+    vi.mocked(getCertificateByUserId).mockResolvedValue(undefined);
+    const caller = appRouter.createCaller(createUserCtx());
+    const cert = await caller.certificate.get();
+    expect(cert).toBeNull();
+  });
+
+  it("returns certificate data when certificate exists", async () => {
+    const { getCertificateByUserId } = await import("./db");
+    vi.mocked(getCertificateByUserId).mockResolvedValue({
+      id: 1,
+      userId: 1,
+      pdfKey: "certificates/Test_User_123.pdf",
+      emailSent: true,
+      issuedAt: new Date("2026-01-01"),
+    });
+    const caller = appRouter.createCaller(createUserCtx());
+    const cert = await caller.certificate.get();
+    expect(cert).not.toBeNull();
+    expect(cert?.pdfUrl).toBe("/manus-storage/certificates/Test_User_123.pdf");
+    expect(cert?.emailSent).toBe(true);
+  });
+});
+
+describe("discussion.getComments", () => {
+  it("throws FORBIDDEN when user is not enrolled", async () => {
+    vi.mocked(getEnrollmentByUserId).mockResolvedValue(undefined);
+    const caller = appRouter.createCaller(createUserCtx());
+    await expect(
+      caller.discussion.getComments({ moduleSlug: "demystifying-ai" })
+    ).rejects.toThrow("Enrollment required");
+  });
+
+  it("returns comments for enrolled user", async () => {
+    vi.mocked(getEnrollmentByUserId).mockResolvedValue({
+      id: 1, userId: 1, stripeSessionId: null, stripePaymentIntentId: null,
+      amountPaid: 49700, currency: "usd", emailSent: true, enrolledAt: new Date(),
+    });
+    const { getModuleComments } = await import("./db");
+    vi.mocked(getModuleComments).mockResolvedValue([]);
+    const caller = appRouter.createCaller(createUserCtx());
+    const comments = await caller.discussion.getComments({ moduleSlug: "demystifying-ai" });
+    expect(Array.isArray(comments)).toBe(true);
+  });
+});
+
+describe("discussion.postComment", () => {
+  it("throws FORBIDDEN when user is not enrolled", async () => {
+    vi.mocked(getEnrollmentByUserId).mockResolvedValue(undefined);
+    const caller = appRouter.createCaller(createUserCtx());
+    await expect(
+      caller.discussion.postComment({ moduleSlug: "demystifying-ai", content: "Hello!" })
+    ).rejects.toThrow("Enrollment required");
+  });
+
+  it("creates a comment for enrolled user", async () => {
+    vi.mocked(getEnrollmentByUserId).mockResolvedValue({
+      id: 1, userId: 1, stripeSessionId: null, stripePaymentIntentId: null,
+      amountPaid: 49700, currency: "usd", emailSent: true, enrolledAt: new Date(),
+    });
+    const { createModuleComment } = await import("./db");
+    vi.mocked(createModuleComment).mockResolvedValue({
+      id: 10,
+      moduleSlug: "demystifying-ai",
+      userId: 1,
+      parentId: null,
+      content: "Hello!",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    const caller = appRouter.createCaller(createUserCtx());
+    const comment = await caller.discussion.postComment({
+      moduleSlug: "demystifying-ai",
+      content: "Hello!",
+    });
+    expect(comment.content).toBe("Hello!");
+    expect(createModuleComment).toHaveBeenCalledWith(
+      expect.objectContaining({ content: "Hello!", moduleSlug: "demystifying-ai" })
+    );
   });
 });

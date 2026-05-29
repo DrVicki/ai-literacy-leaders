@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
+import DiscussionThread from "@/components/DiscussionThread";
 import {
   BookOpen, ChevronLeft, ChevronRight, CheckCircle2, Clock, PlayCircle,
 } from "lucide-react";
@@ -53,6 +54,7 @@ export default function ModulePage() {
   }, [error]);
 
   const completedIds = new Set(progress?.completedLessonIds ?? []);
+  const moduleProgressData = (progress?.moduleProgress ?? []).find((mp) => mp.slug === moduleSlug);
   const modules = allModules.data ?? [];
   const currentIdx = modules.findIndex((m) => m.slug === moduleSlug);
   const prevModule = currentIdx > 0 ? modules[currentIdx - 1] : null;
@@ -127,9 +129,11 @@ export default function ModulePage() {
           <div className="mt-6 p-4 rounded-xl bg-secondary/50 border border-border">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium text-foreground">Module Progress</span>
-              <span className="text-sm text-muted-foreground">{mod.lessons.length} lessons</span>
+              <span className="text-sm text-muted-foreground">
+                {moduleProgressData ? `${moduleProgressData.completed}/${moduleProgressData.total}` : `0/${mod.lessons.length}`} lessons
+              </span>
             </div>
-            <Progress value={0} className="h-1.5" />
+            <Progress value={moduleProgressData?.percentage ?? 0} className="h-1.5" />
           </div>
         </div>
 
@@ -168,6 +172,9 @@ export default function ModulePage() {
             </button>
           ))}
         </div>
+
+        {/* Discussion Q&A */}
+        <DiscussionThread moduleSlug={moduleSlug} />
 
         {/* Module navigation */}
         <div className="mt-12 flex items-center justify-between">

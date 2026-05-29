@@ -6,7 +6,7 @@ import { getLoginUrl } from "@/const";
 import { useLocation } from "wouter";
 import { toast } from "sonner";
 import {
-  BookOpen, CheckCircle2, ChevronRight, Cpu, Database, Rocket,
+  BookOpen, ChevronRight, Cpu, Database, Rocket,
   Scale, Target, Users, ArrowRight, Star, BarChart3,
 } from "lucide-react";
 
@@ -189,37 +189,6 @@ export default function Home() {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section id="pricing" className="py-24 bg-secondary/30">
-        <div className="container">
-          <div className="max-w-lg mx-auto">
-            <div className="rounded-3xl overflow-hidden border border-border bg-card shadow-xl">
-              <div className="hero-gradient p-8 text-center">
-                <h2 className="text-3xl font-serif font-semibold text-white mb-2">Full Course Access</h2>
-                <p className="text-white/60 text-sm">One-time payment. Lifetime access.</p>
-                <div className="mt-6"><span className="text-6xl font-serif font-bold text-white">$497</span></div>
-              </div>
-              <div className="p-8">
-                <ul className="space-y-3 mb-8">
-                  {["All 5 modules with 18 in-depth lessons", "Progress tracking across all modules", "Immediate, lifetime access", "Certificate of completion", "Practical leadership frameworks", "Regularly updated content"].map((feature) => (
-                    <li key={feature} className="flex items-center gap-3 text-sm text-foreground">
-                      <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />{feature}
-                    </li>
-                  ))}
-                </ul>
-                <Button className="w-full py-6 text-base font-semibold btn-scale" style={{ background: "linear-gradient(135deg, oklch(0.22 0.06 255), oklch(0.28 0.07 255))", color: "white" }} onClick={handleEnroll} disabled={createCheckout.isPending}>
-                  {createCheckout.isPending ? "Preparing checkout..." : enrollmentStatus?.enrolled ? "Go to My Course" : "Enroll Now"}
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-                <p className="text-center text-xs text-muted-foreground mt-4">
-                  Secure checkout powered by Stripe. Use card <code className="font-mono bg-secondary px-1 rounded">4242 4242 4242 4242</code> for testing.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </section>

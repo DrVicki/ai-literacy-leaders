@@ -49,9 +49,16 @@ export default function LessonPage() {
     onMutate: async ({ complete }) => {
       toast.success(complete ? "Lesson marked as complete!" : "Lesson marked as incomplete");
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       refetchProgress();
       utils.progress.get.invalidate();
+      utils.certificate.get.invalidate();
+      if (data.certificateIssued) {
+        toast.success(
+          "🎉 Congratulations! You've completed the entire course. Your certificate is being generated and will be available on your dashboard shortly.",
+          { duration: 8000 }
+        );
+      }
     },
     onError: () => {
       toast.error("Failed to update progress. Please try again.");

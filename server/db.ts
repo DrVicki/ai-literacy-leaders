@@ -1,12 +1,16 @@
-import { and, count, eq, sql } from "drizzle-orm";
+import { and, count, desc, eq, isNull, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
+  Certificate,
   Enrollment,
   InsertEnrollment,
   InsertUser,
+  ModuleComment,
+  certificates,
   enrollments,
   lessonProgress,
   lessons,
+  moduleComments,
   users,
 } from "../drizzle/schema";
 import { ENV } from "./_core/env";
@@ -190,4 +194,127 @@ export async function getUserProgressForAdmin(userId: number): Promise<number> {
     .from(lessonProgress)
     .where(eq(lessonProgress.userId, userId));
   return row?.cnt ?? 0;
+}
+
+// ─── Certificates ────────────────────────────────────────────────────────────
+
+export async function getCertificateByUserId(userId: number): Promise<Certificate | undefined> {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(certificates).where(eq(certificates.userId, userId)).limit(1);
+  return result[0];
+}
+
+export async function createCertificate(data: {
+  userId: number;
+  pdfKey: string;
+}): Promise<Certificate> {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  await db
+    .insert(certificates)
+    .values({ userId: data.userId, pdfKey: data.pdfKey, emailSent: false })
+    .onDuplicateKeyUpdate({ set: { pdfKey: data.pdfKey, issuedAt: new Date() } });
+  const result = await db.select().from(certificates).where(eq(certificates.userId, data.userId)).limit(1);
+  return result[0]!;
+}
+
+export async function markCertificateEmailSent(certificateId: number): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+  await db.update(certificates).set({ emailSent: true }).where(eq(certificates.id, certificateId));
+}
+
+export async function getAllCertificates() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(certificates).orderBy(desc(certificates.issuedAt));
+}
+
+// ─── Module Comments ─────────────────────────────────────────────────────────
+
+export async function getModuleComments(moduleSlug: string) {
+  const db = await getDb();
+  if (!db) return [];
+  // Fetch top-level comments joined with user info
+  const topLevel = await db
+    .select({
+      id: moduleComments.id,
+      moduleSlug: moduleComments.moduleSlug,
+      userId: moduleComments.userId,
+      parentId: moduleComments.parentId,
+      content: moduleComments.content,
+      createdAt: moduleComments.createdAt,
+      userName: users.name,
+    })
+    .from(moduleComments)
+    .leftJoin(users, eq(moduleComments.userId, users.id))
+    .where(and(eq(moduleComments.moduleSlug, moduleSlug), isNull(moduleComments.parentId)))
+    .orderBy(desc(moduleComments.createdAt));
+
+  // Fetch all replies for this module
+  const replies = await db
+    .select({
+      id: moduleComments.id,
+      moduleSlug: moduleComments.moduleSlug,
+      userId: moduleComments.userId,
+      parentId: moduleComments.parentId,
+      content: moduleComments.content,
+      createdAt: moduleComments.createdAt,
+      userName: users.name,
+    })
+    .from(moduleComments)
+    .leftJoin(users, eq(moduleComments.userId, users.id))
+    .where(and(eq(moduleComments.moduleSlug, moduleSlug), sql`${moduleComments.parentId} IS NOT NULL`))
+    .orderBy(moduleComments.createdAt);
+
+  return topLevel.map((comment) => ({
+    ...comment,
+    replies: replies.filter((r) => r.parentId === comment.id),
+  }));
+}
+
+export async function getCommentCountByModule(moduleSlug: string): Promise<number> {
+  const db = await getDb();
+  if (!db) return 0;
+  const [row] = await db
+    .select({ cnt: count(moduleComments.id) })
+    .from(moduleComments)
+    .where(eq(moduleComments.moduleSlug, moduleSlug));
+  return row?.cnt ?? 0;
+}
+
+export async function createModuleComment(data: {
+  moduleSlug: string;
+  userId: number;
+  parentId?: number | null;
+  content: string;
+}): Promise<ModuleComment> {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  await db.insert(moduleComments).values({
+    moduleSlug: data.moduleSlug,
+    userId: data.userId,
+    parentId: data.parentId ?? null,
+    content: data.content,
+  });
+  const result = await db
+    .select()
+    .from(moduleComments)
+    .where(eq(moduleComments.userId, data.userId))
+    .orderBy(desc(moduleComments.createdAt))
+    .limit(1);
+  return result[0]!;
+}
+
+export async function deleteModuleComment(commentId: number, userId: number): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+  // Only delete if the comment belongs to this user; also delete any replies
+  await db.delete(moduleComments).where(
+    and(eq(moduleComments.parentId, commentId))
+  );
+  await db.delete(moduleComments).where(
+    and(eq(moduleComments.id, commentId), eq(moduleComments.userId, userId))
+  );
 }

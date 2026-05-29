@@ -62,3 +62,29 @@ export const lessonProgress = mysqlTable("lesson_progress", {
 
 export type LessonProgress = typeof lessonProgress.$inferSelect;
 export type InsertLessonProgress = typeof lessonProgress.$inferInsert;
+
+// Completion certificates — issued when a learner finishes all lessons
+export const certificates = mysqlTable("certificates", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().unique(), // one certificate per user
+  pdfKey: varchar("pdfKey", { length: 512 }), // S3 storage key
+  emailSent: boolean("emailSent").default(false).notNull(),
+  issuedAt: timestamp("issuedAt").defaultNow().notNull(),
+});
+
+export type Certificate = typeof certificates.$inferSelect;
+export type InsertCertificate = typeof certificates.$inferInsert;
+
+// Per-module Q&A discussion comments
+export const moduleComments = mysqlTable("module_comments", {
+  id: int("id").autoincrement().primaryKey(),
+  moduleSlug: varchar("moduleSlug", { length: 64 }).notNull(),
+  userId: int("userId").notNull(),
+  parentId: int("parentId"), // null = top-level question, set = reply
+  content: text("content").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type ModuleComment = typeof moduleComments.$inferSelect;
+export type InsertModuleComment = typeof moduleComments.$inferInsert;

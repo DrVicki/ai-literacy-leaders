@@ -44,6 +44,11 @@ export default function Dashboard() {
     { enabled: isAuthenticated && !!enrollmentStatus?.enrolled }
   );
 
+  const { data: certificate } = trpc.certificate.get.useQuery(
+    undefined,
+    { enabled: isAuthenticated && !!enrollmentStatus?.enrolled }
+  );
+
   const createCheckout = trpc.enrollment.createCheckout.useMutation({
     onSuccess: (data) => {
       if (data.url) {
@@ -137,6 +142,32 @@ export default function Dashboard() {
               </div>
             )}
           </div>
+
+          {/* Certificate banner */}
+          {certificate && certificate.pdfUrl && (
+            <div className="mt-4 flex items-center justify-between gap-4 p-4 rounded-xl bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center flex-shrink-0">
+                  <Award className="w-5 h-5 text-amber-600" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-amber-900">Your Certificate is Ready</p>
+                  <p className="text-xs text-amber-700">
+                    Issued {new Date(certificate.issuedAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+                  </p>
+                </div>
+              </div>
+              <a
+                href={certificate.pdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-amber-600 text-white text-sm font-semibold hover:bg-amber-700 transition-colors"
+              >
+                <Award className="w-4 h-4" />
+                Download Certificate
+              </a>
+            </div>
+          )}
 
           {/* Overall progress card */}
           <div className="p-6 rounded-2xl bg-card border border-border">

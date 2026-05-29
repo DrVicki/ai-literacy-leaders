@@ -8,6 +8,7 @@ import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import {
   createEnrollment,
   getAllEnrollmentsWithUsers,
+  getAllCertificates,
   getEnrollmentByUserId,
   getEnrollmentStats,
   getLessonBySlug,
@@ -18,7 +19,16 @@ import {
   markLessonComplete,
   unmarkLessonComplete,
   upsertLesson,
+  getCertificateByUserId,
+  createCertificate,
+  markCertificateEmailSent,
+  getModuleComments,
+  getCommentCountByModule,
+  createModuleComment,
+  deleteModuleComment,
 } from "./db";
+import { generateCertificatePdf } from "./certificate";
+import { sendCertificateEmail } from "./emailHelpers";
 import { TRPCError } from "@trpc/server";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
@@ -180,6 +190,11 @@ export const appRouter = router({
     toggleLesson: protectedProcedure
       .input(z.object({ moduleSlug: z.string(), lessonSlug: z.string(), complete: z.boolean() }))
       .mutation(async ({ ctx, input }) => {
+        // Verify the user is enrolled before allowing progress updates
+        const enrollment = await getEnrollmentByUserId(ctx.user.id);
+        if (!enrollment && ctx.user.role !== "admin") {
+          throw new TRPCError({ code: "FORBIDDEN", message: "Enrollment required" });
+        }
         await seedLessonsIfNeeded();
         const dbLesson = await getLessonBySlug(input.moduleSlug, input.lessonSlug);
         if (!dbLesson) throw new TRPCError({ code: "NOT_FOUND" });
@@ -188,6 +203,84 @@ export const appRouter = router({
         } else {
           await unmarkLessonComplete(ctx.user.id, dbLesson.id);
         }
+
+        // Auto-issue certificate when all lessons are completed
+        let certificateIssued = false;
+        if (input.complete) {
+          const progressRows = await getUserProgress(ctx.user.id);
+          if (progressRows.length >= TOTAL_LESSONS) {
+            const existing = await getCertificateByUserId(ctx.user.id);
+            if (!existing) {
+              try {
+                const { key } = await generateCertificatePdf({
+                  userName: ctx.user.name ?? "Learner",
+                  userEmail: ctx.user.email ?? "",
+                  issuedAt: new Date(),
+                });
+                const cert = await createCertificate({ userId: ctx.user.id, pdfKey: key });
+                // Fire-and-forget email
+                sendCertificateEmail(ctx.user.email ?? "", ctx.user.name ?? "Learner", key)
+                  .then(() => markCertificateEmailSent(cert.id))
+                  .catch((e) => console.error("[Certificate] Email failed:", e));
+                certificateIssued = true;
+              } catch (e) {
+                console.error("[Certificate] Generation failed:", e);
+              }
+            }
+          }
+        }
+
+        return { success: true, certificateIssued };
+      }),
+  }),
+
+  certificate: router({
+    get: protectedProcedure.query(async ({ ctx }) => {
+      const cert = await getCertificateByUserId(ctx.user.id);
+      if (!cert) return null;
+      return {
+        id: cert.id,
+        issuedAt: cert.issuedAt,
+        pdfUrl: cert.pdfKey ? `/manus-storage/${cert.pdfKey}` : null,
+        emailSent: cert.emailSent,
+      };
+    }),
+  }),
+
+  discussion: router({
+    getComments: protectedProcedure
+      .input(z.object({ moduleSlug: z.string() }))
+      .query(async ({ ctx, input }) => {
+        const enrollment = await getEnrollmentByUserId(ctx.user.id);
+        if (!enrollment && ctx.user.role !== "admin") {
+          throw new TRPCError({ code: "FORBIDDEN", message: "Enrollment required" });
+        }
+        return getModuleComments(input.moduleSlug);
+      }),
+
+    postComment: protectedProcedure
+      .input(z.object({
+        moduleSlug: z.string(),
+        content: z.string().min(1).max(2000),
+        parentId: z.number().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const enrollment = await getEnrollmentByUserId(ctx.user.id);
+        if (!enrollment && ctx.user.role !== "admin") {
+          throw new TRPCError({ code: "FORBIDDEN", message: "Enrollment required" });
+        }
+        return createModuleComment({
+          moduleSlug: input.moduleSlug,
+          userId: ctx.user.id,
+          parentId: input.parentId ?? null,
+          content: input.content,
+        });
+      }),
+
+    deleteComment: protectedProcedure
+      .input(z.object({ commentId: z.number() }))
+      .mutation(async ({ ctx, input }) => {
+        await deleteModuleComment(input.commentId, ctx.user.id);
         return { success: true };
       }),
   }),
