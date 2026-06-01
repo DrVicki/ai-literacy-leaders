@@ -26,6 +26,15 @@ vi.mock("./db", () => ({
   getCommentCountByModule: vi.fn().mockResolvedValue(0),
   createModuleComment: vi.fn(),
   deleteModuleComment: vi.fn(),
+  // Quiz helpers
+  getQuizByLesson: vi.fn().mockResolvedValue([
+    { id: 1, lessonSlug: "what-is-ai", moduleSlug: "demystifying-ai", question: "What does AI stand for?", options: JSON.stringify(["Automated Intelligence", "Artificial Intelligence", "Advanced Integration", "Automated Interface"]), correctIndex: 1, explanation: "AI stands for Artificial Intelligence.", questionOrder: 1 },
+    { id: 2, lessonSlug: "what-is-ai", moduleSlug: "demystifying-ai", question: "Which is narrow AI?", options: JSON.stringify(["Human brain", "Chess engine", "General reasoning", "Consciousness"]), correctIndex: 1, explanation: "A chess engine is narrow AI.", questionOrder: 2 },
+  ]),
+  getLatestQuizAttempt: vi.fn().mockResolvedValue(null),
+  getAllQuizAttempts: vi.fn().mockResolvedValue([]),
+  saveQuizAttempt: vi.fn().mockResolvedValue(undefined),
+  upsertQuizQuestions: vi.fn().mockResolvedValue(undefined),
 }));
 
 // Mock certificate PDF generation
@@ -327,5 +336,65 @@ describe("discussion.postComment", () => {
     expect(createModuleComment).toHaveBeenCalledWith(
       expect.objectContaining({ content: "Hello!", moduleSlug: "demystifying-ai" })
     );
+  });
+});
+
+// Helper for enrolled context
+function createEnrolledContext(): TrpcContext {
+  vi.mocked(getEnrollmentByUserId).mockResolvedValue({
+    id: 1, userId: 1, stripeSessionId: null, stripePaymentIntentId: null,
+    amountPaid: 0, currency: "usd", emailSent: true, enrolledAt: new Date(),
+  });
+  return createUserCtx();
+}
+
+describe("quiz.getQuestions", () => {
+  it("returns questions without correctIndex for enrolled users", async () => {
+    const caller = appRouter.createCaller(createEnrolledContext());
+    const questions = await caller.quiz.getQuestions({ lessonSlug: "what-is-ai" });
+    expect(questions).toHaveLength(2);
+    expect(questions[0]).not.toHaveProperty("correctIndex");
+    expect(questions[0]).toHaveProperty("question");
+    expect(questions[0]).toHaveProperty("options");
+  });
+});
+
+describe("quiz.submit", () => {
+  it("returns passed=true when all answers are correct", async () => {
+    const caller = appRouter.createCaller(createEnrolledContext());
+    const result = await caller.quiz.submit({
+      lessonSlug: "what-is-ai",
+      answers: [
+        { questionId: 1, selectedIndex: 1 },
+        { questionId: 2, selectedIndex: 1 },
+      ],
+    });
+    expect(result.passed).toBe(true);
+    expect(result.score).toBe(2);
+    expect(result.total).toBe(2);
+  });
+
+  it("returns passed=false when below threshold", async () => {
+    const caller = appRouter.createCaller(createEnrolledContext());
+    const result = await caller.quiz.submit({
+      lessonSlug: "what-is-ai",
+      answers: [
+        { questionId: 1, selectedIndex: 0 },
+        { questionId: 2, selectedIndex: 0 },
+      ],
+    });
+    expect(result.passed).toBe(false);
+    expect(result.score).toBe(0);
+  });
+
+  it("throws FORBIDDEN for non-enrolled users", async () => {
+    vi.mocked(getEnrollmentByUserId).mockResolvedValue(undefined);
+    const caller = appRouter.createCaller(createUserCtx());
+    await expect(
+      caller.quiz.submit({
+        lessonSlug: "what-is-ai",
+        answers: [{ questionId: 1, selectedIndex: 1 }],
+      })
+    ).rejects.toThrow();
   });
 });

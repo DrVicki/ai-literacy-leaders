@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import ModulePage from "./pages/ModulePage";
 import LessonPage from "./pages/LessonPage";
 import AdminPage from "./pages/AdminPage";
+import CertificatePage from "./pages/CertificatePage";
 
 function Router() {
   return (
@@ -18,6 +19,7 @@ function Router() {
       <Route path="/course/:moduleSlug" component={ModulePage} />
       <Route path="/course/:moduleSlug/:lessonSlug" component={LessonPage} />
       <Route path="/admin" component={AdminPage} />
+      <Route path="/certificate" component={CertificatePage} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

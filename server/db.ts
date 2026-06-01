@@ -11,6 +11,8 @@ import {
   lessonProgress,
   lessons,
   moduleComments,
+  quizAttempts,
+  quizQuestions,
   users,
 } from "../drizzle/schema";
 import { ENV } from "./_core/env";
@@ -317,4 +319,78 @@ export async function deleteModuleComment(commentId: number, userId: number): Pr
   await db.delete(moduleComments).where(
     and(eq(moduleComments.id, commentId), eq(moduleComments.userId, userId))
   );
+}
+
+// ── Quiz helpers ──────────────────────────────────────────────────────────────
+
+export async function getQuizByLesson(lessonSlug: string) {
+  const db = await getDb();
+  if (!db) return [];
+  return db
+    .select()
+    .from(quizQuestions)
+    .where(eq(quizQuestions.lessonSlug, lessonSlug))
+    .orderBy(quizQuestions.questionOrder);
+}
+
+export async function upsertQuizQuestions(
+  questions: Array<{
+    lessonSlug: string;
+    moduleSlug: string;
+    question: string;
+    options: string[];
+    correctIndex: number;
+    explanation: string;
+    questionOrder: number;
+  }>
+): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+  for (const q of questions) {
+    await db.insert(quizQuestions).values({
+      ...q,
+      options: JSON.stringify(q.options),
+    }).onDuplicateKeyUpdate({
+      set: {
+        question: q.question,
+        options: JSON.stringify(q.options),
+        correctIndex: q.correctIndex,
+        explanation: q.explanation,
+        questionOrder: q.questionOrder,
+      },
+    });
+  }
+}
+
+export async function getLatestQuizAttempt(userId: number, lessonSlug: string) {
+  const db = await getDb();
+  if (!db) return null;
+  const rows = await db
+    .select()
+    .from(quizAttempts)
+    .where(and(eq(quizAttempts.userId, userId), eq(quizAttempts.lessonSlug, lessonSlug)))
+    .orderBy(desc(quizAttempts.attemptedAt))
+    .limit(1);
+  return rows[0] ?? null;
+}
+
+export async function getAllQuizAttempts(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db
+    .select()
+    .from(quizAttempts)
+    .where(eq(quizAttempts.userId, userId));
+}
+
+export async function saveQuizAttempt(data: {
+  userId: number;
+  lessonSlug: string;
+  passed: boolean;
+  score: number;
+  total: number;
+}) {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  await db.insert(quizAttempts).values(data);
 }

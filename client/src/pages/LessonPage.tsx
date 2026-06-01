@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import {
   BookOpen, ChevronLeft, ChevronRight, CheckCircle2, Circle,
 } from "lucide-react";
+import KnowledgeCheck from "@/components/KnowledgeCheck";
 
 export default function LessonPage() {
   const { isAuthenticated, loading: authLoading } = useAuth();
@@ -172,6 +173,14 @@ export default function LessonPage() {
         <div className="prose prose-slate max-w-none lesson-content">
           <Streamdown>{lesson.content}</Streamdown>
         </div>
+
+        {/* Knowledge Check */}
+        <KnowledgeCheck
+          lessonSlug={lessonSlug}
+          onPassed={() => {
+            // Quiz passed — allow marking complete
+          }}
+        />
 
         {/* Divider */}
         <div className="border-t border-border mt-12 mb-8" />

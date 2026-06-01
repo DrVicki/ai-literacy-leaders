@@ -88,3 +88,32 @@ export const moduleComments = mysqlTable("module_comments", {
 
 export type ModuleComment = typeof moduleComments.$inferSelect;
 export type InsertModuleComment = typeof moduleComments.$inferInsert;
+
+// Knowledge check questions — 2-3 per lesson
+export const quizQuestions = mysqlTable("quiz_questions", {
+  id: int("id").autoincrement().primaryKey(),
+  lessonSlug: varchar("lessonSlug", { length: 64 }).notNull(),
+  moduleSlug: varchar("moduleSlug", { length: 64 }).notNull(),
+  question: text("question").notNull(),
+  options: text("options").notNull(), // JSON array of strings
+  correctIndex: int("correctIndex").notNull(),
+  explanation: text("explanation").notNull(),
+  questionOrder: int("questionOrder").notNull().default(0),
+});
+
+export type QuizQuestion = typeof quizQuestions.$inferSelect;
+export type InsertQuizQuestion = typeof quizQuestions.$inferInsert;
+
+// Per-user quiz attempt tracking
+export const quizAttempts = mysqlTable("quiz_attempts", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  lessonSlug: varchar("lessonSlug", { length: 64 }).notNull(),
+  passed: boolean("passed").default(false).notNull(),
+  score: int("score").notNull().default(0), // number correct
+  total: int("total").notNull().default(0), // total questions
+  attemptedAt: timestamp("attemptedAt").defaultNow().notNull(),
+});
+
+export type QuizAttempt = typeof quizAttempts.$inferSelect;
+export type InsertQuizAttempt = typeof quizAttempts.$inferInsert;

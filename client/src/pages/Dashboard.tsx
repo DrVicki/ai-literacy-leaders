@@ -11,6 +11,7 @@ import {
   BookOpen, Cpu, Database, Rocket, Scale, Target,
   CheckCircle2, Lock, ChevronRight, LogOut, Award, MessageSquare,
 } from "lucide-react";
+import ProgressTracker from "@/components/ProgressTracker";
 import { toast } from "sonner";
 
 const MODULE_ICONS: Record<string, React.ReactNode> = {
@@ -123,6 +124,15 @@ export default function Dashboard() {
             <Button
               variant="ghost"
               size="sm"
+              onClick={() => navigate("/certificate")}
+              className="text-muted-foreground hover:text-foreground gap-1.5"
+            >
+              <Award className="w-4 h-4" />
+              <span className="hidden sm:inline">Certificate</span>
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={logout}
               className="text-muted-foreground hover:text-foreground gap-1.5"
             >
@@ -177,33 +187,8 @@ export default function Dashboard() {
             </div>
           )}
 
-          {/* Overall progress card */}
-          <div className="p-6 rounded-2xl bg-card border border-border">
-            {progressLoading ? (
-              <div className="space-y-3">
-                <Skeleton className="h-4 w-32" />
-                <Skeleton className="h-2 w-full" />
-              </div>
-            ) : (
-              <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                <div className="flex-1">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-foreground">Overall Progress</span>
-                    <span className="text-sm font-semibold text-primary">
-                      {progress?.completedCount ?? 0} / {progress?.totalLessons ?? 18} lessons
-                    </span>
-                  </div>
-                  <Progress value={progress?.percentage ?? 0} className="h-2" />
-                </div>
-                <div className="text-center sm:text-right">
-                  <div className="text-3xl font-serif font-bold text-primary">
-                    {progress?.percentage ?? 0}%
-                  </div>
-                  <div className="text-xs text-muted-foreground">Complete</div>
-                </div>
-              </div>
-            )}
-          </div>
+          {/* Visual Progress Tracker */}
+          <ProgressTracker />
         </div>
 
         {/* Modules Grid */}

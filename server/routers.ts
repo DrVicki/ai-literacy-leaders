@@ -26,7 +26,13 @@ import {
   getCommentCountByModule,
   createModuleComment,
   deleteModuleComment,
+  getQuizByLesson,
+  getLatestQuizAttempt,
+  getAllQuizAttempts,
+  saveQuizAttempt,
+  upsertQuizQuestions,
 } from "./db";
+import { QUIZ_QUESTIONS, PASS_THRESHOLD } from "../shared/quizData";
 import { generateCertificatePdf } from "./certificate";
 import { sendCertificateEmail } from "./emailHelpers";
 import { TRPCError } from "@trpc/server";
@@ -37,6 +43,17 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
 
 // Seed lessons into DB on first use
 let lessonsSeedDone = false;
+let quizSeedDone = false;
+async function seedQuizIfNeeded() {
+  if (quizSeedDone) return;
+  const existing = await getQuizByLesson("what-is-ai");
+  if (existing.length > 0) {
+    quizSeedDone = true;
+    return;
+  }
+  await upsertQuizQuestions(QUIZ_QUESTIONS);
+  quizSeedDone = true;
+}
 async function seedLessonsIfNeeded() {
   if (lessonsSeedDone) return;
   const existing = await getAllLessons();
@@ -342,6 +359,76 @@ export const appRouter = router({
         totalRevenueDisplay: `$${(Number(stats.totalRevenueCents) / 100).toLocaleString("en-US", { minimumFractionDigits: 2 })}`,
       };
     }),
+  }),
+
+  quiz: router({
+    getQuestions: protectedProcedure
+      .input(z.object({ lessonSlug: z.string() }))
+      .query(async ({ input }) => {
+        await seedQuizIfNeeded();
+        const questions = await getQuizByLesson(input.lessonSlug);
+        // Return questions without correctIndex (to prevent cheating)
+        return questions.map((q) => ({
+          id: q.id,
+          question: q.question,
+          options: JSON.parse(q.options) as string[],
+          questionOrder: q.questionOrder,
+        }));
+      }),
+
+    getAttempt: protectedProcedure
+      .input(z.object({ lessonSlug: z.string() }))
+      .query(async ({ ctx, input }) => {
+        return getLatestQuizAttempt(ctx.user.id, input.lessonSlug);
+      }),
+
+    getAllAttempts: protectedProcedure.query(async ({ ctx }) => {
+      return getAllQuizAttempts(ctx.user.id);
+    }),
+
+    submit: protectedProcedure
+      .input(
+        z.object({
+          lessonSlug: z.string(),
+          answers: z.array(z.object({ questionId: z.number(), selectedIndex: z.number() })),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        const enrollment = await getEnrollmentByUserId(ctx.user.id);
+        if (!enrollment) throw new TRPCError({ code: "FORBIDDEN", message: "Not enrolled" });
+
+        const questions = await getQuizByLesson(input.lessonSlug);
+        if (questions.length === 0) throw new TRPCError({ code: "NOT_FOUND", message: "No quiz found" });
+
+        let correct = 0;
+        const results = questions.map((q) => {
+          const answer = input.answers.find((a) => a.questionId === q.id);
+          const isCorrect = answer?.selectedIndex === q.correctIndex;
+          if (isCorrect) correct++;
+          return {
+            questionId: q.id,
+            question: q.question,
+            options: JSON.parse(q.options) as string[],
+            selectedIndex: answer?.selectedIndex ?? -1,
+            correctIndex: q.correctIndex,
+            explanation: q.explanation,
+            isCorrect,
+          };
+        });
+
+        const total = questions.length;
+        const passed = correct / total >= PASS_THRESHOLD;
+
+        await saveQuizAttempt({
+          userId: ctx.user.id,
+          lessonSlug: input.lessonSlug,
+          passed,
+          score: correct,
+          total,
+        });
+
+        return { passed, score: correct, total, results };
+      }),
   }),
 });
 

@@ -55,3 +55,23 @@
 - [x] tRPC procedures: getComments, postComment, deleteComment (own only)
 - [x] Discussion thread UI on ModulePage (post question, reply, display thread)
 - [x] Show comment count badge on module cards in Dashboard
+
+## New Features (Round 3)
+
+### Knowledge Checks per Lesson
+- [x] Add `quiz_questions` and `quiz_attempts` tables to schema
+- [x] Seed 2-3 quiz questions per lesson (all 18 lessons) via quizData.ts
+- [x] tRPC quiz procedures: getQuestions (no correctIndex), getAttempt, submit
+- [x] KnowledgeCheck component with question view, scoring, pass/fail feedback, retry
+- [x] Integrate KnowledgeCheck into LessonPage below lesson content
+
+### Visual Progress Tracker
+- [x] ProgressTracker component: circular SVG overall % + per-module progress bars
+- [x] Replace basic progress card in Dashboard with ProgressTracker
+- [x] Compact variant available for ModulePage
+
+### Certificate at 100% Completion
+- [x] Certificate auto-issued when all 18 lessons are marked complete
+- [x] CertificatePage at /certificate — styled printable certificate with PDF download
+- [x] Certificate link in dashboard header nav
+- [x] 24 Vitest tests passing (4 new quiz tests added)
