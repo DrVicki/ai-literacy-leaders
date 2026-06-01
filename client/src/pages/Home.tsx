@@ -103,6 +103,46 @@ export default function Home() {
         </div>
       </section>
 
+      {/* About Dr. Vicki Bealman */}
+      <section className="py-24 bg-secondary/30">
+        <div className="container">
+          <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-16">
+            {/* Headshot */}
+            <div className="flex-shrink-0">
+              <div className="relative">
+                <div className="w-56 h-56 md:w-64 md:h-64 rounded-2xl overflow-hidden border-4 border-white shadow-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-3">
+                      <Users className="w-10 h-10 text-primary/60" />
+                    </div>
+                    <p className="text-xs text-muted-foreground font-sans">Photo coming soon</p>
+                  </div>
+                </div>
+                <div className="absolute -bottom-3 -right-3 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1.5 rounded-lg shadow-lg font-sans tracking-wide">
+                  Ed.D. | AI Strategist
+                </div>
+              </div>
+            </div>
+            {/* Bio */}
+            <div className="flex-1 text-center md:text-left">
+              <Badge variant="outline" className="mb-4 border-primary/30 text-primary bg-primary/5 px-3 py-1 text-xs tracking-widest uppercase font-sans">Your Instructor</Badge>
+              <h2 className="text-3xl md:text-4xl font-serif font-semibold text-foreground mb-5">Dr. Vicki Bealman</h2>
+              <p className="text-muted-foreground leading-relaxed mb-4">
+                Dr. Vicki Bealman is an executive educator, leadership strategist, and AI literacy advocate with over two decades of experience helping senior leaders navigate transformational change. She holds a Doctorate in Education with a focus on organizational leadership and has advised C-suite executives across healthcare, finance, and technology sectors.
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Dr. Bealman developed the <em>AI Literacy for Leaders</em> program after recognizing a critical gap: executives were being asked to make high-stakes AI decisions without the conceptual foundation to evaluate them. Her approach is practical, non-technical, and grounded in real-world leadership challenges — designed to give leaders the confidence to ask the right questions, challenge vendor claims, and drive responsible AI adoption.
+              </p>
+              <div className="flex flex-wrap gap-3 justify-center md:justify-start">
+                {["Executive Education", "AI Strategy", "Organizational Leadership", "Change Management"].map((tag) => (
+                  <span key={tag} className="text-xs font-sans font-medium px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* What You'll Learn */}
       <section className="py-24 bg-background">
         <div className="container">
