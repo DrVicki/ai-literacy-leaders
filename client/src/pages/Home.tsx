@@ -134,7 +134,7 @@ export default function Home() {
                 Dr. Bealman developed the <em>AI Literacy for Leaders</em> program after recognizing a critical gap: executives were being asked to make high-stakes AI decisions without the conceptual foundation to evaluate them. Her approach is practical, non-technical, and grounded in real-world leadership challenges — designed to give leaders the confidence to ask the right questions, challenge vendor claims, and drive responsible AI adoption.
               </p>
               <div className="flex flex-wrap gap-3 justify-center md:justify-start">
-                {["Executive Education", "AI Strategy", "Organizational Leadership", "Change Management"].map((tag) => (
+                {["Executive Education", "AI Strategy", "Organizational Leadership", "Change Management", "Leadership Development", "Organizational Behavior"].map((tag) => (
                   <span key={tag} className="text-xs font-sans font-medium px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20">{tag}</span>
                 ))}
               </div>
