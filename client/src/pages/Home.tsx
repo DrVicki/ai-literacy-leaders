@@ -110,13 +110,12 @@ export default function Home() {
             {/* Headshot */}
             <div className="flex-shrink-0">
               <div className="relative">
-                <div className="w-56 h-56 md:w-64 md:h-64 rounded-2xl overflow-hidden border-4 border-white shadow-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-3">
-                      <Users className="w-10 h-10 text-primary/60" />
-                    </div>
-                    <p className="text-xs text-muted-foreground font-sans">Photo coming soon</p>
-                  </div>
+                <div className="w-56 h-56 md:w-64 md:h-64 rounded-2xl overflow-hidden border-4 border-white shadow-2xl">
+                  <img
+                    src="/manus-storage/Vicki-Head-Shot_4a6984cf.png"
+                    alt="Dr. Vicki Bealman"
+                    className="w-full h-full object-cover object-top"
+                  />
                 </div>
                 <div className="absolute -bottom-3 -right-3 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1.5 rounded-lg shadow-lg font-sans tracking-wide">
                   Ed.D. | AI Strategist
