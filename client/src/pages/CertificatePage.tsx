@@ -82,7 +82,7 @@ export default function CertificatePage() {
               </p>
 
               <h2 className="text-xl font-serif font-semibold text-primary mb-1">
-                AI Literacy for Leaders
+                AI Literacy & Application for Small Business
               </h2>
               <p className="text-sm text-muted-foreground font-sans mb-6">
                 Executive Education Program | Dr. Vicki Bealman

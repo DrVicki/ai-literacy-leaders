@@ -96,16 +96,17 @@ function createAnonCtx(): TrpcContext {
 }
 
 describe("course.getModules", () => {
-  it("returns all 5 modules publicly", async () => {
+  it("returns all 6 modules publicly", async () => {
     const caller = appRouter.createCaller(createAnonCtx());
     const modules = await caller.course.getModules();
-    expect(modules).toHaveLength(5);
+    expect(modules).toHaveLength(6);
     expect(modules.map((m) => m.title)).toEqual([
       "Demystifying AI",
       "Strategic AI Integration",
       "Data Strategy & Governance",
       "Ethical AI",
       "Leading the AI-Powered Organization",
+      "AI in Action",
     ]);
   });
 
@@ -188,7 +189,7 @@ describe("progress.get", () => {
     const progress = await caller.progress.get();
     expect(progress.completedCount).toBe(0);
     expect(progress.percentage).toBe(0);
-    expect(progress.totalLessons).toBe(18);
+    expect(progress.totalLessons).toBe(22);
   });
 });
 

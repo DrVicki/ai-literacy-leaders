@@ -10,10 +10,10 @@ export async function sendEnrollmentEmail(
   email: string,
   name: string
 ): Promise<void> {
-  const subject = "Welcome to AI Literacy for Leaders — You're Enrolled!";
+  const subject = "Welcome to AI Literacy & Application for Small Business — You're Enrolled!";
   const content = `Hi ${name},
 
-Congratulations! Your enrollment in AI Literacy for Leaders is confirmed.
+Congratulations! Your enrollment in AI Literacy & Application for Small Business is confirmed.
 
 You now have full access to all 5 modules:
 
@@ -28,7 +28,7 @@ Log in to your course dashboard to start learning and track your progress.
 If you have any questions, simply reply to this email.
 
 Welcome aboard,
-The AI Literacy for Leaders Team`;
+The AI Literacy & Application for Small Business Team`;
 
   const input = JSON.stringify({
     messages: [{ to: [email], subject, content }],
@@ -50,11 +50,11 @@ export async function sendCertificateEmail(
 ): Promise<void> {
   if (!email) return;
 
-  const subject = "Your AI Literacy for Leaders Certificate of Completion";
+  const subject = "Your AI Literacy & Application for Small Business Certificate of Completion";
   const pdfUrl = `/manus-storage/${pdfKey}`;
   const content = `Hi ${name},
 
-Congratulations on completing the AI Literacy for Leaders Executive Education Program!
+Congratulations on completing the AI Literacy & Application for Small Business Executive Education Program!
 
 You have successfully finished all 5 modules and 18 lessons. Your certificate of completion is now available.
 
@@ -66,7 +66,7 @@ ${pdfUrl}
 Thank you for your commitment to building AI literacy. We hope the frameworks and insights from this program serve you and your organization well.
 
 With congratulations,
-The AI Literacy for Leaders Team`;
+The AI Literacy & Application for Small Business Team`;
 
   const input = JSON.stringify({
     messages: [{ to: [email], subject, content }],

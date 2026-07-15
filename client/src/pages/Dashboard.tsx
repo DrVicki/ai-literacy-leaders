@@ -117,7 +117,7 @@ export default function Dashboard() {
             <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
               <BookOpen className="w-3.5 h-3.5 text-primary-foreground" />
             </div>
-            <span className="font-semibold text-sm text-foreground">AI Literacy for Leaders</span>
+            <span className="font-semibold text-sm text-foreground">AI Literacy & Application for Small Business</span>
           </button>
           <div className="flex items-center gap-3">
             <span className="text-sm text-muted-foreground hidden sm:block">{user?.name}</span>

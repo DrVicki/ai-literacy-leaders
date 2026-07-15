@@ -75,3 +75,37 @@
 - [x] CertificatePage at /certificate — styled printable certificate with PDF download
 - [x] Certificate link in dashboard header nav
 - [x] 24 Vitest tests passing (4 new quiz tests added)
+
+## SME Feedback Incorporation (Round 4)
+
+### Module 1 Restructure — Operational & Hands-On
+- [ ] Rename/restructure Module 1 lessons to be action-oriented (doing, not just learning)
+- [ ] Add "Data Readiness" as a foundational lesson (identifying and organizing business data/processes)
+- [ ] Replace abstract workflow design content with practical build-and-apply activities
+- [ ] Add "Tool Selection & Governance" lesson (enterprise vs personal, privacy, security, cost trade-offs)
+- [ ] Reduce prompting content; reframe around knowing what tools exist and when to use them
+- [ ] Add "Business Case for AI" lesson framed around revenue and strategic impact, not just cost-cutting
+- [ ] Add "Human Oversight & Ownership" lesson — who owns AI outputs, security/IP concerns
+- [ ] Add capstone/in-person collaboration note to Module 5 or course overview
+- [ ] Update quiz questions for all revised Module 1 lessons
+- [ ] Update landing page curriculum section to reflect SME-informed framing
+
+## Quiz → Reflection Replacement (Round 5)
+
+- [ ] Add reflection prompts and action assignments to all 18 lessons in courseData.ts
+- [ ] Build LessonReflection component (reflection prompt + action assignment display)
+- [ ] Replace KnowledgeCheck component with LessonReflection in LessonPage
+- [ ] Remove quiz router from routers.ts
+- [ ] Update tests to remove quiz test cases
+- [ ] Update todo.md and save checkpoint
+
+## Full Course Restructure (Round 5 — Updated)
+
+- [ ] Add reflection prompts and action assignments to all 18 existing lessons in courseData.ts
+- [ ] Add Module 6: "AI in Action: Real-World Applications for Your Business" (data analysis, productivity, marketing, customer engagement) with 3-4 lessons
+- [ ] Build LessonReflection component (reflection prompt + action assignment display)
+- [ ] Replace KnowledgeCheck with LessonReflection in LessonPage
+- [ ] Remove quiz router from routers.ts
+- [ ] Update landing page: 6 modules, ~15 hours, small-business audience framing
+- [ ] Update TOTAL_LESSONS count in courseData.ts
+- [ ] Update tests and save checkpoint

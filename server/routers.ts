@@ -132,7 +132,14 @@ export const appRouter = router({
         await seedLessonsIfNeeded();
         const dbLesson = await getLessonBySlug(input.moduleSlug, input.lessonSlug);
         if (!dbLesson) throw new TRPCError({ code: "NOT_FOUND" });
-        return dbLesson;
+        // Enrich with reflection/assignment from courseData (not stored in DB)
+        const mod = COURSE_MODULES.find((m) => m.slug === input.moduleSlug);
+        const lessonData = mod?.lessons.find((l) => l.slug === input.lessonSlug);
+        return {
+          ...dbLesson,
+          reflection: lessonData?.reflection ?? null,
+          assignment: lessonData?.assignment ?? null,
+        };
       }),
   }),
 

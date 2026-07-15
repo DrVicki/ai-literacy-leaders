@@ -31,7 +31,7 @@ title: Certificate of Completion
 
 <p style="font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: #8a7340; margin-bottom: 8px;">Certificate of Completion</p>
 
-<h1 style="font-size: 38px; color: #1a2a4a; margin: 0 0 32px; font-weight: 700; letter-spacing: -0.5px;">AI Literacy for Leaders</h1>
+<h1 style="font-size: 38px; color: #1a2a4a; margin: 0 0 32px; font-weight: 700; letter-spacing: -0.5px;">AI Literacy & Application for Small Business</h1>
 
 <p style="font-size: 16px; color: #555; margin-bottom: 8px;">This is to certify that</p>
 
@@ -39,7 +39,7 @@ title: Certificate of Completion
 
 <p style="font-size: 16px; color: #555; margin-bottom: 32px;">has successfully completed all five modules of the</p>
 
-<p style="font-size: 18px; font-weight: 600; color: #1a2a4a; margin-bottom: 32px;">AI Literacy for Leaders Executive Education Program</p>
+<p style="font-size: 18px; font-weight: 600; color: #1a2a4a; margin-bottom: 32px;">AI Literacy & Application for Small Business Executive Education Program</p>
 
 <div style="display: flex; justify-content: center; gap: 60px; margin: 32px 0; flex-wrap: wrap;">
   <div style="text-align: center;">
@@ -58,7 +58,7 @@ title: Certificate of Completion
 
 <hr style="border: none; border-top: 1px solid #d4b86a; margin: 32px auto; width: 60%;" />
 
-<p style="font-size: 12px; color: #aaa; letter-spacing: 2px; text-transform: uppercase;">AI Literacy for Leaders · Executive Education Program</p>
+<p style="font-size: 12px; color: #aaa; letter-spacing: 2px; text-transform: uppercase;">AI Literacy & Application for Small Business · Executive Education Program</p>
 
 </div>
 `;

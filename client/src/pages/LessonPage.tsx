@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import {
   BookOpen, ChevronLeft, ChevronRight, CheckCircle2, Circle,
 } from "lucide-react";
-import KnowledgeCheck from "@/components/KnowledgeCheck";
+import { BookmarkCheck, Pencil } from "lucide-react";
 
 export default function LessonPage() {
   const { isAuthenticated, loading: authLoading } = useAuth();
@@ -123,7 +123,7 @@ export default function LessonPage() {
             <div className="w-6 h-6 rounded bg-primary flex items-center justify-center">
               <BookOpen className="w-3 h-3 text-primary-foreground" />
             </div>
-            <span className="text-sm font-semibold text-foreground hidden sm:block">AI Literacy for Leaders</span>
+            <span className="text-sm font-semibold text-foreground hidden sm:block">AI Literacy & Application for Small Business</span>
           </div>
           <div className="w-24 flex justify-end">
             <Badge variant="secondary" className="text-xs">
@@ -174,13 +174,29 @@ export default function LessonPage() {
           <Streamdown>{lesson.content}</Streamdown>
         </div>
 
-        {/* Knowledge Check */}
-        <KnowledgeCheck
-          lessonSlug={lessonSlug}
-          onPassed={() => {
-            // Quiz passed — allow marking complete
-          }}
-        />
+        {/* Reflection & Assignment */}
+        {(lesson.reflection || lesson.assignment) && (
+          <div className="mt-12 space-y-6">
+            {lesson.reflection && (
+              <div className="rounded-xl border border-amber-200 bg-amber-50 p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <Pencil className="w-4 h-4 text-amber-700" />
+                  <span className="text-sm font-semibold text-amber-800 uppercase tracking-widest">Reflection</span>
+                </div>
+                <p className="text-amber-900 leading-relaxed">{lesson.reflection}</p>
+              </div>
+            )}
+            {lesson.assignment && (
+              <div className="rounded-xl border border-blue-200 bg-blue-50 p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <BookmarkCheck className="w-4 h-4 text-blue-700" />
+                  <span className="text-sm font-semibold text-blue-800 uppercase tracking-widest">Action Assignment</span>
+                </div>
+                <p className="text-blue-900 leading-relaxed">{lesson.assignment}</p>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Divider */}
         <div className="border-t border-border mt-12 mb-8" />

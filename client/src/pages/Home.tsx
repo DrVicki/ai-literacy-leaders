@@ -54,7 +54,7 @@ export default function Home() {
             <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
               <BookOpen className="w-4 h-4 text-primary-foreground" />
             </div>
-            <span className="font-semibold text-foreground text-sm tracking-wide">AI Literacy for Leaders</span>
+            <span className="font-semibold text-foreground text-sm tracking-wide">AI Literacy & Application for Small Business</span>
           </div>
           <div className="flex items-center gap-3">
             {isAuthenticated ? (
@@ -81,10 +81,10 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center">
             <Badge variant="outline" className="mb-6 border-amber-400/40 text-amber-300 bg-amber-400/10 px-4 py-1.5 text-xs tracking-widest uppercase">Executive Education Program | Dr. Vicki Bealman</Badge>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-serif font-semibold text-white leading-tight mb-6">
-              AI Literacy<br /><span style={{ color: "oklch(0.72 0.14 75)" }}>for Leaders</span>
+              AI Literacy &<br /><span style={{ color: "oklch(0.72 0.14 75)" }}>Application for Small Business</span>
             </h1>
             <p className="text-lg sm:text-xl text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
-              The definitive course for executives who need to lead confidently in the age of artificial intelligence — without becoming data scientists.
+              The practical course for small business owners and nonprofit leaders who want to understand, apply, and lead with AI — starting today, without a technical background.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a href="#curriculum" className="text-white/70 hover:text-white text-sm flex items-center gap-1 transition-colors">
@@ -92,7 +92,7 @@ export default function Home() {
               </a>
             </div>
             <div className="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto">
-              {[{ value: "5", label: "Modules" }, { value: "18", label: "Lessons" }, { value: "4+", label: "Hours" }].map((stat) => (
+              {[{ value: "6", label: "Modules" }, { value: "22", label: "Lessons" }, { value: "15", label: "Hours" }].map((stat) => (
                 <div key={stat.label} className="text-center">
                   <div className="text-3xl font-serif font-semibold text-white mb-1">{stat.value}</div>
                   <div className="text-xs text-white/50 uppercase tracking-widest">{stat.label}</div>
@@ -130,7 +130,7 @@ export default function Home() {
                 Dr. Vicki Bealman is an executive educator, leadership strategist, and AI literacy advocate with over two decades of experience helping senior leaders navigate transformational change. She holds a Doctorate in Education with a focus on organizational leadership and has advised C-suite executives across healthcare, finance, and technology sectors.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Dr. Bealman developed the <em>AI Literacy for Leaders</em> program after recognizing a critical gap: executives were being asked to make high-stakes AI decisions without the conceptual foundation to evaluate them. Her approach is practical, non-technical, and grounded in real-world leadership challenges — designed to give leaders the confidence to ask the right questions, challenge vendor claims, and drive responsible AI adoption.
+                Dr. Bealman developed the <em>AI Literacy & Application for Small Business</em> program after recognizing a critical gap: executives were being asked to make high-stakes AI decisions without the conceptual foundation to evaluate them. Her approach is practical, non-technical, and grounded in real-world leadership challenges — designed to give leaders the confidence to ask the right questions, challenge vendor claims, and drive responsible AI adoption.
               </p>
               <div className="flex flex-wrap gap-3 justify-center md:justify-start">
                 {["Executive Education", "AI Strategy", "Organizational Leadership", "Change Management", "Leadership Development", "Organizational Behavior"].map((tag) => (
@@ -230,9 +230,9 @@ export default function Home() {
         <div className="container flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center"><BookOpen className="w-3.5 h-3.5 text-white" /></div>
-            <span className="font-semibold text-sm">AI Literacy for Leaders</span>
+            <span className="font-semibold text-sm">AI Literacy & Application for Small Business</span>
           </div>
-          <p className="text-white/40 text-xs">© {new Date().getFullYear()} AI Literacy for Leaders. All rights reserved.</p>
+          <p className="text-white/40 text-xs">© {new Date().getFullYear()} AI Literacy & Application for Small Business. All rights reserved.</p>
         </div>
       </footer>
     </div>

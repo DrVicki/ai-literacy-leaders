@@ -98,10 +98,10 @@ async function sendEnrollmentEmail(
   const { promisify } = await import("util");
   const execFileAsync = promisify(execFile);
 
-  const subject = "Welcome to AI Literacy for Leaders — You're Enrolled!";
+  const subject = "Welcome to AI Literacy & Application for Small Business — You're Enrolled!";
   const content = `Hi ${name},
 
-Congratulations! Your enrollment in AI Literacy for Leaders is confirmed.
+Congratulations! Your enrollment in AI Literacy & Application for Small Business is confirmed.
 
 You now have full access to all 5 modules:
 
@@ -116,7 +116,7 @@ Log in to your course dashboard to start learning and track your progress.
 If you have any questions, simply reply to this email.
 
 Welcome aboard,
-The AI Literacy for Leaders Team`;
+The AI Literacy & Application for Small Business Team`;
 
   const input = JSON.stringify({
     messages: [

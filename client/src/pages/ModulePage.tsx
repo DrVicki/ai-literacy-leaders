@@ -105,7 +105,7 @@ export default function ModulePage() {
             <div className="w-6 h-6 rounded bg-primary flex items-center justify-center">
               <BookOpen className="w-3 h-3 text-primary-foreground" />
             </div>
-            <span className="text-sm font-semibold text-foreground hidden sm:block">AI Literacy for Leaders</span>
+            <span className="text-sm font-semibold text-foreground hidden sm:block">AI Literacy & Application for Small Business</span>
           </div>
           <div className="w-24" /> {/* Spacer */}
         </div>

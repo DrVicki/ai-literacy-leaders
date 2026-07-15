@@ -4,6 +4,8 @@ export interface LessonData {
   title: string;
   duration: string;
   content: string;
+  reflection?: string;   // Reflection prompt for the learner
+  assignment?: string;  // Real-world action assignment
 }
 
 export interface ModuleData {
@@ -52,6 +54,8 @@ AI is not magic, nor is it a single technology. It is a collection of statistica
 ### Key Takeaway for Leaders
 
 Your role is not to become a data scientist. Your role is to ask the right questions: What data was this model trained on? What problem is it actually solving? How do we measure success? How do we know when it fails? These questions will serve you far better than any technical deep-dive.`,
+        reflection: `Think about a tool or service you use every day — your email inbox, a navigation app, or a social media feed. Where do you see AI at work in it? What decisions is it making on your behalf, and are you comfortable with that?`,
+        assignment: `Write down three AI-powered tools or features you already use in your business or daily life (even simple ones like spam filters or autocomplete). For each one, note what problem it solves and what data it likely relies on. Share your list with a colleague and compare notes.`,
       },
       {
         slug: "ml-vs-generative-ai",
@@ -89,6 +93,8 @@ Generative AI, by contrast, produces new content — text, images, code, audio, 
 ### The Critical Difference for Decision-Makers
 
 Predictive AI gives you a number or a category with a confidence score. Generative AI gives you prose, and that prose can be fluent, persuasive, and entirely wrong. This phenomenon — known as "hallucination" — is perhaps the most important limitation for leaders to internalize. Generative AI outputs must be verified, especially in high-stakes contexts.`,
+        reflection: `Think about a decision your business makes regularly — forecasting demand, screening applicants, responding to customer inquiries. Would predictive AI, generative AI, or a combination be most useful? What would you need to trust the output?`,
+        assignment: `Pick one repetitive task in your business that involves either predicting an outcome or generating content (emails, reports, summaries). Spend 15 minutes trying a free generative AI tool (ChatGPT, Claude, or Gemini) on that task. Note what it did well and where it fell short.`,
       },
       {
         slug: "ai-hype-vs-reality",
@@ -116,6 +122,8 @@ Today, different AI capabilities sit at different points on the curve. Large lan
 ### A Framework for Evaluating AI Claims
 
 When a vendor or internal team presents an AI solution, ask: What is the baseline you are comparing against? What data was used to train and evaluate the model? What does failure look like, and how often does it occur? What is the total cost of ownership, including data preparation, integration, and ongoing maintenance? These questions cut through the noise and ground the conversation in business reality.`,
+        reflection: `Where have you personally experienced AI hype — in a vendor pitch, a news headline, or a conversation with a colleague? Looking back, what questions would have helped you evaluate the claim more critically?`,
+        assignment: `Find one recent AI-related news article or vendor claim relevant to your industry. Apply the four-question framework from this lesson: What is the baseline? What data was used? What does failure look like? What is the total cost? Write a one-paragraph assessment.`,
       },
       {
         slug: "evaluating-ai-vendors",
@@ -141,6 +149,8 @@ Leaders are frequently in the position of evaluating AI vendors without deep tec
 ### Red Flags to Watch For
 
 Be cautious of vendors who cannot explain their model's limitations, who claim their system requires no data from you, who cannot provide references from comparable organizations, or who resist a structured pilot. Transparency and a willingness to be evaluated are hallmarks of a trustworthy AI partner.`,
+        reflection: `Think about a technology purchase your business has made in the past. In hindsight, which of the five questions from this lesson would have changed your decision or negotiation? What would you do differently?`,
+        assignment: `Identify one AI tool or service you are currently considering or already using. Run it through all five questions from this lesson. If you cannot answer one of them, make a plan to get that answer — either by asking the vendor directly or researching online.`,
       },
     ],
   },
@@ -176,6 +186,8 @@ Before investing in AI capabilities, leaders must honestly assess where their or
 ### The AI Readiness Assessment
 
 Rate your organization on each dimension from 1 (nascent) to 5 (advanced). Organizations scoring 1–2 across dimensions should focus on foundational data infrastructure before pursuing sophisticated AI applications. Those scoring 3–4 are ready for targeted, high-value use cases. Those scoring 5 across dimensions are positioned for enterprise-wide AI transformation.`,
+        reflection: `Honestly rate your business on each of the four dimensions — Data Maturity, Technical Infrastructure, Talent and Culture, Process and Governance. Where is your biggest gap? What is one concrete thing you could do in the next 30 days to improve your lowest-scoring dimension?`,
+        assignment: `Complete the AI Readiness Assessment for your business: score each of the four dimensions from 1 to 5 and write two to three sentences explaining each score. Identify your top priority dimension and list two specific actions to improve it this quarter.`,
       },
       {
         slug: "identifying-use-cases",
@@ -199,6 +211,8 @@ The most practical framework for prioritizing AI use cases is a two-by-two matri
 ### A Structured Discovery Process
 
 The most effective approach to use case identification combines top-down strategic alignment with bottom-up operational insight. Engage senior leadership to identify the organization's most pressing strategic challenges. Then engage frontline managers and individual contributors to identify the most painful, time-consuming, or error-prone processes in their daily work. The intersection of strategic importance and operational pain is where the highest-value AI opportunities typically reside.`,
+        reflection: `Think about the three most time-consuming or error-prone processes in your business right now. Which quadrant of the Value-Feasibility Matrix does each fall into? Are you spending your energy in the right places?`,
+        assignment: `Create a simple Value-Feasibility Matrix for your business. List at least five potential AI use cases, place each in a quadrant, and identify your top two immediate priorities. For each priority, write one sentence describing the specific outcome you would measure to know it is working.`,
       },
       {
         slug: "building-ai-roadmap",
@@ -220,6 +234,8 @@ An AI roadmap is a strategic plan that sequences AI investments over time, balan
 ### Key Elements of a Robust AI Roadmap
 
 A credible AI roadmap includes: a clear articulation of the strategic objectives AI is intended to serve; a prioritized portfolio of use cases with defined success metrics; a capability-building plan addressing data, talent, and infrastructure; a governance framework for responsible AI deployment; and a change management plan for driving adoption. The roadmap should be treated as a living document, reviewed and updated quarterly as the technology landscape evolves and organizational learning accumulates.`,
+        reflection: `If you were to build a 12-month AI roadmap for your business today, what would your Horizon 1 quick win be? What foundational investment would you need to make alongside it to enable bigger opportunities in Year 2?`,
+        assignment: `Draft a one-page AI roadmap for your business covering the next 12 months. Include: one Horizon 1 quick win with a success metric, one foundational capability you will build, and one Horizon 2 opportunity you are preparing for. Share it with a trusted colleague or advisor for feedback.`,
       },
     ],
   },
@@ -257,6 +273,8 @@ The most sophisticated AI model in the world cannot compensate for poor data qua
 ### The Business Case for Data Quality Investment
 
 Poor data quality costs organizations an estimated 15–25% of revenue annually, according to research by Gartner. The costs manifest as poor decisions made on inaccurate information, operational inefficiencies from data reconciliation, regulatory penalties for non-compliant reporting, and failed AI initiatives. Conversely, organizations with mature data quality practices consistently outperform their peers in AI adoption and business outcomes.`,
+        reflection: `Think about one key dataset your business relies on — customer records, sales data, inventory. Rate it honestly on the five dimensions: Accuracy, Completeness, Consistency, Timeliness, and Relevance. Which dimension is your weakest link?`,
+        assignment: `Pick one dataset your business uses regularly. Spend 30 minutes auditing a sample of 20–50 records against the five quality dimensions. Document what you find and identify the single most impactful improvement you could make to that dataset this month.`,
       },
       {
         slug: "data-privacy-compliance",
@@ -282,6 +300,8 @@ The most effective approach to data privacy is not compliance-as-afterthought bu
 ### AI-Specific Privacy Risks
 
 AI introduces privacy risks that go beyond traditional data management. Model inversion attacks can extract training data from deployed models. Membership inference attacks can determine whether a specific individual's data was used to train a model. Differential privacy techniques can provide mathematical guarantees against these attacks, but they involve tradeoffs with model accuracy that leaders must understand.`,
+        reflection: `What personal or customer data does your business collect and store? If a customer asked you today exactly what data you hold about them and how it is used, could you answer confidently? What gaps would that question reveal?`,
+        assignment: `Conduct a simple data inventory for your business: list every category of personal data you collect (customer names, emails, payment info, etc.), where it is stored, who has access, and how long you keep it. Identify one privacy risk and one concrete step to address it.`,
       },
       {
         slug: "data-governance-framework",
@@ -305,6 +325,8 @@ Data governance is the system of decision rights and accountabilities for inform
 ### Breaking Down Data Silos
 
 Data silos — isolated repositories of data controlled by individual business units and inaccessible to the rest of the organization — are one of the most persistent obstacles to AI value creation. Addressing silos requires both technical solutions (data integration platforms, data lakes, data meshes) and organizational solutions (incentive structures that reward data sharing, cross-functional data governance bodies, and executive sponsorship).`,
+        reflection: `Does your business have a data owner for each critical dataset? If not, what would it take to assign one? Think about who in your organization would be the right person to own your customer data, your financial data, and your operational data.`,
+        assignment: `Create a one-page data governance starter plan for your business: identify your three most critical data assets, assign a provisional owner to each, define one quality standard for each, and describe who currently has access and whether that access is appropriate.`,
       },
     ],
   },
@@ -340,6 +362,8 @@ Algorithmic bias occurs when an AI system produces systematically unfair outcome
 ### Mitigation Strategies
 
 Effective bias mitigation requires action at multiple stages of the AI development lifecycle: diverse and representative training data; fairness metrics defined and measured before deployment; regular audits of deployed systems; diverse teams involved in development and review; and clear processes for identifying and addressing bias when it is discovered. No technical fix eliminates the need for ongoing human oversight.`,
+        reflection: `Think about an AI-powered tool your business uses or is considering — a hiring tool, a customer scoring system, a recommendation engine. What groups of people could be disadvantaged by that system? How would you know if it was producing biased outcomes?`,
+        assignment: `Research one real-world case of algorithmic bias (search "algorithmic bias examples" for documented cases in hiring, lending, or healthcare). Write a one-page analysis: What went wrong? Who was harmed? What should the organization have done differently? What lesson applies directly to your business?`,
       },
       {
         slug: "transparency-accountability",
@@ -361,6 +385,8 @@ As AI systems make or influence increasingly consequential decisions — loan ap
 ### The Explainability-Performance Tradeoff
 
 There is often a tradeoff between model explainability and predictive performance. Simple, interpretable models — linear regression, decision trees — are easy to explain but may sacrifice accuracy. Complex models — deep neural networks, gradient boosting ensembles — often achieve higher accuracy but are difficult to explain. Leaders must make conscious decisions about where on this tradeoff curve to operate, based on the stakes of the decisions being made and the regulatory requirements that apply.`,
+        reflection: `If an AI system made a decision that negatively affected one of your customers or employees, could you explain why it made that decision? Who in your organization would be accountable for that outcome? Is that clear today?`,
+        assignment: `Write a one-page Accountability Statement for one AI tool your business uses or plans to use. Define: what the system does, what data it uses, who is responsible if it causes harm, how affected parties can raise concerns, and how you will monitor it over time.`,
       },
       {
         slug: "ai-workforce-impact",
@@ -384,6 +410,8 @@ The jobs most at risk are those that are routine, well-defined, and involve proc
 ### The Leader's Responsibility
 
 Leaders have both an ethical and a business interest in managing AI-driven workforce transitions responsibly. Ethically, workers deserve transparency about how AI will affect their roles and support in developing new skills. From a business perspective, organizations that manage transitions poorly — through abrupt layoffs, inadequate retraining, or a culture of fear — will struggle to attract talent and may face significant reputational damage. A proactive approach to workforce transformation, characterized by transparency, investment in reskilling, and genuine partnership with employees, is both the right thing to do and the strategically sound approach.`,
+        reflection: `Think about the roles in your business that involve the most routine, well-defined, information-processing tasks. How might AI change those roles over the next three years? What would you want to communicate to the people in those roles today?`,
+        assignment: `Have an honest conversation with one employee whose role may be affected by AI. Ask them: What parts of your job do you think AI could help with? What concerns do you have? What skills would you want to develop? Document what you learn and identify one concrete action you will take as a result.`,
       },
       {
         slug: "ai-ethics-committee",
@@ -413,6 +441,8 @@ Effective committees include diverse perspectives: technical experts who underst
 **Accountability:** Clear lines of responsibility should exist for AI-driven decisions and their consequences.
 
 These principles are not self-implementing. They require ongoing investment in processes, tools, and organizational culture to translate from aspiration to practice.`,
+        reflection: `Does your business have any formal process for reviewing the ethical implications of AI tools before deploying them? If not, what is the smallest, most practical first step you could take to create one?`,
+        assignment: `Draft a one-page AI Ethics Checklist for your business. Include at least one question for each of the five principles: Fairness, Transparency, Privacy, Safety, and Accountability. Use this checklist the next time you evaluate a new AI tool or feature.`,
       },
     ],
   },
@@ -446,6 +476,8 @@ The ADKAR model — Awareness, Desire, Knowledge, Ability, Reinforcement — pro
 ### Building Trust in AI Systems
 
 Trust in AI systems is earned through transparency, reliability, and demonstrated value. Organizations that deploy AI without explaining how it works, acknowledge its limitations, or provide mechanisms for employees to flag errors will struggle to build the trust necessary for effective adoption. Conversely, organizations that invest in explainable AI, establish clear feedback mechanisms, and demonstrate responsiveness to employee concerns build the trust that enables transformative adoption.`,
+        reflection: `Think about a recent change initiative in your business — a new system, process, or strategy. How did people respond? Looking back, which stage of the ADKAR model was the weakest link? How would you approach it differently with AI adoption?`,
+        assignment: `Choose one AI tool you plan to introduce to your team. Write a one-page Change Communication Plan: What will you tell your team about why you are adopting it? How will you address their concerns? What training will you provide? How will you measure adoption success?`,
       },
       {
         slug: "building-ai-talent",
@@ -467,6 +499,8 @@ AI talent exists on a spectrum. At one end are research scientists with PhDs in 
 ### Building an Internal AI Academy
 
 The most sustainable approach to AI talent development is building internal capability through a structured learning program. An AI Academy provides foundational AI literacy for all employees, technical training for those who need to work directly with AI systems, and leadership development for those who need to manage AI initiatives. The curriculum should be tailored to different roles and learning styles, and should be continuously updated as the technology evolves.`,
+        reflection: `Where does your business currently sit on the AI talent spectrum? Do you have the technical roles you need, or are you primarily developing AI-enabled roles? What is the single biggest talent gap that is slowing your AI progress?`,
+        assignment: `Conduct a quick AI Skills Audit of your team: for each person, identify their current AI skill level (none, basic user, power user, technical). Identify the two or three people who could become internal AI champions with targeted development. Write a one-paragraph development plan for each.`,
       },
       {
         slug: "future-proofing",
@@ -490,6 +524,8 @@ The AI landscape is evolving faster than any previous technological transition i
 ### The Leader's Personal Journey
 
 Future-proofing your organization begins with future-proofing yourself as a leader. Commit to continuous learning about AI — not to become a technical expert, but to maintain the informed perspective that effective leadership requires. Engage with AI tools personally. Build relationships with technical experts who can help you navigate the landscape. Cultivate intellectual humility — the willingness to update your beliefs as evidence accumulates. The leaders who will thrive in the AI era are not those who know the most about AI today, but those who are most committed to learning about it tomorrow.`,
+        reflection: `Which of the four principles of organizational adaptability — learning infrastructure, strategic optionality, external intelligence, resilience — is your business strongest at? Which is your biggest blind spot? What would it take to address it?`,
+        assignment: `Create a personal Future-Proofing Action Plan: identify one AI trend you will track over the next six months, one external connection (conference, community, advisor) you will cultivate, and one internal experiment you will run to build organizational learning. Set a calendar reminder to review your progress in 90 days.`,
       },
       {
         slug: "ai-augmented-leadership",
@@ -513,6 +549,136 @@ The final lesson of this course addresses the most personal dimension of AI lead
 As AI takes on more of the analytical and operational work of organizations, the distinctly human dimensions of leadership become more valuable, not less. Empathy, ethical judgment, creative vision, and the ability to build trust and inspire commitment are capabilities that AI cannot replicate. The leaders who will thrive in the AI era are those who invest in developing these human capabilities while learning to leverage AI as a powerful tool for amplifying their impact.
 
 This course has equipped you with the knowledge to lead confidently in the age of AI. The journey continues — the technology will evolve, new challenges will emerge, and new opportunities will arise. Approach that journey with curiosity, humility, and the conviction that thoughtful human leadership remains the most essential ingredient in any successful AI transformation.`,
+        reflection: `Looking back across all five modules, which concept or framework has changed how you think about your business most? What is the single most important action you will take in the next 30 days as a result of this course?`,
+        assignment: `Write a one-page Personal AI Leadership Manifesto: What do you believe about AI and its role in your business? What commitments are you making to your team, your customers, and yourself about how you will lead in the AI era? Share it with at least one trusted colleague or advisor.`,
+      },
+    ],
+  },
+  {
+    slug: "ai-in-action",
+    order: 6,
+    title: "AI in Action",
+    subtitle: "Real-World Applications for Your Business",
+    description:
+      "Apply AI directly to the areas that drive your business — data analysis, daily productivity, marketing, and customer engagement — with practical tools, real examples, and hands-on activities you can implement immediately.",
+    icon: "Zap",
+    color: "from-emerald-600 to-teal-700",
+    lessons: [
+      {
+        slug: "ai-for-data-analysis",
+        order: 1,
+        title: "AI for Data Analysis and Business Insights",
+        duration: "22 min",
+        content: `## AI for Data Analysis and Business Insights
+
+For small and mid-sized businesses, data has historically been an underused asset. Spreadsheets pile up, reports get generated but not acted on, and the insights that could drive better decisions stay buried. AI-powered data analysis tools are changing this — making it possible for any business owner to surface patterns, spot anomalies, and make data-informed decisions without a data science team.
+
+### What AI Can Do With Your Business Data
+
+Modern AI tools can analyze sales trends and forecast demand, identify your most profitable customers and products, flag unusual patterns that may indicate fraud or operational problems, generate plain-language summaries of complex datasets, and answer natural-language questions about your data without requiring SQL or coding skills.
+
+Tools like Microsoft Copilot in Excel, Google Gemini in Sheets, and standalone platforms like Polymer, Julius AI, and ChatGPT with data analysis capabilities have made these functions accessible to any business owner with a spreadsheet.
+
+### Getting Started: Your First AI Data Analysis
+
+The fastest path to value is to start with data you already have. Export your sales data from your point-of-sale system or accounting software. Upload it to a tool like ChatGPT (with the data analysis feature enabled) or Julius AI. Ask plain-language questions: Which products have the highest margin? Which customers have not purchased in the last 90 days? What day of the week generates the most revenue?
+
+The goal is not to build a sophisticated analytics infrastructure on day one — it is to develop the habit of asking your data questions and acting on the answers.
+
+### Turning Insights Into Decisions
+
+Data analysis only creates value when it changes decisions. For each insight you surface, ask: What decision does this inform? What action will I take? How will I measure whether the action worked? This simple three-question framework prevents analysis from becoming an end in itself and keeps your AI investment connected to business outcomes.`,
+        reflection: `What business question do you most wish you could answer with your data right now — but currently cannot? What data do you already have that might help answer it, even imperfectly?`,
+        assignment: `Export one dataset from your business (sales, customer list, inventory, or financial data). Upload it to ChatGPT or a similar AI tool and ask at least three business questions. Document the insights you receive and identify one decision you will make differently as a result.`,
+      },
+      {
+        slug: "ai-for-productivity",
+        order: 2,
+        title: "AI for Daily Productivity and Operations",
+        duration: "20 min",
+        content: `## AI for Daily Productivity and Operations
+
+The most immediate ROI from AI for most small businesses comes not from sophisticated machine learning systems but from AI-powered productivity tools that save hours every week on routine tasks. Writing, scheduling, summarizing, researching, and communicating — the daily operational work that consumes enormous time — can all be accelerated significantly with the right tools.
+
+### The Productivity AI Stack for Small Business
+
+**Writing and communication:** Tools like ChatGPT, Claude, and Microsoft Copilot can draft emails, proposals, reports, and social media content in a fraction of the time it takes to write from scratch. The key is learning to prompt effectively — providing context, tone, audience, and purpose — and then editing the output rather than accepting it verbatim.
+
+**Meeting productivity:** Tools like Otter.ai, Fireflies, and Microsoft Teams Copilot can transcribe meetings, generate summaries, and extract action items automatically. A 60-minute meeting that previously required 30 minutes of follow-up note-taking can be summarized in seconds.
+
+**Research and information synthesis:** AI tools can summarize long documents, compare options, and synthesize information from multiple sources in minutes. Tasks that previously required hours of reading and note-taking can be compressed dramatically.
+
+**Scheduling and workflow automation:** Tools like Zapier with AI capabilities, Make (formerly Integromat), and native AI features in tools like HubSpot and Salesforce can automate repetitive workflows — routing leads, sending follow-up emails, updating records — without coding.
+
+### Tool Selection: What Matters for Small Business
+
+The SME feedback from this course's development was clear: tool selection matters more than prompting technique. When evaluating any AI productivity tool, ask: Does it integrate with the tools I already use? What data does it access, and is that appropriate? Is there a free tier or low-cost entry point to test value before committing? What happens to my data — is it used to train the model? For most small businesses, the right answer is a small number of well-chosen tools used consistently, not a proliferation of specialized tools that create their own management overhead.`,
+        reflection: `What is the single most time-consuming routine task in your business week? How many hours does it consume? What would you do with that time if AI could handle half of it?`,
+        assignment: `Identify your top three most time-consuming routine tasks. For each one, research one AI tool that could help (use ChatGPT to help you search: “What AI tools can help with [task] for a small business?”). Pick one tool, try it for one week, and track the time you save. Report back to your cohort.`,
+      },
+      {
+        slug: "ai-for-marketing",
+        order: 3,
+        title: "AI for Marketing and Customer Engagement",
+        duration: "21 min",
+        content: `## AI for Marketing and Customer Engagement
+
+Marketing is one of the highest-leverage areas for AI in small business. Creating content, reaching the right audience, personalizing communications, and measuring what works — all of these have historically required either significant budget or significant time. AI is dramatically lowering both barriers.
+
+### Content Creation at Scale
+
+AI tools can generate blog posts, social media captions, email newsletters, ad copy, and product descriptions in minutes. Tools like Jasper, Copy.ai, and ChatGPT can produce a week's worth of social media content in an hour. The quality requires human editing and brand voice calibration, but the raw material — which is often the hardest part — is generated instantly.
+
+For visual content, tools like Canva with AI features, Adobe Firefly, and Midjourney can generate images, graphics, and design variations without a graphic designer. Small businesses that previously could not afford consistent visual branding can now produce professional-quality assets at minimal cost.
+
+### Personalization and Customer Segmentation
+
+AI-powered email marketing tools like Klaviyo, Mailchimp with AI features, and ActiveCampaign can segment your customer list based on behavior, purchase history, and engagement patterns — and send different messages to different segments automatically. A customer who bought a specific product gets a follow-up about related products. A customer who has not purchased in 90 days gets a re-engagement offer. This level of personalization was previously available only to large enterprises with dedicated marketing technology teams.
+
+### Measuring What Works
+
+AI tools are also transforming marketing measurement. Platforms like Google Analytics 4 with AI insights, HubSpot, and Meta Ads Manager use machine learning to identify which campaigns, channels, and messages are driving results — and to optimize automatically. For small businesses, the key is to connect your marketing tools to your sales data so you can measure the full customer journey from first touch to purchase.
+
+### The Human Element in AI Marketing
+
+The businesses that use AI marketing most effectively are those that use it to amplify their authentic voice, not replace it. AI can generate content, but it cannot generate the genuine expertise, personality, and relationships that differentiate a small business from a faceless corporation. Use AI to handle the volume and mechanics of marketing; invest your human energy in the authenticity and relationships that AI cannot replicate.`,
+        reflection: `Where does your business currently spend the most time and money on marketing? Which of the AI marketing capabilities described in this lesson would have the biggest impact on your business if you implemented it in the next 30 days?`,
+        assignment: `Choose one marketing task you do regularly (writing social posts, drafting emails, creating ad copy). Use an AI tool to complete next week's version of that task. Compare the time it took and the quality of the output to your usual approach. What would you do differently next time?`,
+      },
+      {
+        slug: "ai-implementation-plan",
+        order: 4,
+        title: "Building Your Personal AI Implementation Plan",
+        duration: "18 min",
+        content: `## Building Your Personal AI Implementation Plan
+
+This final lesson is about action. Everything you have learned across six modules only creates value when it changes what you do. This lesson provides a structured framework for translating your learning into a concrete, prioritized implementation plan that you can begin executing immediately.
+
+### The 90-Day AI Quick Start
+
+The most effective implementation plans are specific, time-bound, and small enough to actually execute. A 90-day horizon is long enough to see real results but short enough to maintain urgency. Structure your plan around three phases:
+
+**Days 1–30: Foundation.** Pick one AI productivity tool and use it every day. Conduct your AI readiness assessment. Identify your top three AI use cases. Have the data conversation — what data do you have, where is it, and how clean is it?
+
+**Days 31–60: First Application.** Implement your highest-value, lowest-complexity use case. Measure the result. Share what you learn with your team. Identify what you would do differently.
+
+**Days 61–90: Expand and Reflect.** Add a second use case. Review your AI roadmap in light of what you have learned. Identify the capability investment (data, talent, process) that will unlock the most value in Year 2.
+
+### Avoiding the Most Common Implementation Mistakes
+
+**Trying to do too much at once.** AI FOMO is real — there are always more tools to try and more use cases to pursue. The businesses that get the most value from AI are those that go deep on a small number of high-value applications rather than spreading thin across many.
+
+**Skipping the data foundation.** AI runs on data. If your business data is disorganized, incomplete, or inaccessible, no AI tool will save you. The time you invest in data organization pays dividends across every AI application you pursue.
+
+**Measuring the wrong things.** Track business outcomes — revenue, cost, time, customer satisfaction — not AI activity. The goal is not to use AI; it is to grow your business.
+
+**Going it alone.** The small business owners who make the fastest progress with AI are those who learn in community — sharing what works, what does not, and what they are trying next. Use the network you have built in this course.
+
+### Your Next Step
+
+The most important thing you can do right now is take one concrete action in the next 24 hours. Not plan to take action — take action. Open a new AI tool. Upload a dataset. Draft one piece of content. The momentum you build in the first 24 hours is the best predictor of the progress you will make in the next 90 days.`,
+        reflection: `What is the one thing you have learned in this course that you are most excited to apply? What is the one thing that is most likely to get in the way? How will you address that obstacle?`,
+        assignment: `Write your complete 90-Day AI Quick Start Plan: list your chosen productivity tool for Days 1–30, your first use case for Days 31–60, and your expansion plan for Days 61–90. Include one success metric for each phase. Share your plan with your cohort and commit to a 90-day check-in.`,
       },
     ],
   },
