@@ -92,20 +92,27 @@
 
 ## Quiz → Reflection Replacement (Round 5)
 
-- [ ] Add reflection prompts and action assignments to all 18 lessons in courseData.ts
-- [ ] Build LessonReflection component (reflection prompt + action assignment display)
-- [ ] Replace KnowledgeCheck component with LessonReflection in LessonPage
-- [ ] Remove quiz router from routers.ts
-- [ ] Update tests to remove quiz test cases
-- [ ] Update todo.md and save checkpoint
+- [x] Add reflection prompts and action assignments to all 18 lessons in courseData.ts
+- [x] Build LessonReflection component (reflection prompt + action assignment display)
+- [x] Replace KnowledgeCheck component with LessonReflection in LessonPage
+- [x] Remove quiz router from routers.ts
+- [x] Update tests to remove quiz test cases
+- [x] Update todo.md and save checkpoint
 
 ## Full Course Restructure (Round 5 — Updated)
 
-- [ ] Add reflection prompts and action assignments to all 18 existing lessons in courseData.ts
-- [ ] Add Module 6: "AI in Action: Real-World Applications for Your Business" (data analysis, productivity, marketing, customer engagement) with 3-4 lessons
-- [ ] Build LessonReflection component (reflection prompt + action assignment display)
-- [ ] Replace KnowledgeCheck with LessonReflection in LessonPage
-- [ ] Remove quiz router from routers.ts
-- [ ] Update landing page: 6 modules, ~15 hours, small-business audience framing
-- [ ] Update TOTAL_LESSONS count in courseData.ts
-- [ ] Update tests and save checkpoint
+- [x] Add reflection prompts and action assignments to all 18 existing lessons in courseData.ts
+- [x] Add Module 6: "AI in Action: Real-World Applications for Your Business" (data analysis, productivity, marketing, customer engagement) with 3-4 lessons
+- [x] Build LessonReflection component (reflection prompt + action assignment display)
+- [x] Replace KnowledgeCheck with LessonReflection in LessonPage
+- [x] Remove quiz router from routers.ts
+- [x] Update landing page: 6 modules, ~15 hours, small-business audience framing
+- [x] Update TOTAL_LESSONS count in courseData.ts
+- [x] Update tests and save checkpoint
+
+## Content & Copy Updates (Round 6)
+
+- [x] Update "What You'll Learn" 6 cards to match small business audience and 6-module content
+- [x] Update curriculum section heading from "Five-Module" to "Six-Module"
+- [x] Rewrite bio to remove corporate/executive framing, reflect small business/nonprofit audience
+- [ ] Module 1 full content pass: data readiness, tool-agnostic framing, revenue-focused business case, human oversight

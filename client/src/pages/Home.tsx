@@ -19,9 +19,9 @@ const MODULE_ICONS: Record<string, React.ReactNode> = {
 };
 
 const TESTIMONIALS = [
-  { name: "Sarah Chen", role: "Chief Operating Officer", company: "TechVentures Inc.", quote: "This course gave me the vocabulary and frameworks I needed to lead our AI transformation with confidence. The ethical AI module alone was worth the investment.", stars: 5 },
-  { name: "Marcus Williams", role: "VP of Strategy", company: "Global Financial Group", quote: "Finally, an AI course designed for leaders — not engineers. The strategic frameworks are immediately applicable, and the content is refreshingly honest about AI's limitations.", stars: 5 },
-  { name: "Priya Sharma", role: "Chief Digital Officer", company: "HealthFirst Systems", quote: "I've taken several AI courses, but none matched this one for practical leadership application. The data governance module transformed how we approach our data strategy.", stars: 5 },
+  { name: "Maria Gonzalez", role: "Owner", company: "Bright Horizon Bakery", quote: "I always thought AI was for big tech companies. This course showed me exactly how to use it in my bakery — from scheduling to customer follow-ups. I've already saved hours every week.", stars: 5 },
+  { name: "James Okafor", role: "Executive Director", company: "Community First Nonprofit", quote: "Finally, an AI course built for people like us. No jargon, no corporate fluff — just practical tools and honest guidance. The data governance module alone changed how we handle donor information.", stars: 5 },
+  { name: "Linda Tran", role: "Owner", company: "Tran Family Accounting", quote: "I was skeptical at first, but Dr. Bealman makes AI approachable and relevant. I now have a real plan for using AI tools in my practice without compromising client trust.", stars: 5 },
 ];
 
 export default function Home() {
@@ -127,13 +127,13 @@ export default function Home() {
               <Badge variant="outline" className="mb-4 border-primary/30 text-primary bg-primary/5 px-3 py-1 text-xs tracking-widest uppercase font-sans">Your Instructor</Badge>
               <h2 className="text-3xl md:text-4xl font-serif font-semibold text-foreground mb-5">Dr. Vicki Bealman</h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Dr. Vicki Bealman is an executive educator, leadership strategist, and AI literacy advocate with over two decades of experience helping senior leaders navigate transformational change. She holds a Doctorate in Education with a focus on organizational leadership and has advised C-suite executives across healthcare, finance, and technology sectors.
+                Dr. Vicki Bealman is an educator, leadership strategist, and AI literacy advocate with over two decades of experience helping small business owners, nonprofit leaders, and community organizations navigate change and growth. She holds a Doctorate in Education with a focus on organizational leadership and has worked with businesses and nonprofits across a wide range of industries — from retail and professional services to healthcare and community development.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Dr. Bealman developed the <em>AI Literacy & Application for Small Business</em> program after recognizing a critical gap: executives were being asked to make high-stakes AI decisions without the conceptual foundation to evaluate them. Her approach is practical, non-technical, and grounded in real-world leadership challenges — designed to give leaders the confidence to ask the right questions, challenge vendor claims, and drive responsible AI adoption.
+                Dr. Bealman developed <em>AI Literacy & Application for Small Business</em> after recognizing that most AI education was built for large enterprises — leaving small business owners and nonprofit leaders without practical, accessible guidance. Her approach is hands-on, tool-agnostic, and grounded in the real challenges of running a small organization: limited time, limited budgets, and the need to see results quickly.
               </p>
               <div className="flex flex-wrap gap-3 justify-center md:justify-start">
-                {["Executive Education", "AI Strategy", "Organizational Leadership", "Change Management", "Leadership Development", "Organizational Behavior"].map((tag) => (
+                {["Small Business Education", "AI Strategy", "Nonprofit Leadership", "Change Management", "Practical AI Application", "Organizational Development"].map((tag) => (
                   <span key={tag} className="text-xs font-sans font-medium px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20">{tag}</span>
                 ))}
               </div>
@@ -147,16 +147,16 @@ export default function Home() {
         <div className="container">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="text-4xl font-serif font-semibold text-foreground mb-4">What You'll Learn</h2>
-            <p className="text-muted-foreground text-lg leading-relaxed">Every module translates AI concepts into actionable leadership frameworks you can apply immediately.</p>
+            <p className="text-muted-foreground text-lg leading-relaxed">Six practical modules designed to help you understand, evaluate, and apply AI in your small business or nonprofit — starting this week.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
-              { icon: <Cpu className="w-5 h-5" />, title: "Demystify AI", desc: "Understand what AI actually is — and isn't — so you can evaluate vendors and strategies with clarity." },
-              { icon: <Target className="w-5 h-5" />, title: "Build AI Strategy", desc: "Identify high-value use cases, build a roadmap, and align AI investments with business objectives." },
-              { icon: <Database className="w-5 h-5" />, title: "Govern Your Data", desc: "Establish data quality standards, privacy frameworks, and governance structures that enable AI success." },
-              { icon: <Scale className="w-5 h-5" />, title: "Lead Ethically", desc: "Navigate algorithmic bias, transparency requirements, and workforce impacts with integrity." },
-              { icon: <Users className="w-5 h-5" />, title: "Manage Change", desc: "Drive AI adoption, overcome resistance, and build the talent and culture your organization needs." },
-              { icon: <BarChart3 className="w-5 h-5" />, title: "Measure Impact", desc: "Define success metrics, track ROI, and communicate AI value to stakeholders at every level." },
+              { icon: <Cpu className="w-5 h-5" />, title: "Understand AI Clearly", desc: "Cut through the hype and understand what AI actually is, how it works, and what it can realistically do for a business your size." },
+              { icon: <Target className="w-5 h-5" />, title: "Find Your Best Use Cases", desc: "Identify the highest-value opportunities in your own business and build a simple, actionable AI roadmap you can start on immediately." },
+              { icon: <Database className="w-5 h-5" />, title: "Get Your Data Ready", desc: "Learn what data you already have, how to organize it, and how to protect customer privacy while making it useful for AI tools." },
+              { icon: <Scale className="w-5 h-5" />, title: "Use AI Responsibly", desc: "Navigate bias, transparency, and trust — so your use of AI builds customer confidence rather than eroding it." },
+              { icon: <Users className="w-5 h-5" />, title: "Lead Your Team Through Change", desc: "Bring your staff along, address concerns honestly, and build a culture where AI tools are adopted rather than avoided." },
+              { icon: <BarChart3 className="w-5 h-5" />, title: "Put AI to Work Right Now", desc: "Apply what you've learned with real-world examples across marketing, operations, customer service, and finance for small businesses." },
             ].map((item) => (
               <div key={item.title} className="flex gap-4 p-6 rounded-xl border border-border bg-card card-hover">
                 <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">{item.icon}</div>
@@ -174,8 +174,8 @@ export default function Home() {
       <section id="curriculum" className="py-24 bg-secondary/30">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-serif font-semibold text-foreground mb-4">The Five-Module Curriculum</h2>
-            <p className="text-muted-foreground text-lg leading-relaxed">A carefully sequenced journey from AI fundamentals to organizational transformation.</p>
+            <h2 className="text-4xl font-serif font-semibold text-foreground mb-4">The Six-Module Curriculum</h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">A practical, sequenced journey from AI fundamentals to real-world application — built specifically for small businesses and nonprofits.</p>
           </div>
           <div className="max-w-4xl mx-auto space-y-4">
             {(modules ?? []).map((mod, idx) => (
@@ -206,7 +206,7 @@ export default function Home() {
       <section className="py-24 bg-background">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-serif font-semibold text-foreground mb-4">What Leaders Are Saying</h2>
+            <h2 className="text-4xl font-serif font-semibold text-foreground mb-4">What Small Business Owners Are Saying</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {TESTIMONIALS.map((t) => (
