@@ -57,7 +57,8 @@ async function seedQuizIfNeeded() {
 async function seedLessonsIfNeeded() {
   if (lessonsSeedDone) return;
   const existing = await getAllLessons();
-  if (existing.length > 0) {
+  // Re-seed whenever the DB has fewer lessons than courseData (e.g. new lessons added)
+  if (existing.length >= TOTAL_LESSONS) {
     lessonsSeedDone = true;
     return;
   }

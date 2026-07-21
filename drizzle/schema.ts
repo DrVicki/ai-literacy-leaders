@@ -5,6 +5,7 @@ import {
   mysqlTable,
   text,
   timestamp,
+  uniqueIndex,
   varchar,
 } from "drizzle-orm/mysql-core";
 
@@ -39,15 +40,19 @@ export type Enrollment = typeof enrollments.$inferSelect;
 export type InsertEnrollment = typeof enrollments.$inferInsert;
 
 // Lessons within each module
-export const lessons = mysqlTable("lessons", {
-  id: int("id").autoincrement().primaryKey(),
-  moduleSlug: varchar("moduleSlug", { length: 64 }).notNull(),
-  moduleOrder: int("moduleOrder").notNull(),
-  lessonSlug: varchar("lessonSlug", { length: 64 }).notNull(),
-  lessonOrder: int("lessonOrder").notNull(),
-  title: varchar("title", { length: 255 }).notNull(),
-  content: text("content"),
-});
+export const lessons = mysqlTable(
+  "lessons",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    moduleSlug: varchar("moduleSlug", { length: 64 }).notNull(),
+    moduleOrder: int("moduleOrder").notNull(),
+    lessonSlug: varchar("lessonSlug", { length: 64 }).notNull(),
+    lessonOrder: int("lessonOrder").notNull(),
+    title: varchar("title", { length: 255 }).notNull(),
+    content: text("content"),
+  },
+  (table) => [uniqueIndex("lessons_module_lesson_unique").on(table.moduleSlug, table.lessonSlug)]
+);
 
 export type Lesson = typeof lessons.$inferSelect;
 export type InsertLesson = typeof lessons.$inferInsert;

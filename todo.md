@@ -116,3 +116,7 @@
 - [x] Update curriculum section heading from "Five-Module" to "Six-Module"
 - [x] Rewrite bio to remove corporate/executive framing, reflect small business/nonprofit audience
 - [ ] Module 1 full content pass: data readiness, tool-agnostic framing, revenue-focused business case, human oversight
+
+## Bug Fixes
+
+- [x] Module 6 lessons had no content visible — root cause: seed guard checked `existing.length > 0` instead of comparing to TOTAL_LESSONS, so new lessons were never inserted; fixed guard, deduplicated DB rows, added unique constraint on (moduleSlug, lessonSlug)

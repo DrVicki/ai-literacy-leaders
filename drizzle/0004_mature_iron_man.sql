@@ -1,0 +1,1 @@
+ALTER TABLE `lessons` ADD CONSTRAINT `lessons_module_lesson_unique` UNIQUE(`moduleSlug`,`lessonSlug`);
