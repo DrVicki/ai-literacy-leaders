@@ -120,3 +120,14 @@
 ## Bug Fixes
 
 - [x] Module 6 lessons had no content visible — root cause: seed guard checked `existing.length > 0` instead of comparing to TOTAL_LESSONS, so new lessons were never inserted; fixed guard, deduplicated DB rows, added unique constraint on (moduleSlug, lessonSlug)
+
+## Hands-On Content Rewrite (Round 7)
+
+- [x] Rewrite Module 1 (4 lessons): shift to hands-on tool practice, add "Try This Now" exercises
+- [x] Rewrite Module 2 (3 lessons): hands-on use case mapping and roadmap activities
+- [x] Rewrite Module 3 (3 lessons): hands-on data audit and governance exercises
+- [x] Rewrite Module 4 (4 lessons): hands-on bias testing and ethics policy activities
+- [x] Rewrite Module 5 (4 lessons): hands-on change management and team activities
+- [x] Rewrite Module 6 (4 lessons): deeper step-by-step tool walkthroughs
+- [x] Re-seed all updated lesson content into the database
+- [x] Verify all 22 lessons display updated content in the app
