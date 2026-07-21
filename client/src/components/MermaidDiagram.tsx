@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import mermaid from "mermaid";
-import { Maximize2, X, ZoomIn, ZoomOut, RotateCcw, Download } from "lucide-react";
+import { Maximize2, X, ZoomIn, ZoomOut, RotateCcw, Download, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
@@ -48,6 +48,18 @@ export function MermaidDiagram({ chart, caption, title }: MermaidDiagramProps) {
   const [error, setError] = useState<string | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [zoom, setZoom] = useState(1);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyCode = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(chart.trim());
+      setCopied(true);
+      toast.success("Mermaid code copied to clipboard");
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      toast.error("Could not copy to clipboard");
+    }
+  }, [chart]);
 
   // Render the diagram once
   useEffect(() => {
@@ -151,6 +163,16 @@ export function MermaidDiagram({ chart, caption, title }: MermaidDiagramProps) {
             <Button
               variant="ghost"
               size="sm"
+              className="h-7 px-2 gap-1 text-xs text-muted-foreground hover:text-foreground"
+              onClick={handleCopyCode}
+              title="Copy Mermaid code"
+            >
+              {copied ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Copy className="w-3.5 h-3.5" />}
+              <span className="hidden sm:inline">{copied ? "Copied" : "Copy Code"}</span>
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
               className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground"
               onClick={handleDownload}
               title="Download as PNG"
@@ -231,6 +253,17 @@ export function MermaidDiagram({ chart, caption, title }: MermaidDiagramProps) {
                 title="Reset zoom"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
+              </Button>
+              {/* Copy Code */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 px-3 gap-1.5 text-xs text-white/70 hover:text-white hover:bg-white/10"
+                onClick={handleCopyCode}
+                title="Copy Mermaid code"
+              >
+                {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
+                <span>{copied ? "Copied" : "Copy Code"}</span>
               </Button>
               {/* Download */}
               <Button
