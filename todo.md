@@ -151,3 +151,11 @@
 - [x] Invalidate progress and certificate queries after reset
 - [x] Test reset flow end-to-end
 - [x] Save checkpoint
+
+## Diagram Enhancements (Round 10)
+
+- [x] Add fullscreen modal to MermaidDiagram component (click to expand, ESC to close)
+- [x] Add zoom in/out controls inside the fullscreen modal
+- [x] Add PNG download button to each diagram (converts SVG to canvas to PNG)
+- [x] Ensure download filename reflects the lesson title
+- [x] Save checkpoint

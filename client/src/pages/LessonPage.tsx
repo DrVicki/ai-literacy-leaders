@@ -178,7 +178,7 @@ export default function LessonPage() {
         {/* Visualization Diagram */}
         {lesson.diagram && (
           <div className="mt-10">
-            <MermaidDiagram chart={lesson.diagram} caption={lesson.diagramCaption ?? undefined} />
+            <MermaidDiagram chart={lesson.diagram} caption={lesson.diagramCaption ?? undefined} title={lesson.title} />
           </div>
         )}
 
