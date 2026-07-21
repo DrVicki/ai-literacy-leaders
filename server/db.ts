@@ -153,13 +153,26 @@ export async function upsertLesson(data: {
   lessonOrder: number;
   title: string;
   content: string;
+  reflection?: string;
+  assignment?: string;
+  diagram?: string;
+  diagramCaption?: string;
 }): Promise<void> {
   const db = await getDb();
   if (!db) return;
   await db
     .insert(lessons)
     .values(data)
-    .onDuplicateKeyUpdate({ set: { title: data.title, content: data.content } });
+    .onDuplicateKeyUpdate({
+      set: {
+        title: data.title,
+        content: data.content,
+        reflection: data.reflection ?? null,
+        assignment: data.assignment ?? null,
+        diagram: data.diagram ?? null,
+        diagramCaption: data.diagramCaption ?? null,
+      },
+    });
 }
 
 export async function markLessonComplete(userId: number, lessonId: number): Promise<void> {

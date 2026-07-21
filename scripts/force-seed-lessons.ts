@@ -23,6 +23,10 @@ async function main() {
         lessonOrder: lesson.order,
         title: lesson.title,
         content: lesson.content,
+        reflection: lesson.reflection,
+        assignment: lesson.assignment,
+        diagram: lesson.diagram,
+        diagramCaption: lesson.diagramCaption,
       });
       if (isNew) {
         inserted++;

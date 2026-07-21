@@ -101,6 +101,14 @@ Before moving on, three important limits to understand:
 **AI is a tool, not a replacement for your judgment.** You are the expert on your business. AI is a fast, tireless assistant — but you make the final call.`,
         reflection: `What surprised you most about your first AI conversation? Did the output feel useful, generic, or somewhere in between? What would you change about your prompt to get a better answer?`,
         assignment: `Complete the 3-Business-Questions Exercise above using your actual business details. Save the AI's response. Then try the same question with one change — add one more specific detail about your business — and compare the two responses. Note which was more useful and why.`,
+        diagram: `flowchart LR
+    A(["You type a prompt"]) --> B["AI reads your words"]
+    B --> C["Finds patterns in training data"]
+    C --> D["Generates a response"]
+    D --> E(["You read & refine"])
+    style A fill:#1e3a5f,color:#fff
+    style E fill:#c8a84b,color:#1e3a5f`,
+        diagramCaption: "How AI works: your prompt triggers pattern-matching in training data to generate a response — then you refine it.",
       },
       {
         slug: "ml-vs-generative-ai",
@@ -173,6 +181,23 @@ Generative AI produces new content: text, images, audio, and more. ChatGPT, Clau
 Before your next lesson, spend 10 minutes listing every digital tool you use in your business. For each one, ask: "Is there AI running in the background here?" You will likely find AI in your email, your accounting software, your social media ads, and your point-of-sale system — even if it is never labeled as "AI."`,
         reflection: `Which type of AI — predictive or generative — do you think would have the bigger immediate impact on your business? What specific problem would you want it to solve first?`,
         assignment: `Use the email-writing demo from this lesson to create a real follow-up email for your business. Send it to at least one customer this week. Track whether it gets a response. Note what you changed from the AI's draft and why.`,
+        diagram: `quadrantChart
+    title Predictive vs Generative AI for Small Business
+    x-axis Low Effort --> High Effort
+    y-axis Low Impact --> High Impact
+    quadrant-1 High Value Quick Wins
+    quadrant-2 Strategic Investments
+    quadrant-3 Skip For Now
+    quadrant-4 Nice To Have
+    Email Drafting: [0.2, 0.85]
+    Social Media Content: [0.25, 0.75]
+    Customer FAQ Bot: [0.4, 0.8]
+    Sales Forecasting: [0.6, 0.9]
+    Inventory Prediction: [0.65, 0.7]
+    Fraud Detection: [0.7, 0.6]
+    Image Generation: [0.3, 0.5]
+    Voice Transcription: [0.2, 0.6]`,
+        diagramCaption: "Predictive vs Generative AI use cases mapped by effort and impact for small businesses.",
       },
       {
         slug: "ai-hype-vs-reality",
@@ -239,6 +264,21 @@ Use the 4-Question Reality Check on the response.
 **"Our AI is 99% accurate."** Ask: accurate on what dataset? Under what conditions? 99% accuracy on a benchmark test can mean 1-in-100 errors in real use — which matters a lot if you are making 500 decisions a day.`,
         reflection: `Think about an AI tool you have been curious about or a vendor pitch you have received. Which of the four questions would be hardest to answer? What would you need to find out before making a decision?`,
         assignment: `Find one AI tool relevant to your industry (search "AI tools for [your type of business]"). Apply the 4-Question Reality Check. Write a one-paragraph verdict: Is this worth exploring further? Why or why not? Share your assessment with your cohort.`,
+        diagram: `flowchart TD
+    A["Vendor Claim"] --> B{"4-Question Reality Check"}
+    B --> C["1. What problem does it solve?"]
+    B --> D["2. What data does it need?"]
+    B --> E["3. How does it fail?"]
+    B --> F["4. What is the real cost?"]
+    C --> G{"All 4 answered clearly?"}
+    D --> G
+    E --> G
+    F --> G
+    G -->|Yes| H(["Worth a free trial ✅"])
+    G -->|No| I(["Ask more questions ⚠️"])
+    style H fill:#16a34a,color:#fff
+    style I fill:#d97706,color:#fff`,
+        diagramCaption: "The 4-Question Reality Check: apply this to any AI vendor claim before committing to a trial.",
       },
       {
         slug: "evaluating-ai-vendors",
@@ -304,6 +344,18 @@ Notice how it handles the gap in its knowledge.
 Pick one AI tool you have been curious about. Run the full 20-minute evaluation using the steps above. Write down your score (1–10) and your one-sentence verdict. Bring your evaluation to the next cohort session.`,
         reflection: `After running the 20-minute evaluation, what was the biggest gap between the tool's marketing claims and its actual performance on your real business data?`,
         assignment: `Evaluate two different AI tools that could help with the same task in your business (e.g., two different writing tools, or two different scheduling tools). Compare them using the 20-minute evaluation framework. Write a one-page comparison and choose one to use for the next 30 days.`,
+        diagram: `flowchart LR
+    A(["Pick a tool to test"]) --> B["Min 1-5: Define the job"]
+    B --> C["Min 6-10: Test with your real data"]
+    C --> D["Min 11-15: Find failure modes"]
+    D --> E["Min 16-20: Calculate ROI"]
+    E --> F{"ROI positive?"}
+    F -->|Yes| G(["Adopt for 30-day trial ✅"])
+    F -->|No| H(["Pass or revisit later ❌"])
+    style A fill:#1e3a5f,color:#fff
+    style G fill:#16a34a,color:#fff
+    style H fill:#dc2626,color:#fff`,
+        diagramCaption: "The 20-Minute AI Tool Evaluation: a repeatable framework for any AI tool decision.",
       },
     ],
   },
@@ -390,6 +442,13 @@ Open a blank document and list:
 The most organized dataset is where you should start with AI.`,
         reflection: `What was your readiness score? Which dimension was your weakest? What is the one thing you could do this week to improve your lowest score?`,
         assignment: `Complete the full AI Readiness Self-Assessment and use ChatGPT to generate your personalized recommendation. Then identify your most organized dataset and write one sentence describing what AI question you would most like to answer with it.`,
+        diagram: `xychart-beta
+    title "AI Readiness Self-Assessment Scoring"
+    x-axis ["Data Readiness", "Tool Comfort", "Time Available", "Budget"]
+    y-axis "Score (0-5)" 0 --> 5
+    bar [3, 2, 4, 3]
+    line [5, 5, 5, 5]`,
+        diagramCaption: "Rate yourself 0–5 on each dimension. The gap between your score (bar) and the maximum (line) shows where to focus first.",
       },
       {
         slug: "identifying-use-cases",
@@ -466,6 +525,23 @@ Open ChatGPT and type:
 Use this as your starting point for building your personal AI roadmap in the next lesson.`,
         reflection: `Which use case from your Time-Drain Audit surprised you most — either because AI could help more than you expected, or less? What does that tell you about where to focus first?`,
         assignment: `Complete the Time-Drain Audit for your business. Identify your top 3 AI opportunities using the prioritization matrix. For each one, use ChatGPT to generate a step-by-step getting-started plan. You will use these plans in the next lesson to build your 90-day roadmap.`,
+        diagram: `quadrantChart
+    title AI Opportunity Prioritization Matrix
+    x-axis Low Effort --> High Effort
+    y-axis Low Impact --> High Impact
+    quadrant-1 Do First
+    quadrant-2 Plan & Schedule
+    quadrant-3 Skip
+    quadrant-4 Delegate
+    Email Writing: [0.15, 0.85]
+    Social Media: [0.2, 0.75]
+    Customer FAQs: [0.35, 0.8]
+    Appointment Booking: [0.3, 0.65]
+    Inventory Forecasting: [0.65, 0.85]
+    Financial Reporting: [0.7, 0.7]
+    HR Screening: [0.75, 0.5]
+    Logo Design: [0.4, 0.3]`,
+        diagramCaption: "Plot your AI opportunities on this matrix. Focus first on high-impact, low-effort tasks in the top-left quadrant.",
       },
       {
         slug: "building-ai-roadmap",
@@ -548,6 +624,24 @@ Let's set up ChatGPT as your daily writing assistant — one of the highest-ROI 
 Run the full roadmap-building prompt from Step 2 above using your actual business details. Print or save the result. Share it with your cohort and get feedback before committing to it.`,
         reflection: `Looking at your 90-day roadmap, what is the one thing most likely to derail it? What is your plan for that obstacle?`,
         assignment: `Complete your 90-day AI roadmap using the step-by-step demo. Set up ChatGPT with your custom instructions. Use it every day for the next 7 days for at least one business task. At the end of 7 days, write a one-paragraph update: What worked? What did not? What will you do differently in Week 2?`,
+        diagram: `gantt
+    title 90-Day AI Implementation Roadmap
+    dateFormat  D
+    axisFormat  Day %d
+    section Days 1-30 Foundation
+    Pick & set up first tool      :a1, 1, 7d
+    Daily practice (1 task/day)   :a2, 7, 14d
+    Measure Week 1 results        :a3, 14, 7d
+    Refine prompts & settings     :a4, 21, 9d
+    section Days 31-60 First Application
+    Launch first AI workflow      :b1, 30, 10d
+    Train team on tool            :b2, 40, 10d
+    Measure time saved            :b3, 50, 10d
+    section Days 61-90 Expand
+    Add second tool               :c1, 60, 10d
+    Document what works           :c2, 70, 10d
+    Plan next 90 days             :c3, 80, 10d`,
+        diagramCaption: "Your 90-day AI roadmap broken into three phases: Foundation, First Application, and Expand.",
       },
     ],
   },
@@ -638,6 +732,20 @@ When you feed messy data to an AI tool, three things happen:
 Open your most important business spreadsheet or export. Spend exactly 10 minutes looking for the five problems listed above. Write down what you find. You do not need to fix everything today — just knowing where the problems are is the first step.`,
         reflection: `What did your data audit reveal? Were you surprised by the number of issues? What is the one data quality problem that, if fixed, would have the biggest impact on your business decisions?`,
         assignment: `Complete the 30-minute data audit on your most important business dataset. Document the five types of problems and how many instances of each you found. Fix at least one category of problem (e.g., remove all duplicates, or standardize all phone number formats). Use ChatGPT to help if needed.`,
+        diagram: `flowchart TD
+    A(["Your Raw Dataset"]) --> B["Step 1: Find Missing Values"]
+    B --> C["Step 2: Remove Duplicates"]
+    C --> D["Step 3: Standardize Formats"]
+    D --> E["Step 4: Fix Obvious Errors"]
+    E --> F["Step 5: Check Consistency"]
+    F --> G{"Data Score 8+/10?"}
+    G -->|Yes| H(["Ready for AI ✅"])
+    G -->|No| I(["Fix top issue & re-audit 🔄"])
+    I --> B
+    style A fill:#1e3a5f,color:#fff
+    style H fill:#16a34a,color:#fff
+    style I fill:#d97706,color:#fff`,
+        diagramCaption: "The 5-step data audit process. Repeat until your data scores 8 or higher before feeding it to any AI tool.",
       },
       {
         slug: "data-privacy-compliance",
@@ -726,6 +834,20 @@ List the three AI tools you use most (or plan to use). For each one:
 This takes about 15 minutes and gives you peace of mind every time you use these tools.`,
         reflection: `Were you aware of the data training settings in the AI tools you use? Did anything in this lesson change how you plan to use them? What is the one privacy practice you will implement immediately?`,
         assignment: `Complete the Privacy Audit for your top 3 AI tools. Update your settings where needed. Then create a one-page "AI Data Policy" for your business: what data is OK to use with AI tools, what is not, and what steps your team should take before using customer data with any AI tool.`,
+        diagram: `flowchart LR
+    A(["Customer Data"]) --> B{"Is it personally identifiable?"}
+    B -->|No| C["Safe to use with AI tools"]
+    B -->|Yes| D{"Do you have consent?"}
+    D -->|Yes| E{"Is the AI tool GDPR/CCPA compliant?"}
+    D -->|No| F(["Do NOT use ❌"])
+    E -->|Yes| G{"Does the tool train on your data?"}
+    E -->|No| F
+    G -->|No| C
+    G -->|Yes| H(["Anonymize first or opt out ⚠️"])
+    style C fill:#16a34a,color:#fff
+    style F fill:#dc2626,color:#fff
+    style H fill:#d97706,color:#fff`,
+        diagramCaption: "Privacy decision tree: run any customer data through this check before using it with an AI tool.",
       },
       {
         slug: "data-governance-framework",
@@ -804,6 +926,19 @@ Every piece of customer data you collect is a liability as well as an asset. If 
 Open a blank spreadsheet right now. List every type of customer data your business currently collects. Do not worry about the other columns yet — just the list. You will fill in the rest in your assignment.`,
         reflection: `Looking at your data inventory, is there any data you collect that you do not actually use? What would happen if you stopped collecting it? What would you gain (simplicity, reduced risk) and what would you lose?`,
         assignment: `Build your complete data inventory using the spreadsheet template from this lesson. Use ChatGPT to identify the top 3 privacy risks. Then draft your one-page data policy using the step-by-step demo. Share both documents with your cohort for feedback.`,
+        diagram: `flowchart TD
+    A["Data Governance Framework"] --> B["1. Data Inventory"]
+    A --> C["2. Access Controls"]
+    A --> D["3. Usage Rules"]
+    A --> E["4. Retention Policy"]
+    B --> F["What data do you have & where?"]
+    C --> G["Who can access what?"]
+    D --> H["What can AI tools do with it?"]
+    E --> I["How long do you keep it?"]
+    F & G & H & I --> J(["One-Page Data Policy ✅"])
+    style A fill:#1e3a5f,color:#fff
+    style J fill:#c8a84b,color:#1e3a5f`,
+        diagramCaption: "The four pillars of a small business data governance framework — all feeding into your one-page data policy.",
       },
     ],
   },
@@ -909,6 +1044,22 @@ Pick one AI tool you use regularly. Deliberately test it with inputs from differ
 Does the output change in ways you would not endorse? Document what you find.`,
         reflection: `Did the bias stress test reveal anything unexpected about a tool you use? How does knowing about potential bias change how you will use that tool going forward?`,
         assignment: `Complete the Bias Check Checklist for your top two AI tools. Run the bias stress test on at least one of them. Write a one-page summary of what you found and what changes you will make to how you use these tools. Share your findings with your cohort.`,
+        diagram: `flowchart TD
+    A(["AI Tool Output"]) --> B{"Bias Stress Test"}
+    B --> C["Test 1: Different demographics same question?"]
+    B --> D["Test 2: Edge cases & unusual inputs?"]
+    B --> E["Test 3: Consistent quality across groups?"]
+    C --> F{"Consistent output?"}
+    D --> F
+    E --> F
+    F -->|Yes| G(["Low bias risk ✅"])
+    F -->|No| H(["Document & mitigate ⚠️"])
+    H --> I["Add human review step"]
+    H --> J["Diversify your prompts"]
+    H --> K["Consider alternative tool"]
+    style G fill:#16a34a,color:#fff
+    style H fill:#d97706,color:#fff`,
+        diagramCaption: "The Bias Stress Test: three checks to run on any AI tool before using it for customer-facing decisions.",
       },
       {
         slug: "transparency-accountability",
@@ -977,6 +1128,19 @@ Businesses that are upfront about using AI consistently report higher customer t
 List every place in your business where AI interacts with customers. For each one, ask: "Does the customer know AI is involved?" If the answer is no, decide whether to add a disclosure. Use ChatGPT to help you draft the disclosure language.`,
         reflection: `Is there anywhere in your business where AI interacts with customers without their knowledge? How would your customers feel if they found out? What would you change?`,
         assignment: `Write your AI Transparency Statement using the step-by-step demo. Add it to your website or customer communications. Set up at least one human escalation path for your AI-assisted customer interactions. Share your transparency statement with your cohort for feedback.`,
+        diagram: `flowchart LR
+    A(["Customer Interaction"]) --> B{"Is AI involved?"}
+    B -->|No| C(["Standard response"])
+    B -->|Yes| D["Disclose AI involvement"]
+    D --> E{"Customer satisfied?"}
+    E -->|Yes| F(["Log & close ✅"])
+    E -->|No| G["Human escalation path"]
+    G --> H(["Human resolves ✅"])
+    G --> I["Document failure for improvement"]
+    style C fill:#1e3a5f,color:#fff
+    style F fill:#16a34a,color:#fff
+    style H fill:#16a34a,color:#fff`,
+        diagramCaption: "AI transparency workflow: every AI-assisted customer interaction needs a clear disclosure and a human escalation path.",
       },
       {
         slug: "ai-workforce-impact",
@@ -1042,6 +1206,23 @@ Before your next team meeting, have a brief one-on-one conversation with each te
 Listen more than you talk. The answers will tell you where to start and what concerns to address.`,
         reflection: `What is your team's biggest concern about AI? How will you address it specifically — not with generic reassurance, but with a concrete plan or example?`,
         assignment: `Run the Team AI Discovery Session with your team (or, if you work alone, do it with a trusted colleague or advisor). Document the top 3 repetitive tasks identified and the AI tools suggested. Choose one to pilot together. Write a one-paragraph summary of the session and what you learned about your team's readiness.`,
+        diagram: `flowchart TD
+    A["AI Workforce Impact"] --> B["Tasks AI Can Automate"]
+    A --> C["Tasks AI Can Augment"]
+    A --> D["Tasks Humans Must Own"]
+    B --> E["Repetitive data entry"]
+    B --> F["Scheduling & reminders"]
+    B --> G["Standard email replies"]
+    C --> H["Customer conversations"]
+    C --> I["Content creation"]
+    C --> J["Data analysis"]
+    D --> K["Relationship building"]
+    D --> L["Strategic decisions"]
+    D --> M["Creative problem-solving"]
+    style B fill:#16a34a,color:#fff
+    style C fill:#1e3a5f,color:#fff
+    style D fill:#c8a84b,color:#1e3a5f`,
+        diagramCaption: "Three categories of work: what AI automates, what it augments, and what humans must always own.",
       },
       {
         slug: "ai-ethics-committee",
@@ -1101,6 +1282,21 @@ Regardless of your business type, these five rules should be in every small busi
 Open ChatGPT and run the policy-building prompt from Step 1 above using your actual business details. Save the output. You do not need to finalize it today — but having a first draft is the most important step.`,
         reflection: `What is the most important "red line" for your specific business — the thing you would never want AI to do, no matter how efficient it might be? What would the consequences be if that line were crossed?`,
         assignment: `Build your complete AI Ethics Policy using the step-by-step demo. Share it with your team and get their input. Finalize the policy and save it somewhere accessible to everyone. Bring it to the next cohort session for peer review.`,
+        diagram: `flowchart TD
+    A["AI Ethics Policy"] --> B["1. Acceptable Use"]
+    A --> C["2. Data Handling"]
+    A --> D["3. Human Oversight"]
+    A --> E["4. Transparency"]
+    A --> F["5. Incident Response"]
+    B --> G["What tools are approved?"]
+    C --> H["What data can AI use?"]
+    D --> I["When must a human review?"]
+    E --> J["When do we tell customers?"]
+    F --> K["What do we do when AI fails?"]
+    G & H & I & J & K --> L(["Living Policy Document ✅"])
+    style A fill:#1e3a5f,color:#fff
+    style L fill:#c8a84b,color:#1e3a5f`,
+        diagramCaption: "The five sections of a small business AI Ethics Policy — each answering one practical question your team will face.",
       },
     ],
   },
@@ -1189,6 +1385,20 @@ The research on habit formation is clear: new behaviors stick when they are tied
 Write down one specific AI action you will take every day this week. Be specific: not "use AI more" but "use ChatGPT to draft my daily customer follow-up email before I write it myself." Share your commitment with your cohort for accountability.`,
         reflection: `Which stage of AI adoption are you currently in — Experimentation, Integration, or Optimization? What is the one thing holding you back from moving to the next stage?`,
         assignment: `Build your AI Adoption Tracker using the step-by-step demo. Add all current and planned tools. Set up your 30-Day AI Habit using the routine-attachment method. Check in with your cohort at the end of Week 1 with a progress update.`,
+        diagram: `flowchart LR
+    A(["Announce AI initiative"]) --> B["Address the fear directly"]
+    B --> C["Show a quick win demo"]
+    C --> D["Invite team participation"]
+    D --> E["Pilot with one volunteer"]
+    E --> F["Share results with team"]
+    F --> G{"Team buy-in achieved?"}
+    G -->|Yes| H(["Scale to full team ✅"])
+    G -->|No| I(["Address specific objections"])
+    I --> D
+    style A fill:#1e3a5f,color:#fff
+    style H fill:#16a34a,color:#fff
+    style I fill:#d97706,color:#fff`,
+        diagramCaption: "The AI change management cycle: start with a quick win, invite participation, pilot with a volunteer, then scale.",
       },
       {
         slug: "building-ai-talent",
@@ -1271,6 +1481,19 @@ What surprised you? What will you use this week?
 Give your team (or yourself) this challenge: Find one task you do this week and write a CCAT prompt for it. Compare the AI output to what you would have produced without AI. Share the best examples at your next team meeting.`,
         reflection: `Which of your team members do you think will adapt to AI tools most quickly? Which will need the most support? What specific support will you provide to the person who needs it most?`,
         assignment: `Run the Team Prompt Workshop with your team (adapt it for a solo session if you work alone). Document the best prompts your team creates. Assign each team member one AI tool to learn and use for one week. Reconvene to share what they learned.`,
+        diagram: `flowchart TD
+    A["CCAT Prompt Formula"] --> B["C — Context"]
+    A --> C["C — Command"]
+    A --> D["A — Audience"]
+    A --> E["T — Tone"]
+    B --> F["Who you are & your business"]
+    C --> G["What you want the AI to do"]
+    D --> H["Who will read the output"]
+    E --> I["How it should sound"]
+    F & G & H & I --> J(["High-quality, on-brand output ✅"])
+    style A fill:#1e3a5f,color:#fff
+    style J fill:#c8a84b,color:#1e3a5f`,
+        diagramCaption: "The CCAT Prompt Formula: Context + Command + Audience + Tone = consistently great AI outputs for your business.",
       },
       {
         slug: "future-proofing",
@@ -1340,6 +1563,24 @@ Regardless of how AI evolves, one investment always pays off: **organizing your 
 Open ChatGPT and ask it to help you write a one-paragraph vision for your business in 3 years — what it looks like, how AI is integrated, and what you are able to do that you cannot do today. Use this vision to motivate your near-term AI investments.`,
         reflection: `What is the biggest threat AI poses to your business in the next 3 years? What is the biggest opportunity? Are you more focused on the threat or the opportunity right now — and is that the right balance?`,
         assignment: `Complete the Scenario Planning exercise using your actual business type. Identify your AI moat and write a one-paragraph plan for building it. Add your top 3 future-proofing actions to your 90-day roadmap. Share your 3-year AI vision with your cohort.`,
+        diagram: `flowchart TD
+    A["Future-Proofing Strategy"] --> B["1. Build Your AI Moat"]
+    A --> C["2. Develop Human Skills"]
+    A --> D["3. Stay Current"]
+    B --> E["Deep customer relationships"]
+    B --> F["Local knowledge & trust"]
+    B --> G["Proprietary data & processes"]
+    C --> H["Judgment & creativity"]
+    C --> I["Empathy & communication"]
+    C --> J["Strategic thinking"]
+    D --> K["Monthly tool review"]
+    D --> L["Industry AI news"]
+    D --> M["Peer learning network"]
+    style A fill:#1e3a5f,color:#fff
+    style B fill:#16a34a,color:#fff
+    style C fill:#c8a84b,color:#1e3a5f
+    style D fill:#1e3a5f,color:#fff`,
+        diagramCaption: "Three pillars of future-proofing: your AI moat (what competitors can't copy), human skills, and staying current.",
       },
       {
         slug: "ai-augmented-leadership",
@@ -1414,6 +1655,18 @@ Three principles for sustainable AI-augmented leadership:
 Write down three specific ways you will use AI differently as a leader starting this week. Be specific: not "use AI more" but "use ChatGPT to think through one business decision before I make it" or "use Otter.ai to transcribe and summarize every team meeting." Share your commitments with your cohort.`,
         reflection: `What is the most important leadership decision you have made in the last month? How could AI have helped you think through it more clearly? Would you have made the same decision?`,
         assignment: `Use the Thinking Partner demo to work through a real current business decision. Document the process: what question you asked, what the AI surfaced, and what you decided. Build your Personal AI Toolkit with at least 5 saved prompts. Share your toolkit with your cohort.`,
+        diagram: `flowchart LR
+    A(["Business Decision"]) --> B["Frame the question clearly"]
+    B --> C["Ask AI to surface options"]
+    C --> D["Ask AI to challenge each option"]
+    D --> E["Ask AI for blind spots"]
+    E --> F["You weigh the options"]
+    F --> G["You make the final call"]
+    G --> H(["Document the decision & rationale"])
+    style A fill:#1e3a5f,color:#fff
+    style G fill:#c8a84b,color:#1e3a5f
+    style H fill:#16a34a,color:#fff`,
+        diagramCaption: "AI as Thinking Partner: AI surfaces options and challenges, but you always make the final decision.",
       },
     ],
   },
@@ -1500,6 +1753,17 @@ These three questions, answered consistently, will improve your business decisio
 Export or copy 30 days of sales data from your business. Upload it to ChatGPT or paste it in. Ask the four questions from Step 4 above. Write down the top 3 insights and one decision you will make differently as a result.`,
         reflection: `What did the AI find in your data that you did not already know? How does it change what you will focus on this month? What data do you wish you had been collecting that you have not been?`,
         assignment: `Complete a full AI analysis of your last 3 months of sales data using ChatGPT or Google Sheets + Gemini. Document the top 5 insights. Make one concrete business decision based on the data — a product to promote, a service to drop, a day to run a promotion. Track the result over the next 30 days.`,
+        diagram: `flowchart LR
+    A(["Export your sales data"]) --> B["Paste into ChatGPT or Sheets"]
+    B --> C["Ask: What are my top 5 insights?"]
+    C --> D["Ask: What should I do differently?"]
+    D --> E["Ask: What is my biggest opportunity?"]
+    E --> F["Pick ONE action to take"]
+    F --> G["Implement & track for 30 days"]
+    G --> H(["Measure the result ✅"])
+    style A fill:#1e3a5f,color:#fff
+    style H fill:#16a34a,color:#fff`,
+        diagramCaption: "The AI data analysis workflow: from raw export to one concrete business action in under 30 minutes.",
       },
       {
         slug: "ai-for-productivity",
@@ -1593,6 +1857,21 @@ The fastest ROI from AI for most small businesses comes from daily operational t
 Choose the one workflow from this lesson that would save you the most time. Set it up today — not next week, today. The setup takes 15–30 minutes. The time savings start immediately.`,
         reflection: `Which of the five workflows would have the biggest impact on your week? What is the one thing stopping you from setting it up right now?`,
         assignment: `Implement all five workflows over the next two weeks — one every 2–3 days. Track the time saved for each one. At the end of two weeks, calculate your total weekly time savings. Share your results with your cohort.`,
+        diagram: `flowchart TD
+    A["5 AI Productivity Workflows"] --> B["1. Email Triage"]
+    A --> C["2. Meeting Notes"]
+    A --> D["3. Content Repurposing"]
+    A --> E["4. Customer FAQ"]
+    A --> F["5. Weekly Report"]
+    B --> G["Save: 45 min/week"]
+    C --> H["Save: 30 min/meeting"]
+    D --> I["Save: 2 hrs/week"]
+    E --> J["Save: 1 hr/week"]
+    F --> K["Save: 1 hr/week"]
+    G & H & I & J & K --> L(["Total: 5+ hrs saved per week ✅"])
+    style A fill:#1e3a5f,color:#fff
+    style L fill:#c8a84b,color:#1e3a5f`,
+        diagramCaption: "Five AI productivity workflows and their estimated weekly time savings for a typical small business.",
       },
       {
         slug: "ai-for-marketing",
@@ -1676,6 +1955,20 @@ Understanding your best customers is the foundation of effective marketing. AI c
 Use the customer persona demo to build your persona right now. Then use it to write one social media post for this week. Compare it to your usual posts — does it feel more targeted? More compelling?`,
         reflection: `Looking at your current marketing, where is the biggest gap between what you are doing and what your customer persona actually wants to see? How would AI help you close that gap?`,
         assignment: `Build your customer persona using ChatGPT. Create a 4-week content plan with actual copy for each piece. Set up one email campaign in Mailchimp or Klaviyo using AI-generated content. Measure the results and bring your analysis to the next cohort session.`,
+        diagram: `flowchart TD
+    A(["Know Your Customer"]) --> B["Build AI Customer Persona"]
+    B --> C["Generate 4-Week Content Plan"]
+    C --> D["Write Social Posts with AI"]
+    C --> E["Write Email Campaign with AI"]
+    C --> F["Write Blog/SEO Content with AI"]
+    D --> G["Schedule with Buffer"]
+    E --> H["Send with Mailchimp"]
+    F --> I["Publish on website"]
+    G & H & I --> J["Track: Opens, clicks, engagement"]
+    J --> K(["Refine & repeat next month ✅"])
+    style A fill:#1e3a5f,color:#fff
+    style K fill:#16a34a,color:#fff`,
+        diagramCaption: "The AI marketing flywheel: persona → content plan → multi-channel execution → measure → refine.",
       },
       {
         slug: "ai-implementation-plan",
@@ -1770,6 +2063,19 @@ You have completed AI Literacy & Application for Small Business. You now have th
 Go build something great.`,
         reflection: `What is the one thing you have learned in this course that you are most excited to apply? What is the one thing most likely to get in the way? How specifically will you address that obstacle?`,
         assignment: `Complete your full 90-Day AI Implementation Plan using the step-by-step demo. Complete all four First 24 Hours actions today. Share your plan and your 30-day commitment with your cohort. Schedule your 30-day check-in on your calendar right now.`,
+        diagram: `flowchart TD
+    A(["Course Complete 🎉"]) --> B["First 24 Hours"]
+    B --> C["Pick your #1 tool"]
+    B --> D["Set up ChatGPT custom instructions"]
+    B --> E["Complete your data audit"]
+    B --> F["Share plan with cohort"]
+    C & D & E & F --> G["Days 1-30: Foundation"]
+    G --> H["Days 31-60: First Application"]
+    H --> I["Days 61-90: Expand & Measure"]
+    I --> J(["Review & plan next 90 days 🔄"])
+    style A fill:#c8a84b,color:#1e3a5f
+    style J fill:#16a34a,color:#fff`,
+        diagramCaption: "Your AI implementation journey starts today. The first 24 hours set the momentum for the entire 90-day plan.",
       },
     ],
   },

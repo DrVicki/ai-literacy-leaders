@@ -12,6 +12,7 @@ import {
   BookOpen, ChevronLeft, ChevronRight, CheckCircle2, Circle,
 } from "lucide-react";
 import { BookmarkCheck, Pencil } from "lucide-react";
+import { MermaidDiagram } from "@/components/MermaidDiagram";
 
 export default function LessonPage() {
   const { isAuthenticated, loading: authLoading } = useAuth();
@@ -173,6 +174,13 @@ export default function LessonPage() {
         <div className="prose prose-slate max-w-none lesson-content">
           <Streamdown>{lesson.content}</Streamdown>
         </div>
+
+        {/* Visualization Diagram */}
+        {lesson.diagram && (
+          <div className="mt-10">
+            <MermaidDiagram chart={lesson.diagram} caption={lesson.diagramCaption ?? undefined} />
+          </div>
+        )}
 
         {/* Reflection & Assignment */}
         {(lesson.reflection || lesson.assignment) && (

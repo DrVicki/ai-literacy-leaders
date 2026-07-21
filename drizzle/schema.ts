@@ -50,6 +50,10 @@ export const lessons = mysqlTable(
     lessonOrder: int("lessonOrder").notNull(),
     title: varchar("title", { length: 255 }).notNull(),
     content: text("content"),
+    reflection: text("reflection"),
+    assignment: text("assignment"),
+    diagram: text("diagram"),
+    diagramCaption: varchar("diagramCaption", { length: 512 }),
   },
   (table) => [uniqueIndex("lessons_module_lesson_unique").on(table.moduleSlug, table.lessonSlug)]
 );

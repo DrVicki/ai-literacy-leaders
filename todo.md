@@ -134,15 +134,15 @@
 
 ## In-Lesson Visualizations (Round 8)
 
-- [ ] Audit LessonPage component to understand content rendering pipeline
-- [ ] Install and wire mermaid.js for in-browser diagram rendering
-- [ ] Build LessonVisual component (renders Mermaid diagrams with caption)
-- [ ] Add visualization field to LessonData interface in courseData.ts
-- [ ] Add Mermaid diagram definitions for all 22 lessons
-- [ ] Wire LessonVisual into LessonPage between content sections
-- [ ] Re-seed lesson visualizations into the database
-- [ ] Verify diagrams render correctly in the app
-- [ ] Save checkpoint
+- [x] Audit LessonPage component to understand content rendering pipeline
+- [x] Install and wire mermaid.js for in-browser diagram rendering
+- [x] Build LessonVisual component (renders Mermaid diagrams with caption)
+- [x] Add visualization field to LessonData interface in courseData.ts
+- [x] Add Mermaid diagram definitions for all 22 lessons
+- [x] Wire LessonVisual into LessonPage between content sections
+- [x] Re-seed lesson visualizations into the database
+- [x] Verify diagrams render correctly in the app
+- [x] Save checkpoint
 
 ## Reset Course Progress (Round 9)
 
