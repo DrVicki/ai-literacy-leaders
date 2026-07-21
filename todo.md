@@ -131,3 +131,23 @@
 - [x] Rewrite Module 6 (4 lessons): deeper step-by-step tool walkthroughs
 - [x] Re-seed all updated lesson content into the database
 - [x] Verify all 22 lessons display updated content in the app
+
+## In-Lesson Visualizations (Round 8)
+
+- [ ] Audit LessonPage component to understand content rendering pipeline
+- [ ] Install and wire mermaid.js for in-browser diagram rendering
+- [ ] Build LessonVisual component (renders Mermaid diagrams with caption)
+- [ ] Add visualization field to LessonData interface in courseData.ts
+- [ ] Add Mermaid diagram definitions for all 22 lessons
+- [ ] Wire LessonVisual into LessonPage between content sections
+- [ ] Re-seed lesson visualizations into the database
+- [ ] Verify diagrams render correctly in the app
+- [ ] Save checkpoint
+
+## Reset Course Progress (Round 9)
+
+- [x] Add progress.reset tRPC mutation (deletes all lesson_progress rows for current user)
+- [x] Add confirmation dialog on Dashboard with reset button
+- [x] Invalidate progress and certificate queries after reset
+- [x] Test reset flow end-to-end
+- [x] Save checkpoint

@@ -11,6 +11,7 @@ vi.mock("./db", () => ({
   getUserProgress: vi.fn().mockResolvedValue([]),
   markLessonComplete: vi.fn(),
   unmarkLessonComplete: vi.fn(),
+  deleteAllUserProgress: vi.fn(),
   getAllEnrollmentsWithUsers: vi.fn().mockResolvedValue([]),
   getEnrollmentStats: vi.fn().mockResolvedValue({ totalEnrolled: 0, totalRevenueCents: 0 }),
   getUserProgressForAdmin: vi.fn().mockResolvedValue(0),
@@ -67,6 +68,7 @@ import {
   getUserProgress,
   markLessonComplete,
   unmarkLessonComplete,
+  deleteAllUserProgress,
 } from "./db";
 
 function createUserCtx(role: "user" | "admin" = "user"): TrpcContext {
@@ -230,6 +232,16 @@ describe("progress.toggleLesson", () => {
     });
     expect(result.success).toBe(true);
     expect(unmarkLessonComplete).toHaveBeenCalledWith(1, 42);
+  });
+});
+
+describe("progress.reset", () => {
+  it("deletes all progress for the current user", async () => {
+    vi.mocked(deleteAllUserProgress).mockResolvedValue(undefined);
+    const caller = appRouter.createCaller(createUserCtx());
+    const result = await caller.progress.reset();
+    expect(result.success).toBe(true);
+    expect(deleteAllUserProgress).toHaveBeenCalledWith(1);
   });
 });
 

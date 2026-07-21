@@ -6,6 +6,8 @@ export interface LessonData {
   content: string;
   reflection?: string;   // Reflection prompt for the learner
   assignment?: string;  // Real-world action assignment
+  diagram?: string;    // Mermaid diagram definition for the lesson visual
+  diagramCaption?: string; // Caption for the diagram
 }
 
 export interface ModuleData {

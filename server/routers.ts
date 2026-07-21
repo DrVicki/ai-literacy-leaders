@@ -18,6 +18,7 @@ import {
   markEmailSent,
   markLessonComplete,
   unmarkLessonComplete,
+  deleteAllUserProgress,
   upsertLesson,
   getCertificateByUserId,
   createCertificate,
@@ -223,6 +224,11 @@ export const appRouter = router({
         percentage: Math.round((completedIds.size / TOTAL_LESSONS) * 100),
         moduleProgress,
       };
+    }),
+
+    reset: protectedProcedure.mutation(async ({ ctx }) => {
+      await deleteAllUserProgress(ctx.user.id);
+      return { success: true };
     }),
 
     toggleLesson: protectedProcedure

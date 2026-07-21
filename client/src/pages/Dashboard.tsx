@@ -7,10 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  BookOpen, Cpu, Database, Rocket, Scale, Target,
-  CheckCircle2, Lock, ChevronRight, LogOut, Award, MessageSquare,
+import { BookOpen, Cpu, Database, Rocket, Scale, Target,
+  CheckCircle2, Lock, ChevronRight, LogOut, Award, MessageSquare, RotateCcw,
 } from "lucide-react";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import ProgressTracker from "@/components/ProgressTracker";
 import { toast } from "sonner";
 
@@ -63,6 +66,17 @@ export default function Dashboard() {
     () => new Map((commentCounts ?? []).map((c) => [c.slug, c.count])),
     [commentCounts]
   );
+
+  const utils = trpc.useUtils();
+
+  const resetProgress = trpc.progress.reset.useMutation({
+    onSuccess: () => {
+      utils.progress.get.invalidate();
+      utils.certificate.get.invalidate();
+      toast.success("Course progress has been reset. You can start fresh!");
+    },
+    onError: () => toast.error("Failed to reset progress. Please try again."),
+  });
 
   const freeEnroll = trpc.enrollment.freeEnroll.useMutation({
     onSuccess: (data) => { navigate(data.redirectTo); },
@@ -153,12 +167,44 @@ export default function Dashboard() {
                 Welcome back{user?.name ? `, ${user.name.split(" ")[0]}` : ""}
               </h1>
             </div>
-            {progress && progress.percentage === 100 && (
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-amber-50 border border-amber-200">
-                <Award className="w-4 h-4 text-amber-600" />
-                <span className="text-sm font-medium text-amber-700">Course Complete!</span>
-              </div>
-            )}
+            <div className="flex items-center gap-2">
+              {progress && progress.percentage === 100 && (
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-amber-50 border border-amber-200">
+                  <Award className="w-4 h-4 text-amber-600" />
+                  <span className="text-sm font-medium text-amber-700">Course Complete!</span>
+                </div>
+              )}
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="gap-1.5 text-muted-foreground hover:text-destructive hover:border-destructive transition-colors"
+                    disabled={resetProgress.isPending}
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    Reset Progress
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Reset Course Progress?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This will clear all your completed lessons and reset your progress to 0%. Your account and enrollment will remain active — only your lesson completion history will be removed. This action cannot be undone.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={() => resetProgress.mutate()}
+                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                    >
+                      Yes, Reset My Progress
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
           </div>
 
           {/* Certificate banner */}

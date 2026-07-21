@@ -179,6 +179,12 @@ export async function unmarkLessonComplete(userId: number, lessonId: number): Pr
     .where(and(eq(lessonProgress.userId, userId), eq(lessonProgress.lessonId, lessonId)));
 }
 
+export async function deleteAllUserProgress(userId: number): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+  await db.delete(lessonProgress).where(eq(lessonProgress.userId, userId));
+}
+
 export async function getUserProgress(userId: number) {
   const db = await getDb();
   if (!db) return [];
