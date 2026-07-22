@@ -159,3 +159,15 @@
 - [x] Add PNG download button to each diagram (converts SVG to canvas to PNG)
 - [x] Ensure download filename reflects the lesson title
 - [x] Save checkpoint
+
+## Walkthrough Audio & Customize Panel (Round 12)
+
+- [x] Generate TTS narration audio for all 22 lessons (Option B — AI voice narration over branded slide)
+- [x] Upload all 22 audio files to CDN
+- [x] Add audioUrl field to LessonData interface, schema (audioUrl column), and seed
+- [x] Build DemoAudioPlayer component (branded slide background, play/pause/seek/volume controls)
+- [x] Build CustomizeWithAI instruction panel (3-step guide, Copy Prompt, Open ChatGPT/Claude/Mermaid Live buttons)
+- [x] Wire DemoAudioPlayer above diagram in LessonPage
+- [x] Wire CustomizeWithAI below diagram in LessonPage
+- [x] Re-seed all 22 lessons with audioUrl data
+- [x] Run tests and save checkpoint

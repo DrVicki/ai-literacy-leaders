@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import { BookmarkCheck, Pencil } from "lucide-react";
 import { MermaidDiagram } from "@/components/MermaidDiagram";
+import { DemoAudioPlayer } from "@/components/DemoAudioPlayer";
+import { CustomizeWithAI } from "@/components/CustomizeWithAI";
 
 export default function LessonPage() {
   const { isAuthenticated, loading: authLoading } = useAuth();
@@ -175,12 +177,35 @@ export default function LessonPage() {
           <Streamdown>{lesson.content}</Streamdown>
         </div>
 
+        {/* Demo Audio Walkthrough */}
+        {lesson.audioUrl && (
+          <div className="mt-10">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Demo Walkthrough</span>
+              <div className="flex-1 border-t border-border" />
+            </div>
+            <DemoAudioPlayer
+              audioUrl={lesson.audioUrl}
+              lessonTitle={lesson.title}
+              moduleTitle={mod?.title}
+            />
+          </div>
+        )}
+
         {/* Visualization Diagram */}
         {lesson.diagram && (
           <div className="mt-10">
             <MermaidDiagram chart={lesson.diagram} caption={lesson.diagramCaption ?? undefined} title={lesson.title} />
           </div>
         )}
+
+        {/* Customize with AI panel */}
+        <div className="mt-6">
+          <CustomizeWithAI
+            diagramCode={lesson.diagram ?? undefined}
+            lessonTitle={lesson.title}
+          />
+        </div>
 
         {/* Reflection & Assignment */}
         {(lesson.reflection || lesson.assignment) && (

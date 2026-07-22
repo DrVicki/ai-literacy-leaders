@@ -157,6 +157,7 @@ export async function upsertLesson(data: {
   assignment?: string;
   diagram?: string;
   diagramCaption?: string;
+  audioUrl?: string;
 }): Promise<void> {
   const db = await getDb();
   if (!db) return;
@@ -171,6 +172,7 @@ export async function upsertLesson(data: {
         assignment: data.assignment ?? null,
         diagram: data.diagram ?? null,
         diagramCaption: data.diagramCaption ?? null,
+        audioUrl: data.audioUrl ?? null,
       },
     });
 }

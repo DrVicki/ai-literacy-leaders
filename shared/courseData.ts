@@ -8,6 +8,7 @@ export interface LessonData {
   assignment?: string;  // Real-world action assignment
   diagram?: string;    // Mermaid diagram definition for the lesson visual
   diagramCaption?: string; // Caption for the diagram
+  audioUrl?: string;   // URL to the AI-narrated demo walkthrough audio
 }
 
 export interface ModuleData {
@@ -109,6 +110,7 @@ Before moving on, three important limits to understand:
     style A fill:#1e3a5f,color:#fff
     style E fill:#c8a84b,color:#1e3a5f`,
         diagramCaption: "How AI works: your prompt triggers pattern-matching in training data to generate a response — then you refine it.",
+        audioUrl: "/manus-storage/m1-l1-what-is-ai_f5800718.wav",
       },
       {
         slug: "ml-vs-generative-ai",
@@ -198,6 +200,7 @@ Before your next lesson, spend 10 minutes listing every digital tool you use in 
     Image Generation: [0.3, 0.5]
     Voice Transcription: [0.2, 0.6]`,
         diagramCaption: "Predictive vs Generative AI use cases mapped by effort and impact for small businesses.",
+        audioUrl: "/manus-storage/m1-l2-ml-vs-generative-ai_ba22a01c.wav",
       },
       {
         slug: "ai-hype-vs-reality",
@@ -279,6 +282,7 @@ Use the 4-Question Reality Check on the response.
     style H fill:#16a34a,color:#fff
     style I fill:#d97706,color:#fff`,
         diagramCaption: "The 4-Question Reality Check: apply this to any AI vendor claim before committing to a trial.",
+        audioUrl: "/manus-storage/m1-l3-ai-hype-vs-reality_ca26515b.wav",
       },
       {
         slug: "evaluating-ai-vendors",
@@ -356,6 +360,7 @@ Pick one AI tool you have been curious about. Run the full 20-minute evaluation 
     style G fill:#16a34a,color:#fff
     style H fill:#dc2626,color:#fff`,
         diagramCaption: "The 20-Minute AI Tool Evaluation: a repeatable framework for any AI tool decision.",
+        audioUrl: "/manus-storage/m1-l4-evaluating-ai-vendors_950c040a.wav",
       },
     ],
   },
@@ -449,6 +454,7 @@ The most organized dataset is where you should start with AI.`,
     bar [3, 2, 4, 3]
     line [5, 5, 5, 5]`,
         diagramCaption: "Rate yourself 0–5 on each dimension. The gap between your score (bar) and the maximum (line) shows where to focus first.",
+        audioUrl: "/manus-storage/m2-l5-ai-readiness-framework_4087a565.wav",
       },
       {
         slug: "identifying-use-cases",
@@ -542,6 +548,7 @@ Use this as your starting point for building your personal AI roadmap in the nex
     HR Screening: [0.75, 0.5]
     Logo Design: [0.4, 0.3]`,
         diagramCaption: "Plot your AI opportunities on this matrix. Focus first on high-impact, low-effort tasks in the top-left quadrant.",
+        audioUrl: "/manus-storage/m2-l6-identifying-use-cases_0f8d61f0.wav",
       },
       {
         slug: "building-ai-roadmap",
@@ -642,6 +649,7 @@ Run the full roadmap-building prompt from Step 2 above using your actual busines
     Document what works           :c2, 70, 10d
     Plan next 90 days             :c3, 80, 10d`,
         diagramCaption: "Your 90-day AI roadmap broken into three phases: Foundation, First Application, and Expand.",
+        audioUrl: "/manus-storage/m2-l7-building-ai-roadmap_8a5a7f56.wav",
       },
     ],
   },
@@ -746,6 +754,7 @@ Open your most important business spreadsheet or export. Spend exactly 10 minute
     style H fill:#16a34a,color:#fff
     style I fill:#d97706,color:#fff`,
         diagramCaption: "The 5-step data audit process. Repeat until your data scores 8 or higher before feeding it to any AI tool.",
+        audioUrl: "/manus-storage/m3-l8-data-quality_b18c953d.wav",
       },
       {
         slug: "data-privacy-compliance",
@@ -848,6 +857,7 @@ This takes about 15 minutes and gives you peace of mind every time you use these
     style F fill:#dc2626,color:#fff
     style H fill:#d97706,color:#fff`,
         diagramCaption: "Privacy decision tree: run any customer data through this check before using it with an AI tool.",
+        audioUrl: "/manus-storage/m3-l9-data-privacy_084ec341.wav",
       },
       {
         slug: "data-governance-framework",
@@ -939,6 +949,7 @@ Open a blank spreadsheet right now. List every type of customer data your busine
     style A fill:#1e3a5f,color:#fff
     style J fill:#c8a84b,color:#1e3a5f`,
         diagramCaption: "The four pillars of a small business data governance framework — all feeding into your one-page data policy.",
+        audioUrl: "/manus-storage/m3-l10-data-governance_35d2c7c2.wav",
       },
     ],
   },
@@ -1060,6 +1071,7 @@ Does the output change in ways you would not endorse? Document what you find.`,
     style G fill:#16a34a,color:#fff
     style H fill:#d97706,color:#fff`,
         diagramCaption: "The Bias Stress Test: three checks to run on any AI tool before using it for customer-facing decisions.",
+        audioUrl: "/manus-storage/m4-l11-algorithmic-bias_fe478b0a.wav",
       },
       {
         slug: "transparency-accountability",
@@ -1141,6 +1153,7 @@ List every place in your business where AI interacts with customers. For each on
     style F fill:#16a34a,color:#fff
     style H fill:#16a34a,color:#fff`,
         diagramCaption: "AI transparency workflow: every AI-assisted customer interaction needs a clear disclosure and a human escalation path.",
+        audioUrl: "/manus-storage/m4-l12-transparency_f3cccfd1.wav",
       },
       {
         slug: "ai-workforce-impact",
@@ -1223,6 +1236,7 @@ Listen more than you talk. The answers will tell you where to start and what con
     style C fill:#1e3a5f,color:#fff
     style D fill:#c8a84b,color:#1e3a5f`,
         diagramCaption: "Three categories of work: what AI automates, what it augments, and what humans must always own.",
+        audioUrl: "/manus-storage/m4-l13-workforce-impact_063629bc.wav",
       },
       {
         slug: "ai-ethics-committee",
@@ -1297,6 +1311,7 @@ Open ChatGPT and run the policy-building prompt from Step 1 above using your act
     style A fill:#1e3a5f,color:#fff
     style L fill:#c8a84b,color:#1e3a5f`,
         diagramCaption: "The five sections of a small business AI Ethics Policy — each answering one practical question your team will face.",
+        audioUrl: "/manus-storage/m4-l14-ethics-committee_def50264.wav",
       },
     ],
   },
@@ -1399,6 +1414,7 @@ Write down one specific AI action you will take every day this week. Be specific
     style H fill:#16a34a,color:#fff
     style I fill:#d97706,color:#fff`,
         diagramCaption: "The AI change management cycle: start with a quick win, invite participation, pilot with a volunteer, then scale.",
+        audioUrl: "/manus-storage/m5-l15-change-management_f22c0baa.wav",
       },
       {
         slug: "building-ai-talent",
@@ -1494,6 +1510,7 @@ Give your team (or yourself) this challenge: Find one task you do this week and 
     style A fill:#1e3a5f,color:#fff
     style J fill:#c8a84b,color:#1e3a5f`,
         diagramCaption: "The CCAT Prompt Formula: Context + Command + Audience + Tone = consistently great AI outputs for your business.",
+        audioUrl: "/manus-storage/m5-l16-building-ai-talent_7cf77517.wav",
       },
       {
         slug: "future-proofing",
@@ -1581,6 +1598,7 @@ Open ChatGPT and ask it to help you write a one-paragraph vision for your busine
     style C fill:#c8a84b,color:#1e3a5f
     style D fill:#1e3a5f,color:#fff`,
         diagramCaption: "Three pillars of future-proofing: your AI moat (what competitors can't copy), human skills, and staying current.",
+        audioUrl: "/manus-storage/m5-l17-future-proofing_c28b5173.wav",
       },
       {
         slug: "ai-augmented-leadership",
@@ -1667,6 +1685,7 @@ Write down three specific ways you will use AI differently as a leader starting 
     style G fill:#c8a84b,color:#1e3a5f
     style H fill:#16a34a,color:#fff`,
         diagramCaption: "AI as Thinking Partner: AI surfaces options and challenges, but you always make the final decision.",
+        audioUrl: "/manus-storage/m5-l18-ai-augmented-leadership_0aef683c.wav",
       },
     ],
   },
@@ -1764,6 +1783,7 @@ Export or copy 30 days of sales data from your business. Upload it to ChatGPT or
     style A fill:#1e3a5f,color:#fff
     style H fill:#16a34a,color:#fff`,
         diagramCaption: "The AI data analysis workflow: from raw export to one concrete business action in under 30 minutes.",
+        audioUrl: "/manus-storage/m6-l19-ai-data-analysis_bc0c518e.wav",
       },
       {
         slug: "ai-for-productivity",
@@ -1872,6 +1892,7 @@ Choose the one workflow from this lesson that would save you the most time. Set 
     style A fill:#1e3a5f,color:#fff
     style L fill:#c8a84b,color:#1e3a5f`,
         diagramCaption: "Five AI productivity workflows and their estimated weekly time savings for a typical small business.",
+        audioUrl: "/manus-storage/m6-l20-ai-productivity_7e0b156a.wav",
       },
       {
         slug: "ai-for-marketing",
@@ -1969,6 +1990,7 @@ Use the customer persona demo to build your persona right now. Then use it to wr
     style A fill:#1e3a5f,color:#fff
     style K fill:#16a34a,color:#fff`,
         diagramCaption: "The AI marketing flywheel: persona → content plan → multi-channel execution → measure → refine.",
+        audioUrl: "/manus-storage/m6-l21-ai-marketing_a8e90e1b.wav",
       },
       {
         slug: "ai-implementation-plan",
@@ -2076,6 +2098,7 @@ Go build something great.`,
     style A fill:#c8a84b,color:#1e3a5f
     style J fill:#16a34a,color:#fff`,
         diagramCaption: "Your AI implementation journey starts today. The first 24 hours set the momentum for the entire 90-day plan.",
+        audioUrl: "/manus-storage/m6-l22-ai-implementation-plan_5a478bfb.wav",
       },
     ],
   },

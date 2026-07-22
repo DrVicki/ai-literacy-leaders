@@ -76,6 +76,7 @@ async function seedLessonsIfNeeded() {
         assignment: lesson.assignment,
         diagram: lesson.diagram,
         diagramCaption: lesson.diagramCaption,
+        audioUrl: lesson.audioUrl,
       });
     }
   }

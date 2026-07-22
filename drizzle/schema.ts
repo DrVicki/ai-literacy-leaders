@@ -54,6 +54,7 @@ export const lessons = mysqlTable(
     assignment: text("assignment"),
     diagram: text("diagram"),
     diagramCaption: varchar("diagramCaption", { length: 512 }),
+    audioUrl: text("audioUrl"),
   },
   (table) => [uniqueIndex("lessons_module_lesson_unique").on(table.moduleSlug, table.lessonSlug)]
 );

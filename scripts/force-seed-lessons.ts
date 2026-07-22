@@ -27,6 +27,7 @@ async function main() {
         assignment: lesson.assignment,
         diagram: lesson.diagram,
         diagramCaption: lesson.diagramCaption,
+        audioUrl: lesson.audioUrl,
       });
       if (isNew) {
         inserted++;
