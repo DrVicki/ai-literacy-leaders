@@ -181,3 +181,17 @@
 - [x] Fix stripeWebhook.ts: replace "5 modules" with dynamic value
 - [x] Fix Dashboard.tsx: "all 5 modules" text
 - [x] Run tests and save checkpoint
+
+## Certificate ID & Verification (Round 14)
+
+- [x] Fix ProgressTracker: per-module bars showed 0/N because moduleProgress was cast as Record instead of array.find()
+- [x] Add `certificateId` varchar(32) column to certificates table + unique index migration
+- [x] Add generateCertificateId() helper (format: AILLSB-YYYY-XXXXXX) to certificate.ts
+- [x] Update generateCertificatePdf() to embed certificateId and completion date in PDF
+- [x] Update createCertificate() in db.ts to accept and store certificateId
+- [x] Add getUserById() helper to db.ts
+- [x] Add getCertificateByPublicId() helper to db.ts
+- [x] Add public certificate.verify tRPC procedure (no auth required)
+- [x] Create VerifyCertificatePage at /verify/:certificateId (green verified / red not-found states)
+- [x] Update CertificatePage to show certificateId badge, copy button, and verify link
+- [x] 25 Vitest tests passing

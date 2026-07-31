@@ -90,7 +90,7 @@ export default function ProgressTracker({ compact = false }: ProgressTrackerProp
       {/* Per-module bars */}
       <div className="space-y-3">
         {COURSE_MODULES.map((mod) => {
-          const moduleData = (progress?.moduleProgress as Record<string, { percentage: number; completed: number; total: number }> | undefined)?.[mod.slug];
+          const moduleData = (progress?.moduleProgress ?? []).find((mp) => mp.slug === mod.slug);
           const modPct = moduleData?.percentage ?? 0;
           const modCompleted = moduleData?.completed ?? 0;
           const modTotal = moduleData?.total ?? mod.lessons.length;

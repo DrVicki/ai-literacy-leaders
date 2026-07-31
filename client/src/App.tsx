@@ -10,6 +10,7 @@ import ModulePage from "./pages/ModulePage";
 import LessonPage from "./pages/LessonPage";
 import AdminPage from "./pages/AdminPage";
 import CertificatePage from "./pages/CertificatePage";
+import VerifyCertificatePage from "./pages/VerifyCertificatePage";
 
 function Router() {
   return (
@@ -20,6 +21,7 @@ function Router() {
       <Route path="/course/:moduleSlug/:lessonSlug" component={LessonPage} />
       <Route path="/admin" component={AdminPage} />
       <Route path="/certificate" component={CertificatePage} />
+      <Route path="/verify/:certificateId" component={VerifyCertificatePage} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

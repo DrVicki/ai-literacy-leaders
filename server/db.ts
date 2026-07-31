@@ -73,6 +73,13 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
+export async function getUserById(userId: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(users).where(eq(users.id, userId)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
 export async function createEnrollment(data: InsertEnrollment): Promise<void> {
   const db = await getDb();
   if (!db) return;
@@ -231,13 +238,14 @@ export async function getCertificateByUserId(userId: number): Promise<Certificat
 export async function createCertificate(data: {
   userId: number;
   pdfKey: string;
+  certificateId?: string;
 }): Promise<Certificate> {
   const db = await getDb();
   if (!db) throw new Error("DB not available");
   await db
     .insert(certificates)
-    .values({ userId: data.userId, pdfKey: data.pdfKey, emailSent: false })
-    .onDuplicateKeyUpdate({ set: { pdfKey: data.pdfKey, issuedAt: new Date() } });
+    .values({ userId: data.userId, pdfKey: data.pdfKey, certificateId: data.certificateId, emailSent: false })
+    .onDuplicateKeyUpdate({ set: { pdfKey: data.pdfKey, certificateId: data.certificateId, issuedAt: new Date() } });
   const result = await db.select().from(certificates).where(eq(certificates.userId, data.userId)).limit(1);
   return result[0]!;
 }
@@ -246,6 +254,13 @@ export async function markCertificateEmailSent(certificateId: number): Promise<v
   const db = await getDb();
   if (!db) return;
   await db.update(certificates).set({ emailSent: true }).where(eq(certificates.id, certificateId));
+}
+
+export async function getCertificateByPublicId(certId: string): Promise<Certificate | undefined> {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(certificates).where(eq(certificates.certificateId, certId)).limit(1);
+  return result[0];
 }
 
 export async function getAllCertificates() {

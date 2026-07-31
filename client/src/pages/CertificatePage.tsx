@@ -4,9 +4,30 @@ import { useLocation } from "wouter";
 import { useEffect } from "react";
 import { getLoginUrl } from "@/const";
 import { Button } from "@/components/ui/button";
-import { Award, Download, ChevronLeft, CheckCircle2 } from "lucide-react";
+import { Award, Download, ChevronLeft, CheckCircle2, ExternalLink, Copy, Check } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TOTAL_LESSONS, COURSE_MODULES } from "../../../shared/courseData";
+
+function CopyCertIdButton({ certId }: { certId: string }) {
+  const [copied, setCopied] = useState(false);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(certId);
+      setCopied(true);
+      toast.success("Certificate ID copied!");
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      toast.error("Failed to copy");
+    }
+  };
+  return (
+    <Button variant="outline" size="icon" onClick={handleCopy} title="Copy certificate ID" className="flex-shrink-0">
+      {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+    </Button>
+  );
+}
 
 export default function CertificatePage() {
   const { user, isAuthenticated, loading: authLoading } = useAuth();
@@ -89,10 +110,10 @@ export default function CertificatePage() {
                 Executive Education Program | Dr. Vicki Bealman
               </p>
 
-              <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground font-sans">
+              <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground font-sans mb-4">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                 <span>
-                  Issued{" "}
+                  Completed{" "}
                   {new Date(certificate.issuedAt).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
@@ -100,22 +121,52 @@ export default function CertificatePage() {
                   })}
                 </span>
               </div>
+
+              {/* Certificate ID */}
+              {certificate.certificateId && (
+                <div className="mt-2 bg-primary/5 rounded-xl px-5 py-3 inline-block">
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider font-sans mb-1">Certificate ID</p>
+                  <p className="text-sm font-mono font-bold text-foreground tracking-widest">
+                    {certificate.certificateId}
+                  </p>
+                </div>
+              )}
             </div>
 
-            {/* Download button */}
-            {certificate.pdfUrl && (
-              <a
-                href={certificate.pdfUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block"
-              >
-                <Button className="w-full py-6 text-base font-semibold bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl gap-2">
-                  <Download className="w-5 h-5" />
-                  Download PDF Certificate
-                </Button>
-              </a>
-            )}
+            {/* Action buttons */}
+            <div className="space-y-3">
+              {certificate.pdfUrl && (
+                <a
+                  href={certificate.pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <Button className="w-full py-6 text-base font-semibold bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl gap-2">
+                    <Download className="w-5 h-5" />
+                    Download PDF Certificate
+                  </Button>
+                </a>
+              )}
+
+              {/* Verify link */}
+              {certificate.certificateId && (
+                <div className="flex gap-2">
+                  <a
+                    href={`/verify/${certificate.certificateId}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1"
+                  >
+                    <Button variant="outline" className="w-full gap-2 font-sans">
+                      <ExternalLink className="w-4 h-4" />
+                      View Verification Page
+                    </Button>
+                  </a>
+                  <CopyCertIdButton certId={certificate.certificateId} />
+                </div>
+              )}
+            </div>
 
             <p className="text-center text-xs text-muted-foreground font-sans">
               Share your achievement with colleagues and on LinkedIn

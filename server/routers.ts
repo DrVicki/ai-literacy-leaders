@@ -21,6 +21,8 @@ import {
   deleteAllUserProgress,
   upsertLesson,
   getCertificateByUserId,
+  getCertificateByPublicId,
+  getUserById,
   createCertificate,
   markCertificateEmailSent,
   getModuleComments,
@@ -34,7 +36,7 @@ import {
   upsertQuizQuestions,
 } from "./db";
 import { QUIZ_QUESTIONS, PASS_THRESHOLD } from "../shared/quizData";
-import { generateCertificatePdf } from "./certificate";
+import { generateCertificatePdf, generateCertificateId } from "./certificate";
 import { sendCertificateEmail } from "./emailHelpers";
 import { TRPCError } from "@trpc/server";
 
@@ -261,12 +263,15 @@ export const appRouter = router({
             const existing = await getCertificateByUserId(ctx.user.id);
             if (!existing) {
               try {
+                const issuedAt = new Date();
+                const certId = generateCertificateId(issuedAt);
                 const { key } = await generateCertificatePdf({
                   userName: ctx.user.name ?? "Learner",
                   userEmail: ctx.user.email ?? "",
-                  issuedAt: new Date(),
+                  issuedAt,
+                  certificateId: certId,
                 });
-                const cert = await createCertificate({ userId: ctx.user.id, pdfKey: key });
+                const cert = await createCertificate({ userId: ctx.user.id, pdfKey: key, certificateId: certId });
                 // Fire-and-forget email
                 sendCertificateEmail(ctx.user.email ?? "", ctx.user.name ?? "Learner", key)
                   .then(() => markCertificateEmailSent(cert.id))
@@ -289,11 +294,31 @@ export const appRouter = router({
       if (!cert) return null;
       return {
         id: cert.id,
+        certificateId: cert.certificateId ?? null,
         issuedAt: cert.issuedAt,
         pdfUrl: cert.pdfKey ? `/manus-storage/${cert.pdfKey}` : null,
         emailSent: cert.emailSent,
       };
     }),
+
+    // Public verification endpoint — no auth required
+    verify: publicProcedure
+      .input(z.object({ certificateId: z.string().min(1).max(32) }))
+      .query(async ({ input }) => {
+        const cert = await getCertificateByPublicId(input.certificateId);
+        if (!cert) return { valid: false as const };
+        // Look up the user's name for display
+        const user = await getUserById(cert.userId);
+        return {
+          valid: true as const,
+          certificateId: cert.certificateId,
+          issuedAt: cert.issuedAt,
+          recipientName: user?.name ?? "Learner",
+          courseName: "AI Literacy & Application for Small Business",
+          modules: COURSE_MODULES.length,
+          lessons: TOTAL_LESSONS,
+        };
+      }),
   }),
 
   discussion: router({

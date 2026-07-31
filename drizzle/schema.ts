@@ -77,6 +77,7 @@ export type InsertLessonProgress = typeof lessonProgress.$inferInsert;
 export const certificates = mysqlTable("certificates", {
   id: int("id").autoincrement().primaryKey(),
   userId: int("userId").notNull().unique(), // one certificate per user
+  certificateId: varchar("certificateId", { length: 32 }).unique(), // unique human-readable ID e.g. AILLSB-2024-A3F7K2
   pdfKey: varchar("pdfKey", { length: 512 }), // S3 storage key
   emailSent: boolean("emailSent").default(false).notNull(),
   issuedAt: timestamp("issuedAt").defaultNow().notNull(),
