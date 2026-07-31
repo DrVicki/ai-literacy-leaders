@@ -1,6 +1,7 @@
 import express from "express";
 import Stripe from "stripe";
 import { createEnrollment, getEnrollmentBySessionId, markEmailSent, getUserByOpenId } from "./db";
+import { COURSE_MODULES } from "../shared/courseData";
 
 const router = express.Router();
 
@@ -103,13 +104,9 @@ async function sendEnrollmentEmail(
 
 Congratulations! Your enrollment in AI Literacy & Application for Small Business is confirmed.
 
-You now have full access to all 5 modules:
+You now have full access to all ${COURSE_MODULES.length} modules:
 
-  Module 1: Demystifying AI
-  Module 2: Strategic AI Integration
-  Module 3: Data Strategy & Governance
-  Module 4: Ethical AI
-  Module 5: Leading the AI-Powered Organization
+${COURSE_MODULES.map((m: { title: string }, i: number) => `  Module ${i + 1}: ${m.title}`).join('\n')}
 
 Log in to your course dashboard to start learning and track your progress.
 

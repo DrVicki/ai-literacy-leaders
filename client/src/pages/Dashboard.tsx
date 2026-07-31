@@ -97,7 +97,7 @@ export default function Dashboard() {
             Course Access Required
           </h1>
           <p className="text-muted-foreground mb-8 leading-relaxed">
-            Sign up to access all 5 modules and start learning immediately.
+            Sign up to access all 6 modules and start learning immediately.
           </p>
           <Button
             className="w-full py-5 text-base font-semibold btn-scale"
@@ -242,7 +242,7 @@ export default function Dashboard() {
           <h2 className="text-xl font-serif font-semibold text-foreground mb-6">Course Modules</h2>
           {isLoading ? (
             <div className="space-y-4">
-              {Array.from({ length: 5 }).map((_, i) => (
+              {Array.from({ length: 6 }).map((_, i) => (
                 <Skeleton key={i} className="h-28 w-full rounded-2xl" />
               ))}
             </div>

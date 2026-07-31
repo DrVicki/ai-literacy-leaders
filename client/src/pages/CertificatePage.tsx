@@ -6,6 +6,7 @@ import { getLoginUrl } from "@/const";
 import { Button } from "@/components/ui/button";
 import { Award, Download, ChevronLeft, CheckCircle2 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { TOTAL_LESSONS, COURSE_MODULES } from "../../../shared/courseData";
 
 export default function CertificatePage() {
   const { user, isAuthenticated, loading: authLoading } = useAuth();
@@ -131,7 +132,7 @@ export default function CertificatePage() {
                 Certificate Not Yet Earned
               </h2>
               <p className="text-muted-foreground font-sans max-w-sm mx-auto">
-                Complete all 18 lessons across the 5 modules to earn your certificate of completion.
+                Complete all {TOTAL_LESSONS} lessons across the {COURSE_MODULES.length} modules to earn your certificate of completion.
               </p>
             </div>
 
@@ -148,7 +149,7 @@ export default function CertificatePage() {
                 />
               </div>
               <p className="text-xs text-muted-foreground">
-                {progress?.completedCount ?? 0} of 18 lessons complete
+                {progress?.completedCount ?? 0} of {TOTAL_LESSONS} lessons complete
               </p>
             </div>
 

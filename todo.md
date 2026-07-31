@@ -171,3 +171,13 @@
 - [x] Wire CustomizeWithAI below diagram in LessonPage
 - [x] Re-seed all 22 lessons with audioUrl data
 - [x] Run tests and save checkpoint
+
+## Bug Fix: Certificate Not Loading (Round 13)
+
+- [x] Fix CertificatePage.tsx: replace hardcoded "18 lessons" and "5 modules" with TOTAL_LESSONS and COURSE_MODULES.length
+- [x] Fix CertificatePage.tsx: isComplete check must use TOTAL_LESSONS not hardcoded 18
+- [x] Fix certificate.ts: replace hardcoded "18 of 18" with dynamic TOTAL_LESSONS
+- [x] Fix emailHelpers.ts: replace "5 modules and 18 lessons" with dynamic values
+- [x] Fix stripeWebhook.ts: replace "5 modules" with dynamic value
+- [x] Fix Dashboard.tsx: "all 5 modules" text
+- [x] Run tests and save checkpoint

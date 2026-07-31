@@ -3,6 +3,7 @@ import { writeFileSync, readFileSync, unlinkSync, existsSync } from "fs";
 import { tmpdir } from "os";
 import { join } from "path";
 import { storagePut } from "./storage";
+import { TOTAL_LESSONS, COURSE_MODULES } from "../shared/courseData";
 
 /**
  * Generates a PDF certificate for a learner who has completed all course lessons.
@@ -37,18 +38,18 @@ title: Certificate of Completion
 
 <h2 style="font-size: 30px; color: #1a2a4a; margin: 0 0 8px; font-style: italic; font-weight: 600;">${userName}</h2>
 
-<p style="font-size: 16px; color: #555; margin-bottom: 32px;">has successfully completed all five modules of the</p>
+<p style="font-size: 16px; color: #555; margin-bottom: 32px;">has successfully completed all ${COURSE_MODULES.length} modules of the</p>
 
 <p style="font-size: 18px; font-weight: 600; color: #1a2a4a; margin-bottom: 32px;">AI Literacy & Application for Small Business Executive Education Program</p>
 
 <div style="display: flex; justify-content: center; gap: 60px; margin: 32px 0; flex-wrap: wrap;">
   <div style="text-align: center;">
     <p style="font-size: 13px; color: #888; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 2px;">Modules Completed</p>
-    <p style="font-size: 22px; font-weight: 700; color: #1a2a4a; margin: 0;">5 of 5</p>
+    <p style="font-size: 22px; font-weight: 700; color: #1a2a4a; margin: 0;">${COURSE_MODULES.length} of ${COURSE_MODULES.length}</p>
   </div>
   <div style="text-align: center;">
     <p style="font-size: 13px; color: #888; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 2px;">Lessons Completed</p>
-    <p style="font-size: 22px; font-weight: 700; color: #1a2a4a; margin: 0;">18 of 18</p>
+    <p style="font-size: 22px; font-weight: 700; color: #1a2a4a; margin: 0;">${TOTAL_LESSONS} of ${TOTAL_LESSONS}</p>
   </div>
   <div style="text-align: center;">
     <p style="font-size: 13px; color: #888; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 2px;">Date Issued</p>

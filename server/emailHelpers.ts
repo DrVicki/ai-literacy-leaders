@@ -1,5 +1,6 @@
 import { execFile } from "child_process";
 import { promisify } from "util";
+import { TOTAL_LESSONS, COURSE_MODULES } from "../shared/courseData";
 
 const execFileAsync = promisify(execFile);
 
@@ -15,13 +16,9 @@ export async function sendEnrollmentEmail(
 
 Congratulations! Your enrollment in AI Literacy & Application for Small Business is confirmed.
 
-You now have full access to all 5 modules:
+You now have full access to all ${COURSE_MODULES.length} modules:
 
-  Module 1: Demystifying AI
-  Module 2: Strategic AI Integration
-  Module 3: Data Strategy & Governance
-  Module 4: Ethical AI
-  Module 5: Leading the AI-Powered Organization
+${COURSE_MODULES.map((m, i) => `  Module ${i + 1}: ${m.title}`).join('\n')}
 
 Log in to your course dashboard to start learning and track your progress.
 
@@ -56,7 +53,7 @@ export async function sendCertificateEmail(
 
 Congratulations on completing the AI Literacy & Application for Small Business Executive Education Program!
 
-You have successfully finished all 5 modules and 18 lessons. Your certificate of completion is now available.
+You have successfully finished all ${COURSE_MODULES.length} modules and ${TOTAL_LESSONS} lessons. Your certificate of completion is now available.
 
 Download your certificate here:
 ${pdfUrl}
