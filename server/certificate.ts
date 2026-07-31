@@ -1,32 +1,98 @@
-import { execSync } from "child_process";
-import { writeFileSync, readFileSync, unlinkSync, existsSync } from "fs";
-import { tmpdir } from "os";
-import { join } from "path";
-import { storagePut } from "./storage";
-import { TOTAL_LESSONS, COURSE_MODULES } from "../shared/courseData";
-
 /**
- * Generates a unique, human-readable certificate ID.
- * Format: AILLSB-YYYY-XXXXXX  (e.g. AILLSB-2025-A3F7K2)
- * - AILLSB = AI Literacy & Application for Small Business prefix
- * - YYYY   = year of issuance
- * - XXXXXX = 6 random alphanumeric characters (uppercase)
+ * Certificate PDF generation using pdf-lib (pure Node.js, works in production).
+ * No shell commands or sandbox-only CLI tools are used.
  */
+import { PDFDocument, rgb, StandardFonts, PDFFont, PDFPage } from "pdf-lib";
+import { storagePut } from "./storage";
+import { COURSE_MODULES, TOTAL_LESSONS } from "../shared/courseData";
+
+// ─── Certificate ID ───────────────────────────────────────────────────────────
+
+const CERT_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // no I, O, 1, 0
+
 export function generateCertificateId(issuedAt: Date): string {
   const year = issuedAt.getFullYear();
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // no I/O/1/0 to avoid confusion
   let suffix = "";
   for (let i = 0; i < 6; i++) {
-    suffix += chars[Math.floor(Math.random() * chars.length)];
+    suffix += CERT_CHARS[Math.floor(Math.random() * CERT_CHARS.length)];
   }
   return `AILLSB-${year}-${suffix}`;
 }
 
-/**
- * Generates a PDF certificate for a learner who has completed all course lessons.
- * Uses manus-md-to-pdf to render a polished Markdown template into a PDF,
- * then uploads the result to S3 storage and returns the key and URL.
- */
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+function hexToRgb(hex: string): [number, number, number] {
+  const n = parseInt(hex.replace("#", ""), 16);
+  return [(n >> 16) / 255, ((n >> 8) & 0xff) / 255, (n & 0xff) / 255];
+}
+
+function drawCenteredText(
+  page: PDFPage,
+  text: string,
+  font: PDFFont,
+  size: number,
+  y: number,
+  color: [number, number, number],
+  pageWidth: number
+) {
+  const width = font.widthOfTextAtSize(text, size);
+  page.drawText(text, {
+    x: (pageWidth - width) / 2,
+    y,
+    size,
+    font,
+    color: rgb(...color),
+  });
+}
+
+function drawHRule(
+  page: PDFPage,
+  y: number,
+  pageWidth: number,
+  color: [number, number, number],
+  widthFraction = 0.5
+) {
+  const lineWidth = pageWidth * widthFraction;
+  const x = (pageWidth - lineWidth) / 2;
+  page.drawLine({
+    start: { x, y },
+    end: { x: x + lineWidth, y },
+    thickness: 0.75,
+    color: rgb(...color),
+  });
+}
+
+function drawCornerAccents(
+  page: PDFPage,
+  pageWidth: number,
+  pageHeight: number,
+  margin: number,
+  size: number,
+  color: [number, number, number]
+) {
+  const t = 1.5;
+  const corners = [
+    { x: margin, y: pageHeight - margin, dx: size, dy: 0 },
+    { x: margin, y: pageHeight - margin, dx: 0, dy: -size },
+    { x: pageWidth - margin, y: pageHeight - margin, dx: -size, dy: 0 },
+    { x: pageWidth - margin, y: pageHeight - margin, dx: 0, dy: -size },
+    { x: margin, y: margin, dx: size, dy: 0 },
+    { x: margin, y: margin, dx: 0, dy: size },
+    { x: pageWidth - margin, y: margin, dx: -size, dy: 0 },
+    { x: pageWidth - margin, y: margin, dx: 0, dy: size },
+  ];
+  for (const c of corners) {
+    page.drawLine({
+      start: { x: c.x, y: c.y },
+      end: { x: c.x + c.dx, y: c.y + c.dy },
+      thickness: t,
+      color: rgb(...color),
+    });
+  }
+}
+
+// ─── Main PDF generator ───────────────────────────────────────────────────────
+
 export async function generateCertificatePdf(params: {
   userName: string;
   userEmail: string;
@@ -40,84 +106,141 @@ export async function generateCertificatePdf(params: {
     month: "long",
     day: "numeric",
   });
-
   const verifyUrl = `https://ailitleaders-j5tktczv.manus.space/verify/${certificateId}`;
 
-  // Build the certificate Markdown — manus-md-to-pdf renders it with full CSS support
-  const md = `---
-title: Certificate of Completion
----
+  // ── Colours ──────────────────────────────────────────────────────────────
+  const navy = hexToRgb("#1a2a4a");
+  const gold = hexToRgb("#d4b86a");
+  const darkGold = hexToRgb("#8a7340");
+  const midGrey = hexToRgb("#555555");
+  const lightGrey = hexToRgb("#888888");
+  const veryLight = hexToRgb("#aaaaaa");
+  const white: [number, number, number] = [1, 1, 1];
 
-<div style="font-family: 'Georgia', serif; max-width: 780px; margin: 0 auto; padding: 60px 80px; border: 3px solid #1a2a4a; border-radius: 8px; text-align: center; background: #fff; position: relative;">
+  // ── Page setup (Landscape A4) ─────────────────────────────────────────────
+  const pageWidth = 841.89;
+  const pageHeight = 595.28;
+  const pdfDoc = await PDFDocument.create();
+  const page = pdfDoc.addPage([pageWidth, pageHeight]);
 
-<!-- Corner accent lines -->
-<div style="position: absolute; top: 16px; left: 16px; width: 32px; height: 32px; border-left: 2px solid #d4b86a; border-top: 2px solid #d4b86a; border-radius: 4px 0 0 0;"></div>
-<div style="position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; border-right: 2px solid #d4b86a; border-top: 2px solid #d4b86a; border-radius: 0 4px 0 0;"></div>
-<div style="position: absolute; bottom: 16px; left: 16px; width: 32px; height: 32px; border-left: 2px solid #d4b86a; border-bottom: 2px solid #d4b86a; border-radius: 0 0 0 4px;"></div>
-<div style="position: absolute; bottom: 16px; right: 16px; width: 32px; height: 32px; border-right: 2px solid #d4b86a; border-bottom: 2px solid #d4b86a; border-radius: 0 0 4px 0;"></div>
+  // White background
+  page.drawRectangle({ x: 0, y: 0, width: pageWidth, height: pageHeight, color: rgb(...white) });
 
-<p style="font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: #8a7340; margin-bottom: 8px;">Certificate of Completion</p>
+  // Outer border
+  const bm = 20;
+  page.drawRectangle({
+    x: bm, y: bm,
+    width: pageWidth - bm * 2, height: pageHeight - bm * 2,
+    borderColor: rgb(...navy), borderWidth: 2, color: rgb(...white),
+  });
 
-<h1 style="font-size: 38px; color: #1a2a4a; margin: 0 0 32px; font-weight: 700; letter-spacing: -0.5px;">AI Literacy & Application for Small Business</h1>
+  // Corner gold accents
+  drawCornerAccents(page, pageWidth, pageHeight, bm + 10, 28, gold);
 
-<p style="font-size: 16px; color: #555; margin-bottom: 8px;">This is to certify that</p>
+  // ── Fonts ────────────────────────────────────────────────────────────────
+  const timesRoman = await pdfDoc.embedFont(StandardFonts.TimesRoman);
+  const timesBold = await pdfDoc.embedFont(StandardFonts.TimesRomanBold);
+  const timesItalic = await pdfDoc.embedFont(StandardFonts.TimesRomanItalic);
+  const helvetica = await pdfDoc.embedFont(StandardFonts.Helvetica);
+  const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
 
-<h2 style="font-size: 30px; color: #1a2a4a; margin: 0 0 8px; font-style: italic; font-weight: 600;">${userName}</h2>
+  // ── Content layout (y decreases downward) ────────────────────────────────
+  let y = pageHeight - 68;
 
-<p style="font-size: 16px; color: #555; margin-bottom: 32px;">has successfully completed all ${COURSE_MODULES.length} modules of the</p>
-
-<p style="font-size: 18px; font-weight: 600; color: #1a2a4a; margin-bottom: 32px;">AI Literacy & Application for Small Business Executive Education Program</p>
-
-<div style="display: flex; justify-content: center; gap: 60px; margin: 32px 0; flex-wrap: wrap;">
-  <div style="text-align: center;">
-    <p style="font-size: 13px; color: #888; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 2px;">Modules Completed</p>
-    <p style="font-size: 22px; font-weight: 700; color: #1a2a4a; margin: 0;">${COURSE_MODULES.length} of ${COURSE_MODULES.length}</p>
-  </div>
-  <div style="text-align: center;">
-    <p style="font-size: 13px; color: #888; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 2px;">Lessons Completed</p>
-    <p style="font-size: 22px; font-weight: 700; color: #1a2a4a; margin: 0;">${TOTAL_LESSONS} of ${TOTAL_LESSONS}</p>
-  </div>
-  <div style="text-align: center;">
-    <p style="font-size: 13px; color: #888; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 2px;">Date Completed</p>
-    <p style="font-size: 22px; font-weight: 700; color: #1a2a4a; margin: 0;">${dateStr}</p>
-  </div>
-</div>
-
-<hr style="border: none; border-top: 1px solid #d4b86a; margin: 32px auto; width: 60%;" />
-
-<div style="margin-bottom: 20px;">
-  <p style="font-size: 12px; color: #888; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px;">Certificate ID</p>
-  <p style="font-size: 16px; font-weight: 700; color: #1a2a4a; letter-spacing: 3px; font-family: 'Courier New', monospace; margin: 0;">${certificateId}</p>
-</div>
-
-<p style="font-size: 11px; color: #aaa; margin-bottom: 4px;">Verify this certificate at:</p>
-<p style="font-size: 11px; color: #8a7340; margin: 0;">${verifyUrl}</p>
-
-<hr style="border: none; border-top: 1px solid #eee; margin: 24px auto; width: 60%;" />
-
-<p style="font-size: 12px; color: #aaa; letter-spacing: 2px; text-transform: uppercase;">AI Literacy & Application for Small Business · Dr. Vicki Bealman</p>
-
-</div>
-`;
-
-  const tmpMd = join(tmpdir(), `cert_${Date.now()}.md`);
-  const tmpPdf = join(tmpdir(), `cert_${Date.now()}.pdf`);
-
-  try {
-    writeFileSync(tmpMd, md, "utf-8");
-    execSync(`manus-md-to-pdf "${tmpMd}" "${tmpPdf}"`, { timeout: 30_000 });
-
-    if (!existsSync(tmpPdf)) {
-      throw new Error("PDF generation failed: output file not found");
-    }
-
-    const pdfBuffer = readFileSync(tmpPdf);
-    const safeUserName = userName.replace(/[^a-zA-Z0-9]/g, "_").slice(0, 40);
-    const key = `certificates/${safeUserName}_${certificateId}.pdf`;
-    const result = await storagePut(key, pdfBuffer, "application/pdf");
-    return result;
-  } finally {
-    if (existsSync(tmpMd)) unlinkSync(tmpMd);
-    if (existsSync(tmpPdf)) unlinkSync(tmpPdf);
+  // "CERTIFICATE OF COMPLETION" — letter-spaced label
+  const labelText = "CERTIFICATE OF COMPLETION";
+  const labelSize = 9;
+  const letterSpacing = 3;
+  const labelWidth = helveticaBold.widthOfTextAtSize(labelText, labelSize) + letterSpacing * (labelText.length - 1);
+  let lx = (pageWidth - labelWidth) / 2;
+  for (const ch of labelText) {
+    page.drawText(ch, { x: lx, y, size: labelSize, font: helveticaBold, color: rgb(...darkGold) });
+    lx += helveticaBold.widthOfTextAtSize(ch, labelSize) + letterSpacing;
   }
+  y -= 22;
+
+  drawHRule(page, y, pageWidth, gold, 0.55);
+  y -= 22;
+
+  drawCenteredText(page, "AI Literacy & Application for Small Business", timesBold, 22, y, navy, pageWidth);
+  y -= 30;
+
+  drawCenteredText(page, "This is to certify that", timesRoman, 13, y, midGrey, pageWidth);
+  y -= 28;
+
+  drawCenteredText(page, userName, timesItalic, 30, y, navy, pageWidth);
+  y -= 36;
+
+  drawCenteredText(
+    page,
+    `has successfully completed all ${COURSE_MODULES.length} modules of the`,
+    timesRoman, 13, y, midGrey, pageWidth
+  );
+  y -= 22;
+
+  drawCenteredText(
+    page,
+    "AI Literacy & Application for Small Business Executive Education Program",
+    timesBold, 14, y, navy, pageWidth
+  );
+  y -= 36;
+
+  drawHRule(page, y, pageWidth, gold, 0.45);
+  y -= 28;
+
+  // Stats row
+  const statsY = y;
+  const col1x = pageWidth * 0.22;
+  const col2x = pageWidth * 0.50;
+  const col3x = pageWidth * 0.78;
+
+  const drawStat = (label: string, value: string, cx: number) => {
+    const lw = helvetica.widthOfTextAtSize(label, 8);
+    const vw = helveticaBold.widthOfTextAtSize(value, 16);
+    page.drawText(label, { x: cx - lw / 2, y: statsY, size: 8, font: helvetica, color: rgb(...lightGrey) });
+    page.drawText(value, { x: cx - vw / 2, y: statsY - 18, size: 16, font: helveticaBold, color: rgb(...navy) });
+  };
+
+  drawStat("MODULES COMPLETED", `${COURSE_MODULES.length} of ${COURSE_MODULES.length}`, col1x);
+  drawStat("LESSONS COMPLETED", `${TOTAL_LESSONS} of ${TOTAL_LESSONS}`, col2x);
+  drawStat("DATE COMPLETED", dateStr, col3x);
+  y = statsY - 46;
+
+  drawHRule(page, y, pageWidth, gold, 0.45);
+  y -= 24;
+
+  // Certificate ID
+  drawCenteredText(page, "CERTIFICATE ID", helvetica, 8, y, lightGrey, pageWidth);
+  y -= 16;
+
+  const certIdSize = 14;
+  const certIdSpacing = 2;
+  const certIdWidth =
+    helveticaBold.widthOfTextAtSize(certificateId, certIdSize) +
+    certIdSpacing * (certificateId.length - 1);
+  let cidX = (pageWidth - certIdWidth) / 2;
+  for (const ch of certificateId) {
+    page.drawText(ch, { x: cidX, y, size: certIdSize, font: helveticaBold, color: rgb(...navy) });
+    cidX += helveticaBold.widthOfTextAtSize(ch, certIdSize) + certIdSpacing;
+  }
+  y -= 20;
+
+  drawCenteredText(page, `Verify at: ${verifyUrl}`, helvetica, 8, y, veryLight, pageWidth);
+  y -= 20;
+
+  drawHRule(page, y, pageWidth, hexToRgb("#eeeeee"), 0.55);
+  y -= 14;
+
+  drawCenteredText(
+    page,
+    "AI Literacy & Application for Small Business  \u00B7  Dr. Vicki Bealman",
+    helvetica, 8, y, veryLight, pageWidth
+  );
+
+  // ── Serialize & upload ────────────────────────────────────────────────────
+  const pdfBytes = await pdfDoc.save();
+  const safeUserName = userName.replace(/[^a-zA-Z0-9]/g, "_").slice(0, 40);
+  const key = `certificates/${safeUserName}_${certificateId}.pdf`;
+  const result = await storagePut(key, Buffer.from(pdfBytes), "application/pdf");
+  return result;
 }

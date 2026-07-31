@@ -202,3 +202,11 @@
 - [x] Add certificate.claim tRPC mutation: checks progress >= TOTAL_LESSONS, idempotent, generates PDF + stores cert + sends email
 - [x] Update CertificatePage: show "Generate My Certificate" button when pct >= 100 and no cert exists
 - [x] 25 Vitest tests passing
+
+## Bug Fix: manus-md-to-pdf Not Available in Production (Round 14c)
+
+- [x] Root cause: manus-md-to-pdf is a sandbox-only CLI tool not available in the Cloud Run production environment
+- [x] Install pdf-lib (pure Node.js PDF generation, no shell commands)
+- [x] Rewrite generateCertificatePdf() in certificate.ts to use pdf-lib: landscape A4, navy/gold design, Times Roman fonts, corner accents, stats row, certificate ID, verify URL
+- [x] Remove all child_process/execSync/fs/tmpdir imports from certificate.ts
+- [x] 25 Vitest tests passing, 0 TypeScript errors
