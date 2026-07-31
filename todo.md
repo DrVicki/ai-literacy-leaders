@@ -195,3 +195,10 @@
 - [x] Create VerifyCertificatePage at /verify/:certificateId (green verified / red not-found states)
 - [x] Update CertificatePage to show certificateId badge, copy button, and verify link
 - [x] 25 Vitest tests passing
+
+## Bug Fix: Certificate Not Generating for Existing 100% Users (Round 14b)
+
+- [x] Root cause: auto-issue only fires on toggleLesson; users already at 100% before the feature was built had no certificate
+- [x] Add certificate.claim tRPC mutation: checks progress >= TOTAL_LESSONS, idempotent, generates PDF + stores cert + sends email
+- [x] Update CertificatePage: show "Generate My Certificate" button when pct >= 100 and no cert exists
+- [x] 25 Vitest tests passing

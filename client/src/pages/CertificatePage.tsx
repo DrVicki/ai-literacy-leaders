@@ -39,6 +39,7 @@ export default function CertificatePage() {
     }
   }, [authLoading, isAuthenticated]);
 
+  const utils = trpc.useUtils();
   const { data: certificate, isLoading } = trpc.certificate.get.useQuery(
     undefined,
     { enabled: isAuthenticated }
@@ -48,6 +49,16 @@ export default function CertificatePage() {
     undefined,
     { enabled: isAuthenticated }
   );
+
+  const claimMutation = trpc.certificate.claim.useMutation({
+    onSuccess: () => {
+      toast.success("Certificate generated! Refreshing...");
+      utils.certificate.get.invalidate();
+    },
+    onError: (err) => {
+      toast.error(err.message ?? "Failed to generate certificate");
+    },
+  });
 
   if (authLoading || isLoading) {
     return (
@@ -204,13 +215,24 @@ export default function CertificatePage() {
               </p>
             </div>
 
-            <Button
-              onClick={() => navigate("/dashboard")}
-              variant="outline"
-              className="border-primary/30 text-primary hover:bg-primary/5"
-            >
-              Continue Learning
-            </Button>
+            {pct >= 100 ? (
+              <Button
+                onClick={() => claimMutation.mutate()}
+                disabled={claimMutation.isPending}
+                className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-5 text-base font-semibold rounded-xl gap-2"
+              >
+                <Award className="w-5 h-5" />
+                {claimMutation.isPending ? "Generating Certificate..." : "Generate My Certificate"}
+              </Button>
+            ) : (
+              <Button
+                onClick={() => navigate("/dashboard")}
+                variant="outline"
+                className="border-primary/30 text-primary hover:bg-primary/5"
+              >
+                Continue Learning
+              </Button>
+            )}
           </div>
         )}
       </div>

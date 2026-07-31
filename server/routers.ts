@@ -301,6 +301,48 @@ export const appRouter = router({
       };
     }),
 
+    // Claim certificate — for users who reached 100% before auto-issue was in place
+    claim: protectedProcedure.mutation(async ({ ctx }) => {
+      // Check progress
+      const progressRows = await getUserProgress(ctx.user.id);
+      if (progressRows.length < TOTAL_LESSONS) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `You need to complete all ${TOTAL_LESSONS} lessons first. Currently at ${progressRows.length}.`,
+        });
+      }
+      // Idempotent — return existing cert if already issued
+      const existing = await getCertificateByUserId(ctx.user.id);
+      if (existing) {
+        return {
+          id: existing.id,
+          certificateId: existing.certificateId ?? null,
+          issuedAt: existing.issuedAt,
+          pdfUrl: existing.pdfKey ? `/manus-storage/${existing.pdfKey}` : null,
+        };
+      }
+      // Generate new certificate
+      const issuedAt = new Date();
+      const certId = generateCertificateId(issuedAt);
+      const { key } = await generateCertificatePdf({
+        userName: ctx.user.name ?? "Learner",
+        userEmail: ctx.user.email ?? "",
+        issuedAt,
+        certificateId: certId,
+      });
+      const cert = await createCertificate({ userId: ctx.user.id, pdfKey: key, certificateId: certId });
+      // Fire-and-forget email
+      sendCertificateEmail(ctx.user.email ?? "", ctx.user.name ?? "Learner", key)
+        .then(() => markCertificateEmailSent(cert.id))
+        .catch((e) => console.error("[Certificate] Email failed:", e));
+      return {
+        id: cert.id,
+        certificateId: cert.certificateId ?? null,
+        issuedAt: cert.issuedAt,
+        pdfUrl: cert.pdfKey ? `/manus-storage/${cert.pdfKey}` : null,
+      };
+    }),
+
     // Public verification endpoint — no auth required
     verify: publicProcedure
       .input(z.object({ certificateId: z.string().min(1).max(32) }))
