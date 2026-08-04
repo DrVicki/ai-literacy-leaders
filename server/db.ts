@@ -263,6 +263,12 @@ export async function getCertificateByPublicId(certId: string): Promise<Certific
   return result[0];
 }
 
+export async function deleteCertificateByUserId(userId: number): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+  await db.delete(certificates).where(eq(certificates.userId, userId));
+}
+
 export async function getAllCertificates() {
   const db = await getDb();
   if (!db) return [];

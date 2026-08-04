@@ -4,7 +4,18 @@ import { useLocation } from "wouter";
 import { useEffect } from "react";
 import { getLoginUrl } from "@/const";
 import { Button } from "@/components/ui/button";
-import { Award, Download, ChevronLeft, CheckCircle2, ExternalLink, Copy, Check } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Award, Download, ChevronLeft, CheckCircle2, ExternalLink, Copy, Check, RotateCcw } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -58,6 +69,15 @@ export default function CertificatePage() {
     onError: (err) => {
       toast.error(err.message ?? "Failed to generate certificate");
     },
+  });
+
+  const resetMutation = trpc.progress.reset.useMutation({
+    onSuccess: () => {
+      toast.success("Progress and certificate have been reset. You can start fresh!");
+      utils.certificate.get.invalidate();
+      utils.progress.get.invalidate();
+    },
+    onError: () => toast.error("Failed to reset. Please try again."),
   });
 
   if (authLoading || isLoading) {
@@ -182,6 +202,40 @@ export default function CertificatePage() {
             <p className="text-center text-xs text-muted-foreground font-sans">
               Share your achievement with colleagues and on LinkedIn
             </p>
+
+            {/* Reset — destructive, behind confirmation dialog */}
+            <div className="pt-4 border-t border-border/40 flex justify-center">
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    disabled={resetMutation.isPending}
+                    className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 gap-2 text-xs"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    {resetMutation.isPending ? "Resetting..." : "Reset Progress & Certificate"}
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Reset Progress &amp; Certificate?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This will permanently delete your certificate and clear all completed lessons, resetting your progress to 0%. Your enrollment will remain active. This action cannot be undone.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                      onClick={() => resetMutation.mutate()}
+                    >
+                      Yes, Reset Everything
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
           </div>
         ) : (
           /* Not yet earned */

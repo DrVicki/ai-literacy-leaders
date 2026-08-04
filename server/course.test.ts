@@ -12,6 +12,7 @@ vi.mock("./db", () => ({
   markLessonComplete: vi.fn(),
   unmarkLessonComplete: vi.fn(),
   deleteAllUserProgress: vi.fn(),
+  deleteCertificateByUserId: vi.fn(),
   getAllEnrollmentsWithUsers: vi.fn().mockResolvedValue([]),
   getEnrollmentStats: vi.fn().mockResolvedValue({ totalEnrolled: 0, totalRevenueCents: 0 }),
   getUserProgressForAdmin: vi.fn().mockResolvedValue(0),

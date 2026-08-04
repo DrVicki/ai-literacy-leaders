@@ -25,6 +25,7 @@ import {
   getUserById,
   createCertificate,
   markCertificateEmailSent,
+  deleteCertificateByUserId,
   getModuleComments,
   getCommentCountByModule,
   createModuleComment,
@@ -235,6 +236,7 @@ export const appRouter = router({
 
     reset: protectedProcedure.mutation(async ({ ctx }) => {
       await deleteAllUserProgress(ctx.user.id);
+      await deleteCertificateByUserId(ctx.user.id);
       return { success: true };
     }),
 
