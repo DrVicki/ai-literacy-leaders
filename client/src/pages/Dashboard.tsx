@@ -73,7 +73,7 @@ export default function Dashboard() {
     onSuccess: () => {
       utils.progress.get.invalidate();
       utils.certificate.get.invalidate();
-      toast.success("Course progress has been reset. You can start fresh!");
+      toast.success("Progress and certificate have been reset. You can start fresh!");
     },
     onError: () => toast.error("Failed to reset progress. Please try again."),
   });
@@ -183,14 +183,14 @@ export default function Dashboard() {
                     disabled={resetProgress.isPending}
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
-                    Reset Progress
+                    Reset Course
                   </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
-                    <AlertDialogTitle>Reset Course Progress?</AlertDialogTitle>
+                    <AlertDialogTitle>Reset Entire Course?</AlertDialogTitle>
                     <AlertDialogDescription>
-                      This will clear all your completed lessons and reset your progress to 0%. Your account and enrollment will remain active — only your lesson completion history will be removed. This action cannot be undone.
+                      This will permanently delete your certificate (if earned) and clear all completed lessons, resetting your progress to 0%. Your enrollment will remain active. This action cannot be undone.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
@@ -199,7 +199,7 @@ export default function Dashboard() {
                       onClick={() => resetProgress.mutate()}
                       className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                     >
-                      Yes, Reset My Progress
+                      Yes, Reset Everything
                     </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
