@@ -26,6 +26,8 @@ function initMermaid() {
       edgeLabelBackground: "#f8fafc",
       fontFamily: "Inter, system-ui, sans-serif",
       fontSize: "14px",
+      quadrantXAxisTextFill: "#1e3a5f",
+      quadrantYAxisTextFill: "#1e3a5f",
     },
     flowchart: { curve: "basis", padding: 20 },
     sequence: { actorMargin: 50, messageMargin: 40 },
