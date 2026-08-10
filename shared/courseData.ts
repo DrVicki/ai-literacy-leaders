@@ -197,7 +197,7 @@ Before your next lesson, spend 10 minutes listing every digital tool you use in 
     Sales Forecasting: [0.6, 0.9]
     Inventory Prediction: [0.65, 0.7]
     Fraud Detection: [0.7, 0.6]
-    Image Generation: [0.3, 0.5]
+    Image Generation: [0.2, 0.4]
     Voice Transcription: [0.2, 0.6]`,
         diagramCaption: "Predictive vs Generative AI use cases mapped by effort and impact for small businesses.",
         audioUrl: "/manus-storage/m1-l2-ml-vs-generative-ai_ba22a01c.wav",
