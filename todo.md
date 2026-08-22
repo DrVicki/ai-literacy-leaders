@@ -210,3 +210,9 @@
 - [x] Rewrite generateCertificatePdf() in certificate.ts to use pdf-lib: landscape A4, navy/gold design, Times Roman fonts, corner accents, stats row, certificate ID, verify URL
 - [x] Remove all child_process/execSync/fs/tmpdir imports from certificate.ts
 - [x] 25 Vitest tests passing, 0 TypeScript errors
+
+## GitHub Pages Static Course Package
+
+- [x] Create a GitHub Pages-ready static course companion with a deployment workflow
+- [x] Write README documentation covering the course, six-module structure, and hands-on activities
+- [x] Validate the static package and deployment configuration
