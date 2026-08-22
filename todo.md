@@ -216,3 +216,8 @@
 - [x] Create a GitHub Pages-ready static course companion with a deployment workflow
 - [x] Write README documentation covering the course, six-module structure, and hands-on activities
 - [x] Validate the static package and deployment configuration
+
+## GitHub Pages Publishing Fix
+
+- [ ] Configure GitHub Pages to publish the static course companion instead of the repository README
+- [ ] Verify the live GitHub Pages URL renders the AI Literacy course homepage
