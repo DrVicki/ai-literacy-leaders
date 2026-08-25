@@ -236,4 +236,4 @@
 ## Reusable GitHub Pages Skill & Push
 
 - [x] Create and validate a reusable skill for static course companions and branch-based GitHub Pages publishing
-- [ ] Commit and push the workflow-free GitHub Pages package to the configured GitHub repository
+- [x] Commit and push the workflow-free GitHub Pages package to the configured GitHub repository
