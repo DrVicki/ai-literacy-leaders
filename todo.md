@@ -221,3 +221,8 @@
 
 - [ ] Configure GitHub Pages to publish the static course companion instead of the repository README
 - [ ] Verify the live GitHub Pages URL renders the AI Literacy course homepage
+
+## GitHub Pages Package Refresh
+
+- [x] Review and refresh the static course companion files for GitHub Pages
+- [x] Add or update GitHub Pages deployment guidance and validate the static package locally

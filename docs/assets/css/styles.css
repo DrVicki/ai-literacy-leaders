@@ -50,7 +50,9 @@ h1 span { color: var(--gold); }
 .text-link:hover, .text-link:focus-visible { text-decoration: underline; }
 .hero-panel { padding: 32px; border: 1px solid rgba(201,151,58,.5); background: rgba(255,255,255,.06); box-shadow: 25px 25px 0 rgba(0,0,0,.12); }
 .panel-label { margin-bottom: 24px; color: var(--gold-light); font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-.hero-panel p:last-child { margin-bottom: 0; color: #cfd7e7; font-size: .91rem; }
+.hero-panel__description { margin-bottom: 0; color: #cfd7e7; font-size: .91rem; }
+.static-note { margin: 18px 0 0; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.16); color: #cfd7e7; font-size: .78rem; line-height: 1.55; }
+.static-note strong { color: var(--gold-light); }
 .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 0 0 28px; padding: 0 0 24px; border-bottom: 1px solid rgba(255,255,255,.16); }
 .stat-grid div { min-width: 0; }
 .stat-grid dt { color: var(--white); font-family: var(--serif); font-size: 2.4rem; line-height: 1; }
