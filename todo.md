@@ -232,3 +232,8 @@
 - [x] Remove the blocked GitHub Actions workflow so the current credential can push the package
 - [x] Update GitHub Pages documentation and validation for branch-based `/docs` publishing
 - [x] Validate the workflow-free static package and save a checkpoint
+
+## Reusable GitHub Pages Skill & Push
+
+- [x] Create and validate a reusable skill for static course companions and branch-based GitHub Pages publishing
+- [ ] Commit and push the workflow-free GitHub Pages package to the configured GitHub repository
