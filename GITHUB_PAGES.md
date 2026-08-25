@@ -26,21 +26,21 @@ GitHub Pages is a static web-hosting service. The current interactive applicatio
 | [`docs/assets/js/course-data.js`](docs/assets/js/course-data.js) | Course objectives, modules, activities, and lesson titles |
 | [`docs/assets/js/site.js`](docs/assets/js/site.js) | Client-side rendering for the curriculum and objectives |
 | [`docs/.nojekyll`](docs/.nojekyll) | Disables Jekyll processing for direct static-asset serving |
-| [`.github/workflows/deploy-github-pages.yml`](.github/workflows/deploy-github-pages.yml) | Automated GitHub Actions deployment workflow |
+| [`GITHUB_PAGES.md`](GITHUB_PAGES.md) | Branch-based publishing instructions and feature limitations |
 | [`scripts/validate-github-pages.mjs`](scripts/validate-github-pages.mjs) | Local preflight validation for the static package |
 
 ## One-Time GitHub Setup
 
 1. Commit and push the prepared files to the repository's `main` branch.
 2. In the repository, open **Settings → Pages**.
-3. Under **Build and deployment**, set **Source** to **GitHub Actions**.
-4. Open the **Actions** tab and run **Deploy GitHub Pages**, or make a future change beneath `docs/` to deploy automatically.
-5. Once the workflow finishes, visit the Pages URL shown in the workflow summary.
+3. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
+4. Select the `main` branch and the `/docs` folder, then select **Save**.
+5. GitHub Pages will publish the static companion whenever changes under `docs/` are pushed to `main`. After the first Pages build finishes, visit the published URL.
 
 For this repository, the expected project-site URL is:
 
 ```text
-https://drvicki.github.io/ai-literacy-leaders/
+https://drvicki.github.io/ai-literacy-for-leaders/
 ```
 
 ## Local Validation
@@ -51,7 +51,7 @@ Run the following before pushing a static companion update:
 pnpm pages:check
 ```
 
-The check confirms that the required entry files and linked assets exist, that the static content contains no local API endpoints, and that the expected course data is present.
+The check confirms that the required entry files and linked assets exist, that the static content links to the full learning platform, and that the expected course data is present.
 
 ## Content Updates
 

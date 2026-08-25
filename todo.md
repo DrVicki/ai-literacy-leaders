@@ -226,3 +226,9 @@
 
 - [x] Review and refresh the static course companion files for GitHub Pages
 - [x] Add or update GitHub Pages deployment guidance and validate the static package locally
+
+## GitHub Pages Push Permission Fix
+
+- [x] Remove the blocked GitHub Actions workflow so the current credential can push the package
+- [x] Update GitHub Pages documentation and validation for branch-based `/docs` publishing
+- [x] Validate the workflow-free static package and save a checkpoint

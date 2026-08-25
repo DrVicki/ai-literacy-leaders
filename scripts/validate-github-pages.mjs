@@ -9,7 +9,7 @@ const requiredFiles = [
   "docs/assets/css/styles.css",
   "docs/assets/js/course-data.js",
   "docs/assets/js/site.js",
-  ".github/workflows/deploy-github-pages.yml",
+  "GITHUB_PAGES.md",
 ];
 
 const missingFiles = requiredFiles.filter((file) => !existsSync(resolve(root, file)));
@@ -21,7 +21,7 @@ if (missingFiles.length > 0) {
 
 const indexHtml = readFileSync(resolve(root, "docs/index.html"), "utf8");
 const courseData = readFileSync(resolve(root, "docs/assets/js/course-data.js"), "utf8");
-const workflow = readFileSync(resolve(root, ".github/workflows/deploy-github-pages.yml"), "utf8");
+const deploymentGuide = readFileSync(resolve(root, "GITHUB_PAGES.md"), "utf8");
 
 const checks = [
   [indexHtml.includes('href="assets/css/styles.css"'), "index.html links the stylesheet with a relative project-site path"],
@@ -32,7 +32,9 @@ const checks = [
   [courseData.includes("Demystifying AI"), "course data includes Module 1"],
   [courseData.includes("AI in Action"), "course data includes Module 6"],
   [courseData.includes("Your Personal AI Implementation Plan"), "course data includes all 22 lesson titles"],
-  [workflow.includes("actions/deploy-pages@v4"), "workflow deploys the docs artifact through GitHub Pages Actions"],
+  [deploymentGuide.includes("Deploy from a branch"), "deployment guide documents branch-based GitHub Pages publishing"],
+  [deploymentGuide.includes("`main` branch and the `/docs` folder"), "deployment guide specifies the main/docs publishing source"],
+  [deploymentGuide.includes("https://drvicki.github.io/ai-literacy-for-leaders/"), "deployment guide specifies the expected project-site URL"],
 ];
 
 const failures = checks.filter(([, passed]) => !passed).map(([description]) => description);
